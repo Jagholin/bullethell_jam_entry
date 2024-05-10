@@ -15,6 +15,7 @@ Currently this thing has a simple folder structure as follows:
 - `build/`: Contains the exported godot project. Is intended to be empty.
 - `scenes/`: Contains all the scenes for the game.
 - `scripts/`: Contains all the scripts for the game.
-
+- `credits.txt`: Let's keep track of any external assets used and their license.
+ 
 scripts has a subfolder called `scenes` that contains all the scripts that are attached to scenes.
 
