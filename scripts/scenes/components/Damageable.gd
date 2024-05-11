@@ -23,9 +23,12 @@ func _process(_delta):
 func destroy():
 	target.queue_free()
 
-func damage():
+## Type of damage the bullet caused. Can be used to determine what happens to the bullet after the hit.
+enum DamageResult { HIT, NOTHIT }
+func damage() -> DamageResult:
 	health -= 1
 	progress_bar.value = health
 	if health <= 0:
 		destroy()
+	return DamageResult.HIT
 

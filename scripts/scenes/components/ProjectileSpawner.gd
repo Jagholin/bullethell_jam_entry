@@ -6,9 +6,23 @@ const COMPONENT_NAME := &"ProjectileSpawnerComponent"
 func get_component_name() -> StringName:
 	return COMPONENT_NAME
 
+@export_group("Projectile spawn settings")
+## Interval between each volley of projectiles, in seconds
 @export var interval: float = 0.5
+## Number of volleys of projectiles to spawn
+@export var projectile_volleys: int = 1
+## Angle between projectiles in a volley, in degrees
+@export var angle_between_volleys: float = 0.0
+## Offset between projectiles in a volley
+@export var projectile_volley_offset: Vector2 = Vector2(2.0, 0)
+@export_group("")
 @export var projectile: PackedScene
+## bullet settings used by this spawner
+@export var projectile_settings: BulletSettingsResource
 @export var projectiles_parent: Node2D
+
+## Whether the spawner is currently active and emitting projectiles
+@export var active: bool = true
 
 var elapsed: float = 0.0
 
@@ -19,17 +33,29 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	elapsed += delta
-	if elapsed >= interval:
-		fire()
+	if not active:
 		elapsed = 0
+		return
+	elapsed += delta
+	while elapsed >= interval:
+		fire()
+		elapsed -= interval
 
 
 func fire():
-	var new_projectile := projectile.instantiate() as Projectile
-	new_projectile.direction = Vector2(0,1)
-	new_projectile.velocity = 10
-	new_projectile.global_position = global_position
-	# get_tree().get_current_scene().get_node("Projectiles").add_child(new_projectile)
-	projectiles_parent.add_child(new_projectile)
-	
+	var angle := -0.5 * angle_between_volleys * (projectile_volleys - 1)
+	var offset := -0.5 * projectile_volley_offset * (projectile_volleys - 1)
+	for i in projectile_volleys:
+		# calculate the angle for the projectile, and initial position
+		var new_projectile := projectile.instantiate() as Projectile
+		new_projectile.direction = projectile_settings.initial_direction.rotated(deg_to_rad(angle))
+		new_projectile.velocity = projectile_settings.initial_velocity
+		new_projectile.global_position = global_position + offset
+		new_projectile.collision_mask = projectile_settings.get_collision_mask()
+		new_projectile.collision_layer = 0
+		new_projectile.bullet_sprite = projectile_settings.sprite_frames
+		# get_tree().get_current_scene().get_node("Projectiles").add_child(new_projectile)
+		projectiles_parent.add_child(new_projectile)
+
+		angle += angle_between_volleys
+		offset += projectile_volley_offset

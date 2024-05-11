@@ -15,7 +15,16 @@ Currently this thing has a simple folder structure as follows:
 - `build/`: Contains the exported godot project. Is intended to be empty.
 - `scenes/`: Contains all the scenes for the game.
 - `scripts/`: Contains all the scripts for the game.
+- `resources/`: Contains godot resources(instances of classes derived from `Resource`), each in their own folder.
 - `credits.txt`: Let's keep track of any external assets used and their license.
  
-scripts has a subfolder called `scenes` that contains all the scripts that are attached to scenes.
+scripts also has its own subfolders:
+- `scenes` that contains all the scripts that are attached to scenes.
+- `resources` contains all scripts that define new godot resources (derived from `Resource`).
+
+## About collision layers
+
+Bullets scan different collision layers depending on whether its a player bullet or an enemy bullet. The player bullet scans the `enemy` layer and the enemy bullet scans the `player` layer. This is to prevent the bullets from colliding with the entity that spawned them as well as limit necessary calculations. In addition, the bullets themselves are not on any layer.
+
+`player` layer is layer 1 and `enemy` layer is layer 2.
 

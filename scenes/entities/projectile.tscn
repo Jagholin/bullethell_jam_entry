@@ -43,6 +43,8 @@ animations = [{
 radius = 8.0
 
 [node name="Projectile" type="Area2D"]
+collision_layer = 0
+monitorable = false
 script = ExtResource("1_huj7q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
