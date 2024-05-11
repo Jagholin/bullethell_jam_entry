@@ -1,25 +1,31 @@
-extends Node2D
-class_name Damageable
+class_name DamageableComponent
+extends BaseComponent
+
+const COMPONENT_NAME := &"DamageableComponent"
+
+func get_component_name() -> StringName:
+	return COMPONENT_NAME
+
 @export var health = 10
 @export var max_health = 10
 
+@onready var progress_bar = $ProgressBar
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$ProgressBar.max_value = max_health
-	$ProgressBar.value = health
-
+	progress_bar.max_value = max_health
+	progress_bar.value = health
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func destroy():
-	get_parent().queue_free()
+	target.queue_free()
 
 func damage():
 	health -= 1
-	$ProgressBar.value = health
+	progress_bar.value = health
 	if health <= 0:
 		destroy()
-	
 

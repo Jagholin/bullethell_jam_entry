@@ -19,7 +19,6 @@ scale = Vector2(1, 13.4)
 [node name="Player" parent="." instance=ExtResource("2_bymjo")]
 position = Vector2(576, 376)
 SPEED = 500.0
-IMPACT_ENERGY = 100
 
 [node name="Entity" parent="." instance=ExtResource("3_10768")]
 position = Vector2(320, 360)
@@ -30,14 +29,17 @@ position = Vector2(384, 384)
 [node name="Entity3" parent="." instance=ExtResource("3_10768")]
 position = Vector2(800, 312)
 
-[node name="Enemy" parent="." instance=ExtResource("4_15g7d")]
+[node name="Enemy" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
 position = Vector2(384, 128)
+projectile_parent = NodePath("../Projectiles")
 
-[node name="Enemy2" parent="." instance=ExtResource("4_15g7d")]
+[node name="Enemy2" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
 position = Vector2(800, 128)
+projectile_parent = NodePath("../Projectiles")
 
-[node name="Enemy3" parent="." instance=ExtResource("4_15g7d")]
+[node name="Enemy3" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
 position = Vector2(888, 80)
+projectile_parent = NodePath("../Projectiles")
 
 [node name="Projectile" parent="." instance=ExtResource("5_egmaw")]
 position = Vector2(216, 336)

@@ -14,4 +14,4 @@ texture = ExtResource("2_b34ry")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -24, -32, 16, 32, 16)
 
-[node name="Damageable" parent="." instance=ExtResource("3_i47pl")]
+[node name="DamageableComponent" parent="." instance=ExtResource("3_i47pl")]
