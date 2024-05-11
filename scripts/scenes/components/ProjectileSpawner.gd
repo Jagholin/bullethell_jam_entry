@@ -13,6 +13,8 @@ func get_component_name() -> StringName:
 @export var projectile_volleys: int = 1
 ## Angle between projectiles in a volley, in degrees
 @export var angle_between_volleys: float = 0.0
+## Offset angle for the center of the volley, in degrees
+@export var angle_offset: float = 0.0
 ## Offset between projectiles in a volley
 @export var projectile_volley_offset: Vector2 = Vector2(2.0, 0)
 @export_group("")
@@ -43,7 +45,7 @@ func _process(delta):
 
 
 func fire():
-	var angle := -0.5 * angle_between_volleys * (projectile_volleys - 1)
+	var angle := -0.5 * angle_between_volleys * (projectile_volleys - 1) + angle_offset
 	var offset := -0.5 * projectile_volley_offset * (projectile_volleys - 1)
 	for i in projectile_volleys:
 		# calculate the angle for the projectile, and initial position
