@@ -52,5 +52,8 @@ func damage(body):
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	position += direction * velocity
+func _process(delta):
+	position += direction * velocity * 60 * delta 
+	# TODO: temporary solution, we should probably have a better way to handle this
+	if position.x < 0 or position.x > 1200 or position.y < 0 or position.y > 800:
+		queue_free()

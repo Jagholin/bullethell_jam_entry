@@ -24,6 +24,11 @@ texture = ExtResource("2_8vc11")
 shape = SubResource("CircleShape2D_yucrm")
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("3_vu4wc")]
+interval = 0.2
+projectile_volleys = 30
+angle_between_volleys = 12.0
+angle_offset = 5.0
+projectile_volley_offset = Vector2(0, 0)
 projectile = ExtResource("4_rs1sk")
 projectile_settings = ExtResource("5_gvfee")
 
