@@ -12,13 +12,34 @@ func get_component(component_name: StringName) -> BaseComponent:
 	return components[component_name]
 #endregion
 
+#region pass projectile parent to the child component
+# THERE ARE OTHER INSTANCES of this code, search for "projectile_parent_pass" in all files to find them
+@export var projectile_parent: Node2D:
+	set(new_value):
+		if projectile_parent == new_value:
+			return
+		projectile_parent = new_value
+		# spawner is ProjectileSpawnerComponent or something with similar interface
+		if spawner:
+			spawner.projectiles_parent = projectile_parent
+#endregion
+
 @export var SPEED: float = 100000.0
 @export var ACCELERATION: float = 1000.0
 @export var BOUNCE_ABSORTION: float = 0.5
 @export var IMPACT_ENERGY: float = 10
 
+@onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
+
 func _ready():
+	spawner.projectiles_parent = projectile_parent
 	self.set_motion_mode(CharacterBody2D.MOTION_MODE_FLOATING)
+
+func _input(event):
+	if event.is_action_pressed(&"fire"):
+		spawner.active = true
+	if event.is_action_released(&"fire"):
+		spawner.active = false
 
 func _physics_process(delta):
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")

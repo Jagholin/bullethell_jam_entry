@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="BulletSettingsResource" load_steps=4 format=3 uid="uid://cd2mguh56yvqd"]
+
+[ext_resource type="Script" path="res://scripts/resources/bullet_settings.gd" id="1_l45m1"]
+[ext_resource type="Texture2D" uid="uid://dv11s1yni3xks" path="res://assets/ShmupSprites/Bullet_player.png" id="2_3lh3n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_out7e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3lh3n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_l45m1")
+bullet_type = 1
+sprite_frames = SubResource("SpriteFrames_out7e")
+initial_velocity = 25.0
+initial_direction = Vector2(0, -1)
