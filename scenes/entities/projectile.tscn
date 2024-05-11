@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cjsqmd01861rl"]
 
-[ext_resource type="Script" path="res://scenes/entities/projectile.gd" id="1_16frk"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/projectile.gd" id="1_16frk"]
 [ext_resource type="Texture2D" uid="uid://vj15nohqoxev" path="res://assets/ShmupSprites/Bullet_enemy01.png" id="2_o13xr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyflv"]

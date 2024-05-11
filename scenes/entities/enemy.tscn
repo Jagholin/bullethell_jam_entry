@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dlxr1gqtibtkl"]
 
-[ext_resource type="Script" path="res://scenes/entities/Enemy.gd" id="1_ffgfv"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/Enemy.gd" id="1_ffgfv"]
 [ext_resource type="Texture2D" uid="uid://b6w5agceww7ct" path="res://assets/ShmupSprites/Alien04.png" id="2_8vc11"]
 [ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="3_vu4wc"]
 [ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="4_rs1sk"]

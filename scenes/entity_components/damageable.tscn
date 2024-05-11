@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c72mof4xq3t04"]
 
-[ext_resource type="Script" path="res://scenes/entity_components/Damageable.gd" id="1_48ies"]
+[ext_resource type="Script" path="res://scripts/scenes/components/Damageable.gd" id="1_jch2d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_duyw5"]
 bg_color = Color(1, 0, 0, 1)
@@ -9,7 +9,7 @@ bg_color = Color(1, 0, 0, 1)
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Damageable" type="Node2D"]
-script = ExtResource("1_48ies")
+script = ExtResource("1_jch2d")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(50, 5)
