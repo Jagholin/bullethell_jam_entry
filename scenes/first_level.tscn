@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://caslk1qmsij8"]
+[gd_scene load_steps=5 format=3 uid="uid://caslk1qmsij8"]
 
 [ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_co14v"]
 [ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_aeknb"]
 [ext_resource type="Texture2D" uid="uid://bftmaw0tyiytd" path="res://assets/ShmupSprites/Background_ingame.png" id="3_8nvi1"]
+[ext_resource type="PackedScene" uid="uid://bif23f7t4jd2r" path="res://scenes/entities/obstacle.tscn" id="4_fd3ku"]
 
 [node name="FirstLevel" type="Node2D" node_paths=PackedStringArray("camera", "player")]
 script = ExtResource("1_co14v")
@@ -26,3 +27,35 @@ motion_mirroring = Vector2(1600, 1024)
 [node name="BackgroundIngame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 texture = ExtResource("3_8nvi1")
 centered = false
+
+[node name="Obstacle" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(29, 313)
+scale = Vector2(1, 20)
+
+[node name="Obstacle3" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(29, -607)
+scale = Vector2(1, 20)
+
+[node name="Obstacle5" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(32, -1524)
+scale = Vector2(1, 20)
+
+[node name="Obstacle6" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(1121, -1511)
+scale = Vector2(1, 20)
+
+[node name="Obstacle7" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(1119, -2429)
+scale = Vector2(1, 20)
+
+[node name="Obstacle8" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(34, -2440)
+scale = Vector2(1, 20)
+
+[node name="Obstacle4" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(1125, -599)
+scale = Vector2(1, 20)
+
+[node name="Obstacle2" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(1128, 315)
+scale = Vector2(1, 20)

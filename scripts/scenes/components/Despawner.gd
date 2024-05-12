@@ -10,7 +10,8 @@ func get_component_name() -> StringName:
 @export var buffer = 20
 
 func _process(_delta):
-	if global_position.x < -buffer or global_position.y < -buffer \
-		or global_position.x > get_viewport_rect().end.x + buffer \
-		or global_position.y > get_viewport_rect().end.y + buffer:
+	var trns := get_global_transform_with_canvas()
+	var viewportPosition = trns * position
+	var viewportRect := get_viewport_rect().grow(buffer)
+	if not viewportRect.has_point(viewportPosition):
 		target.destroy()
