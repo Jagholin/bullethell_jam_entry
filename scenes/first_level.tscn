@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://caslk1qmsij8"]
+
+[ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_co14v"]
+[ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_aeknb"]
+[ext_resource type="Texture2D" uid="uid://bftmaw0tyiytd" path="res://assets/ShmupSprites/Background_ingame.png" id="3_8nvi1"]
+
+[node name="FirstLevel" type="Node2D" node_paths=PackedStringArray("camera", "player")]
+script = ExtResource("1_co14v")
+camera = NodePath("Camera2D")
+player = NodePath("Player")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 325)
+
+[node name="Player" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("2_aeknb")]
+position = Vector2(500, 500)
+projectile_parent = NodePath("../ProjectileParent")
+
+[node name="ProjectileParent" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1600, 1024)
+
+[node name="BackgroundIngame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("3_8nvi1")
+centered = false

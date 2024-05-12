@@ -2,8 +2,19 @@
 class_name BaseLevel
 extends Node2D
 
+@export var camera: Camera2D
+@export var player: Player
+## how many pixels the level should move per second
+@export var level_scroll_speed: float = 40
+
 func _ready():
-    pass
+	camera.position = get_viewport_rect().size / 2
+	player.position = camera.position + Vector2(0, 100)
+	player.level_velocity = Vector2(0, -level_scroll_speed)
+	#background.position = camera.position
+
+func _physics_process(delta):
+	camera.position.y -= level_scroll_speed * delta
 
 func _process(_delta):
-    pass
+	pass
