@@ -15,7 +15,12 @@ enum BulletType { ENEMY_BULLET, PLAYER_BULLET }
 @export var initial_direction: Vector2 = Vector2(0, 1)
 
 func get_collision_mask() -> int:
+	# set the collision mask.
+	# bits:
+	# 1       : player
+	# 10      : enemy
+	# 10000   : obstacles
 	if bullet_type == BulletType.ENEMY_BULLET:
-		return 0b00000001
+		return 0b00010101
 	else:
-		return 0b00000010
+		return 0b00010010

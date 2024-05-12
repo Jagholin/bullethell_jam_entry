@@ -11,6 +11,8 @@ size = Vector2(48, 48)
 
 [node name="Entity" type="RigidBody2D"]
 position = Vector2(296, 120)
+collision_layer = 4
+collision_mask = 16
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_vh3ck")

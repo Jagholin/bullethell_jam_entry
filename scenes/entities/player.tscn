@@ -11,8 +11,7 @@
 [ext_resource type="Script" path="res://scripts/scenes/components/GrazeComponent.gd" id="9_8n26u"]
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 3
-collision_mask = 3
+collision_mask = 30
 script = ExtResource("1_5ldbl")
 SPEED = 300.0
 IMPACT_ENERGY = 100.0
@@ -31,9 +30,9 @@ interval = 0.02
 projectile_volleys = 4
 angle_between_volleys = 10.0
 projectile_volley_offset = Vector2(10, 0)
-active = false
 projectile = ExtResource("5_jl1tt")
 projectile_settings = ExtResource("6_sklsj")
+active = false
 
 [node name="Collector" type="Node2D" parent="."]
 script = ExtResource("7_beqe7")
