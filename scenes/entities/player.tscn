@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/scenes/components/GrazeComponent.gd" id="9_8n26u"]
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 30
+collision_mask = 31
 script = ExtResource("1_5ldbl")
 SPEED = 300.0
 IMPACT_ENERGY = 100.0
