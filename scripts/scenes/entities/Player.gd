@@ -53,4 +53,4 @@ func _physics_process(delta):
 		if other:
 			other.apply_impulse(-1.0 * collision_info.get_normal() * IMPACT_ENERGY)
 		velocity = velocity.bounce(collision_info.get_normal()) * BOUNCE_ABSORTION
-	position.y += -40.0 * delta
+	move_and_collide(Vector2(0, -40.0 * delta))

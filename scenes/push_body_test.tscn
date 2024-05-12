@@ -39,7 +39,7 @@ position = Vector2(264, 504)
 position = Vector2(882, 496)
 
 [node name="Entity4" parent="." instance=ExtResource("3_10768")]
-position = Vector2(168, 312)
+position = Vector2(117, 309)
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
 position = Vector2(384, 128)
@@ -73,6 +73,7 @@ item = "more"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
