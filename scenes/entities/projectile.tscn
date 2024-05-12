@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjsqmd01861rl"]
+[gd_scene load_steps=12 format=3 uid="uid://cjsqmd01861rl"]
 
-[ext_resource type="Script" path="res://scripts/scenes/entities/projectile.gd" id="1_huj7q"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/Projectile.gd" id="1_qixsc"]
 [ext_resource type="Texture2D" uid="uid://vj15nohqoxev" path="res://assets/ShmupSprites/Bullet_enemy01.png" id="2_o13xr"]
+[ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="3_0mhqy"]
+[ext_resource type="PackedScene" uid="uid://tn3yx6k7t3a4" path="res://scenes/entity_components/despawner.tscn" id="3_ka5jf"]
+[ext_resource type="PackedScene" uid="uid://c3gyni1oompv7" path="res://scenes/entities/explosion_projectile.tscn" id="4_7i31w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyflv"]
 atlas = ExtResource("2_o13xr")
@@ -45,7 +48,7 @@ radius = 8.0
 [node name="Projectile" type="Area2D"]
 collision_layer = 0
 monitorable = false
-script = ExtResource("1_huj7q")
+script = ExtResource("1_qixsc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nawm3")
@@ -54,3 +57,8 @@ frame_progress = 0.420636
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_c5s0x")
+
+[node name="Explosive" parent="." instance=ExtResource("3_0mhqy")]
+explosion = ExtResource("4_7i31w")
+
+[node name="Despawner" parent="." instance=ExtResource("3_ka5jf")]

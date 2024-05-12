@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxokwtkwvxa7e"]
+
+[ext_resource type="Script" path="res://scripts/scenes/components/Explosive.gd" id="1_xpsfx"]
+
+[node name="Explosive" type="Node2D"]
+script = ExtResource("1_xpsfx")

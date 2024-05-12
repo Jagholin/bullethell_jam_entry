@@ -1,5 +1,5 @@
-extends RigidBody2D
-class_name Entity
+extends Area2D
+class_name Obstacle
 
 #region stuff for dealing with components. You can copypaste this into any script, since gdscript doesnt support anything fancy to make this easier
 # TO FIND any other instance of this code, search for "component_registry" in all files
@@ -11,9 +11,3 @@ func register_component(component: BaseComponent):
 func get_component(component_name: StringName) -> BaseComponent:
 	return components[component_name]
 #endregion
-
-	
-func destroy():
-	if ExplosiveComponent.COMPONENT_NAME in components:
-		components[ExplosiveComponent.COMPONENT_NAME].explode()
-	queue_free()

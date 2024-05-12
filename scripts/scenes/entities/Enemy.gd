@@ -32,3 +32,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
+	
+	
+func destroy():
+	if ExplosiveComponent.COMPONENT_NAME in components:
+		components[ExplosiveComponent.COMPONENT_NAME].explode()
+	queue_free()
+

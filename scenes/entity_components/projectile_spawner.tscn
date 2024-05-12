@@ -4,3 +4,9 @@
 
 [node name="ProjectileSpawner" type="Node2D"]
 script = ExtResource("1_ls8nf")
+interval = null
+projectile_volleys = null
+angle_between_volleys = null
+angle_offset = null
+projectile_volley_offset = null
+active = null

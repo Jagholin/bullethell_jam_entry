@@ -56,8 +56,9 @@ func fire():
 		new_projectile.collision_mask = projectile_settings.get_collision_mask()
 		new_projectile.collision_layer = 0
 		new_projectile.bullet_sprite = projectile_settings.sprite_frames
-		# get_tree().get_current_scene().get_node("Projectiles").add_child(new_projectile)
 		projectiles_parent.add_child(new_projectile)
+		#get_tree().get_current_scene().projectile_count += 1
+		Global.projectile_count += 1
 
 		angle += angle_between_volleys
 		offset += projectile_volley_offset

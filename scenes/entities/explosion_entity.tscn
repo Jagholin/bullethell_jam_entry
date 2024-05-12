@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://btpugkdb074eb"]
+
+[ext_resource type="Script" path="res://scripts/scenes/entities/Explosion.gd" id="1_hlwgn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_smmjd"]
+
+[sub_resource type="Curve" id="Curve_k3gwb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qqnrr"]
+curve = SubResource("Curve_k3gwb")
+
+[sub_resource type="Gradient" id="Gradient_gdqhw"]
+offsets = PackedFloat32Array(0.493151, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mjcuq"]
+gradient = SubResource("Gradient_gdqhw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k2bq3"]
+particle_flag_disable_z = true
+angle_max = 180.0
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_mjcuq")
+alpha_curve = SubResource("CurveTexture_qqnrr")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b2in6"]
+load_path = "res://.godot/imported/Explo01.png-bc890d7c69aa64400bde34443028f4ac.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x47b"]
+atlas = SubResource("CompressedTexture2D_b2in6")
+region = Rect2(128, 1, 126, 130)
+
+[node name="ExplosionEntity" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_smmjd")
+position = Vector2(349, -128)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_k2bq3")
+texture = SubResource("AtlasTexture_5x47b")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("1_hlwgn")

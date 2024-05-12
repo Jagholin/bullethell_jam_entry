@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BulletSettingsResource" load_steps=8 format=3 uid="uid://gqr2cj4ovsbd"]
 
-[ext_resource type="Script" path="res://scripts/resources/bullet_settings.gd" id="1_j3ik6"]
+[ext_resource type="Script" path="res://scripts/resources/bullet_settings_resource.gd" id="1_j3ik6"]
 [ext_resource type="Texture2D" uid="uid://vj15nohqoxev" path="res://assets/ShmupSprites/Bullet_enemy01.png" id="2_tfpna"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vdhs"]
@@ -43,3 +43,5 @@ animations = [{
 script = ExtResource("1_j3ik6")
 bullet_type = 0
 sprite_frames = SubResource("SpriteFrames_5f8kd")
+initial_velocity = 10.0
+initial_direction = Vector2(0, 1)

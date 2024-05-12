@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3gyni1oompv7"]
+
+[ext_resource type="Script" path="res://scripts/scenes/entities/Explosion.gd" id="1_k83b1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_smmjd"]
+
+[sub_resource type="Curve" id="Curve_wlwi2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2ndxx"]
+curve = SubResource("Curve_wlwi2")
+
+[sub_resource type="Curve" id="Curve_44n5a"]
+_data = [Vector2(0, 0.35209), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_t0m6f"]
+curve = SubResource("Curve_44n5a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ik4dq"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_t0m6f")
+alpha_curve = SubResource("CurveTexture_2ndxx")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fw33s"]
+load_path = "res://.godot/imported/Explo01.png-bc890d7c69aa64400bde34443028f4ac.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivlrc"]
+atlas = SubResource("CompressedTexture2D_fw33s")
+region = Rect2(18, 403, 91, 92)
+
+[node name="ExplosionProjectile" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_smmjd")
+position = Vector2(520, -120)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_ik4dq")
+texture = SubResource("AtlasTexture_ivlrc")
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("1_k83b1")

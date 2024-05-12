@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bif23f7t4jd2r"]
+[gd_scene load_steps=6 format=3 uid="uid://bif23f7t4jd2r"]
 
+[ext_resource type="Script" path="res://scripts/scenes/entities/Obstacle.gd" id="1_50m1e"]
 [ext_resource type="Texture2D" uid="uid://csa3o64o4xer7" path="res://assets/ShmupSprites/Background_ingame2.png" id="1_ygun0"]
+[ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="3_5mw7g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8s63"]
 size = Vector2(48, 48)
 
-[node name="Obstacle" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yy06q"]
+size = Vector2(48, 48)
+
+[node name="Obstacle" type="Area2D"]
 position = Vector2(336, 368)
+script = ExtResource("1_50m1e")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.09, 0.09)
@@ -14,3 +20,11 @@ texture = ExtResource("1_ygun0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_r8s63")
+
+[node name="Damageable" parent="." instance=ExtResource("3_5mw7g")]
+immune = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Damageable"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damageable/StaticBody2D"]
+shape = SubResource("RectangleShape2D_yy06q")

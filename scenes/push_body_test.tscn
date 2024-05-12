@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_bymjo"]
 [ext_resource type="PackedScene" uid="uid://cmu8rrxt1o31b" path="res://scenes/entities/entity.tscn" id="3_10768"]
 [ext_resource type="PackedScene" uid="uid://dlxr1gqtibtkl" path="res://scenes/entities/enemy.tscn" id="4_15g7d"]
-[ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="5_egmaw"]
 [ext_resource type="LabelSettings" uid="uid://bh8hnu4drxufn" path="res://resources/label_settings/fps_label.tres" id="6_7sv6o"]
+[ext_resource type="PackedScene" uid="uid://bmeq7gxa1amke" path="res://scenes/entity_components/enemy_spawner.tscn" id="6_w7llr"]
 
 [node name="push_body_test" type="Node2D"]
 script = ExtResource("1_nj2jt")
@@ -15,23 +15,30 @@ script = ExtResource("1_nj2jt")
 position = Vector2(64, 320)
 scale = Vector2(1, 13.4)
 
+[node name="Obstacle3" parent="." instance=ExtResource("1_8hwce")]
+position = Vector2(136, 248)
+scale = Vector2(-8.38751, 1.12135)
+
 [node name="Obstacle2" parent="." instance=ExtResource("1_8hwce")]
 position = Vector2(1088, 320)
 scale = Vector2(1, 13.4)
 
 [node name="Player" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("2_bymjo")]
-position = Vector2(576, 376)
+position = Vector2(578, 444)
 projectile_parent = NodePath("../Projectiles")
 SPEED = 500.0
 
 [node name="Entity" parent="." instance=ExtResource("3_10768")]
-position = Vector2(381, 348)
+position = Vector2(383, 416)
 
 [node name="Entity2" parent="." instance=ExtResource("3_10768")]
-position = Vector2(262, 436)
+position = Vector2(264, 504)
 
 [node name="Entity3" parent="." instance=ExtResource("3_10768")]
 position = Vector2(882, 496)
+
+[node name="Entity4" parent="." instance=ExtResource("3_10768")]
+position = Vector2(128, 312)
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
 position = Vector2(384, 128)
@@ -45,10 +52,11 @@ projectile_parent = NodePath("../Projectiles")
 position = Vector2(941, 82)
 projectile_parent = NodePath("../Projectiles")
 
-[node name="Projectile" parent="." instance=ExtResource("5_egmaw")]
-position = Vector2(216, 336)
-
 [node name="Projectiles" type="Node2D" parent="."]
+
+[node name="EnemySpawner" parent="." instance=ExtResource("6_w7llr")]
+position = Vector2(578, 0)
+enemy = ExtResource("4_15g7d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -76,6 +84,16 @@ text = "FPS:"
 label_settings = ExtResource("6_7sv6o")
 
 [node name="FPSLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = ExtResource("6_7sv6o")
+
+[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Projectiles:"
+label_settings = ExtResource("6_7sv6o")
+
+[node name="ProjectileCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 label_settings = ExtResource("6_7sv6o")

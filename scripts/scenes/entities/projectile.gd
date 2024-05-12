@@ -25,11 +25,7 @@ func get_component(component_name: StringName) -> BaseComponent:
 var direction: Vector2
 var velocity: float
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	# old API
-	# connect("body_entered", damage)
-	# new API
 	area_entered.connect(damage)
 	body_entered.connect(damage)
 	if bullet_sprite:
@@ -48,12 +44,15 @@ func damage(body):
 		var damageResult := damageable.damage()
 		# remove the projectile if this was a hit
 		if damageResult == DamageableComponent.DamageResult.HIT:
-			queue_free()
-	
+			destroy()
+
+func destroy():
+	if ExplosiveComponent.COMPONENT_NAME in components:
+		components[ExplosiveComponent.COMPONENT_NAME].explode()
+	Global.projectile_count -= 1
+	queue_free()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	position += direction * velocity * 60 * delta 
-	# TODO: temporary solution, we should probably have a better way to handle this
-	if position.x < 0 or position.x > 1200 or position.y < 0 or position.y > 800:
-		queue_free()
