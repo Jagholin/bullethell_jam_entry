@@ -6,7 +6,7 @@ extends Node2D
 @export var player: Player
 @export var projectile_parent: Node2D
 ## how many pixels the level should move per second
-@export var level_scroll_speed: float = 40
+@export var level_scroll_speed: float = 70
 
 func _ready():
 	if camera:
