@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://sg051jsb3744"]
+[gd_scene load_steps=10 format=3 uid="uid://sg051jsb3744"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/Player.gd" id="1_5ldbl"]
 [ext_resource type="Texture2D" uid="uid://csylr66yhkk6x" path="res://assets/ShmupSprites/Player.png" id="2_b34ry"]
@@ -7,8 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="5_jl1tt"]
 [ext_resource type="Resource" uid="uid://cd2mguh56yvqd" path="res://resources/bullet_settings/player_bullet.tres" id="6_sklsj"]
 [ext_resource type="Script" path="res://scripts/scenes/components/Collector.gd" id="7_beqe7"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/Graze.gd" id="8_mkhwp"]
+[ext_resource type="Script" path="res://scripts/scenes/components/GrazeComponent.gd" id="9_8n26u"]
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_5ldbl")
 SPEED = 300.0
@@ -18,7 +21,7 @@ IMPACT_ENERGY = 100.0
 texture = ExtResource("2_b34ry")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, -24, -32, 16, 32, 16)
+polygon = PackedVector2Array(0, -16, -24, 16, 24, 16)
 
 [node name="DamageableComponent" parent="." instance=ExtResource("3_i47pl")]
 immune = true
@@ -27,11 +30,19 @@ immune = true
 interval = 0.02
 projectile_volleys = 4
 angle_between_volleys = 10.0
-angle_offset = null
 projectile_volley_offset = Vector2(10, 0)
+active = false
 projectile = ExtResource("5_jl1tt")
 projectile_settings = ExtResource("6_sklsj")
-active = false
 
 [node name="Collector" type="Node2D" parent="."]
 script = ExtResource("7_beqe7")
+
+[node name="Graze" type="Area2D" parent="."]
+script = ExtResource("8_mkhwp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graze"]
+polygon = PackedVector2Array(-48, 24, 0, -32, 48, 24)
+
+[node name="GrazeComponent" type="Node2D" parent="Graze"]
+script = ExtResource("9_8n26u")

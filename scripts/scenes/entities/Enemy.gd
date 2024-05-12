@@ -35,6 +35,8 @@ func _process(_delta):
 	
 	
 func destroy():
+	Global.enemies_destroyed_count += 1
+	Global.check_progress()
 	if ExplosiveComponent.COMPONENT_NAME in components:
 		components[ExplosiveComponent.COMPONENT_NAME].explode()
 	queue_free()

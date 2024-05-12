@@ -1,7 +1,9 @@
 extends Area2D
 class_name PowerUp
 
+# TODO not sure why this broke all the resources
 #@export var item: ItemSettingsResource
+@export var item: String
 
 func _ready():
 	area_entered.connect(collect)
@@ -15,7 +17,7 @@ func collect(body):
 		print("Projectile.damage failed: body doesn't implement get_component method")
 		return
 
-	var collector := body.get_component(CollectorComponent.COMPONENT_NAME) as CollectorComponent
-	if collector:
-		pass
-		#collector.collect(item)
+	if CollectorComponent.COMPONENT_NAME in body.components:
+		var collector := body.components[CollectorComponent.COMPONENT_NAME] as CollectorComponent
+		collector.collect(item)
+		queue_free()

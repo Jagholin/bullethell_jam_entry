@@ -33,7 +33,6 @@ angle_offset = 5.0
 projectile_volley_offset = Vector2(0, 0)
 projectile = ExtResource("4_rs1sk")
 projectile_settings = ExtResource("5_gvfee")
-active = null
 
 [node name="Damageable" parent="." instance=ExtResource("6_3prdy")]
 health = 100

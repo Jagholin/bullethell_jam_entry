@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c33lgge8ulqcw"]
+[gd_scene load_steps=9 format=3 uid="uid://c33lgge8ulqcw"]
 
 [ext_resource type="PackedScene" uid="uid://bif23f7t4jd2r" path="res://scenes/entities/obstacle.tscn" id="1_8hwce"]
 [ext_resource type="Script" path="res://scripts/scenes/push_body_test.gd" id="1_nj2jt"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dlxr1gqtibtkl" path="res://scenes/entities/enemy.tscn" id="4_15g7d"]
 [ext_resource type="LabelSettings" uid="uid://bh8hnu4drxufn" path="res://resources/label_settings/fps_label.tres" id="6_7sv6o"]
 [ext_resource type="PackedScene" uid="uid://bmeq7gxa1amke" path="res://scenes/entity_components/enemy_spawner.tscn" id="6_w7llr"]
+[ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://power_up.tscn" id="7_qfgnc"]
 
 [node name="push_body_test" type="Node2D"]
 script = ExtResource("1_nj2jt")
@@ -38,7 +39,7 @@ position = Vector2(264, 504)
 position = Vector2(882, 496)
 
 [node name="Entity4" parent="." instance=ExtResource("3_10768")]
-position = Vector2(128, 312)
+position = Vector2(168, 312)
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
 position = Vector2(384, 128)
@@ -48,15 +49,27 @@ projectile_parent = NodePath("../Projectiles")
 position = Vector2(800, 128)
 projectile_parent = NodePath("../Projectiles")
 
-[node name="Enemy3" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("4_15g7d")]
-position = Vector2(941, 82)
-projectile_parent = NodePath("../Projectiles")
-
 [node name="Projectiles" type="Node2D" parent="."]
 
 [node name="EnemySpawner" parent="." instance=ExtResource("6_w7llr")]
 position = Vector2(578, 0)
+interval = 10.0
 enemy = ExtResource("4_15g7d")
+
+[node name="PowerUp" parent="." instance=ExtResource("7_qfgnc")]
+item = "faster"
+
+[node name="PowerUp2" parent="." instance=ExtResource("7_qfgnc")]
+position = Vector2(768, 568)
+item = "more"
+
+[node name="PowerUp3" parent="." instance=ExtResource("7_qfgnc")]
+position = Vector2(952, 328)
+item = "faster"
+
+[node name="PowerUp4" parent="." instance=ExtResource("7_qfgnc")]
+position = Vector2(952, 568)
+item = "more"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -94,6 +107,26 @@ text = "Projectiles:"
 label_settings = ExtResource("6_7sv6o")
 
 [node name="ProjectileCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = ExtResource("6_7sv6o")
+
+[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Grazes:"
+label_settings = ExtResource("6_7sv6o")
+
+[node name="GrazesCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = ExtResource("6_7sv6o")
+
+[node name="Label4" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Hits:"
+label_settings = ExtResource("6_7sv6o")
+
+[node name="HitsCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 label_settings = ExtResource("6_7sv6o")

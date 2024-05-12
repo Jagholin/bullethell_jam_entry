@@ -39,12 +39,14 @@ func damage(body):
 		print("Projectile.damage failed: body doesn't implement get_component method")
 		return
 
-	var damageable := body.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
-	if damageable:
+	if DamageableComponent.COMPONENT_NAME in body.components:
+		var damageable := body.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
 		var damageResult := damageable.damage()
 		# remove the projectile if this was a hit
 		if damageResult == DamageableComponent.DamageResult.HIT:
 			destroy()
+	elif GrazeComponent.COMPONENT_NAME in body.components:
+		Global.grazes_count += 1
 
 func destroy():
 	if ExplosiveComponent.COMPONENT_NAME in components:
