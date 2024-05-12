@@ -5,8 +5,13 @@ extends BaseLevel
 @onready var grazes_label: Label = %GrazesCount
 @onready var hits_label: Label = %HitsCount
 
+@onready var camera: Camera2D = $Camera2D
+
 func _ready():
 	super._ready()
+	
+func _physics_process(delta):
+	camera.position -= Vector2(0, 40) * delta
 
 func _process(_delta):
 	super._process(_delta)
