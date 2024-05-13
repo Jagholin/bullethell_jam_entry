@@ -123,7 +123,13 @@ position = Vector2(665, -2804)
 position = Vector2(768, -2811)
 
 [node name="Entity" parent="." instance=ExtResource("6_3cpqc")]
-position = Vector2(278, 366)
+position = Vector2(266, 378)
+
+[node name="Entity3" parent="." instance=ExtResource("6_3cpqc")]
+position = Vector2(408, -261)
 
 [node name="Entity2" parent="." instance=ExtResource("6_3cpqc")]
 position = Vector2(838, 359)
+
+[node name="Entity4" parent="." instance=ExtResource("6_3cpqc")]
+position = Vector2(747, -270)

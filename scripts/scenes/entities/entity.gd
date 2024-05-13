@@ -12,9 +12,13 @@ func get_component(component_name: StringName) -> BaseComponent:
 	return components[component_name]
 #endregion
 
+## Ideal distance from target(player) that the spring force tries to reach
 @export var spring_distance: float = 60.0
+## Strength of spring force
 @export var spring_coeff: float = 3.4
+## Strength of damping force
 @export var damping_coeff: float = 0.3
+## Strength of gravity force
 @export var gravity_strength: float = 200.0
 @onready var magnet_area: Area2D = $MagnetArea
 @onready var damage_component: DamageableComponent = $DamageableComponent
@@ -39,7 +43,10 @@ func _physics_process(_delta):
 		var dampingForce := linear_velocity * -damping_coeff
 		print("damping force strength: ", dampingForce.length())
 		print("spring force strength: ", springForce.length())
-		apply_central_force(springForce)
+		#apply_central_force(springForce)
+		# alternative law: only apply spring force if it's attractive
+		if dirToPlayer.length() > spring_distance:
+			apply_central_force(springForce)
 		apply_central_force(dampingForce)
 		apply_central_force(Vector2(0, gravity_strength))
 		#move_and_collide(player.level_velocity * _delta)
