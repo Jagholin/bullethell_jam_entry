@@ -29,6 +29,8 @@ func get_component(component_name: StringName) -> BaseComponent:
 @export var BOUNCE_ABSORTION: float = 0.5
 @export var IMPACT_ENERGY: float = 10
 
+var level_velocity: Vector2
+
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 
 func _ready():
@@ -53,3 +55,4 @@ func _physics_process(delta):
 		if other:
 			other.apply_impulse(-1.0 * collision_info.get_normal() * IMPACT_ENERGY)
 		velocity = velocity.bounce(collision_info.get_normal()) * BOUNCE_ABSORTION
+	move_and_collide(level_velocity * delta)
