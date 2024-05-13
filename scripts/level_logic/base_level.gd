@@ -25,4 +25,6 @@ func _physics_process(delta):
 		camera.position.y -= level_scroll_speed * delta
 
 func _process(_delta):
-	pass
+	var currentFps := Performance.get_monitor(Performance.TIME_FPS)
+	DisplayServer.window_set_title("fps: " + str(currentFps))
+
