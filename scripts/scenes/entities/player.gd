@@ -30,6 +30,7 @@ func get_component(component_name: StringName) -> BaseComponent:
 @export var IMPACT_ENERGY: float = 10
 
 var level_velocity: Vector2
+var attached_npcs: Array[RigidBody2D] = []
 
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 
@@ -56,3 +57,12 @@ func _physics_process(delta):
 			other.apply_impulse(-1.0 * collision_info.get_normal() * IMPACT_ENERGY)
 		velocity = velocity.bounce(collision_info.get_normal()) * BOUNCE_ABSORTION
 	move_and_collide(level_velocity * delta)
+
+func attach_npc(npc: RigidBody2D):
+	#var newSpring := DampedSpringJoint2D.new()
+	#newSpring.node_a = get_path()
+	#newSpring.node_b = npc.get_path()
+	#newSpring.rest_length = 30
+	#newSpring.length = 100
+	#add_child(newSpring)
+	attached_npcs.push_back(npc)
