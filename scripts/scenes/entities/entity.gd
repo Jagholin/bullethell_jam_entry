@@ -12,8 +12,8 @@ func get_component(component_name: StringName) -> BaseComponent:
 	return components[component_name]
 #endregion
 
-@export var magnet_distance: float = 60.0
-@export var magnet_coeff: float = 3.4
+@export var spring_distance: float = 60.0
+@export var spring_coeff: float = 3.4
 @export var damping_coeff: float = 0.3
 @export var gravity_strength: float = 200.0
 @onready var magnet_area: Area2D = $MagnetArea
@@ -32,10 +32,10 @@ func disable_areamagnet():
 func _physics_process(_delta):
 	if attached_to_player:
 		var dirToPlayer := player.global_position - global_position
-		var idealDir := dirToPlayer.normalized() * magnet_distance
+		var idealDir := dirToPlayer.normalized() * spring_distance
 		# hooks law
 		# maybe use different law here?
-		var springForce := (dirToPlayer - idealDir) * magnet_coeff
+		var springForce := (dirToPlayer - idealDir) * spring_coeff
 		var dampingForce := linear_velocity * -damping_coeff
 		print("damping force strength: ", dampingForce.length())
 		print("spring force strength: ", springForce.length())
