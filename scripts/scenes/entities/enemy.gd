@@ -24,10 +24,15 @@ func get_component(component_name: StringName) -> BaseComponent:
 			spawner.projectiles_parent = projectile_parent
 #endregion
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
+@onready var state_machine: StatefulComponent = $Stateful
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spawner.projectiles_parent = projectile_parent
+	var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
+	notifier.screen_entered.connect(state_machine.init)
+	notifier.screen_exited.connect(queue_free)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

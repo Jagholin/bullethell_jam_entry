@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c3gyni1oompv7"]
 
-[ext_resource type="Script" path="res://scripts/scenes/entities/Explosion.gd" id="1_k83b1"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/explosion.gd" id="1_k83b1"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_smmjd"]
 

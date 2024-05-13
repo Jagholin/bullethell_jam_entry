@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://tn3yx6k7t3a4"]
 
-[ext_resource type="Script" path="res://scripts/scenes/components/Despawner.gd" id="1_q7iwj"]
+[ext_resource type="Script" path="res://scripts/scenes/components/despawner.gd" id="1_q7iwj"]
 
 [node name="Despawner" type="Node2D"]
 script = ExtResource("1_q7iwj")

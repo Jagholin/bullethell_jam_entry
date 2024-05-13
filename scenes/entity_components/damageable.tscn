@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c72mof4xq3t04"]
 
-[ext_resource type="Script" path="res://scripts/scenes/components/Damageable.gd" id="1_jch2d"]
+[ext_resource type="Script" path="res://scripts/scenes/components/damageable.gd" id="1_jch2d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_duyw5"]
 bg_color = Color(1, 0, 0, 1)
