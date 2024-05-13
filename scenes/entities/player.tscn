@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://sg051jsb3744"]
 
-[ext_resource type="Script" path="res://scripts/scenes/entities/Player.gd" id="1_5ldbl"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/player.gd" id="1_5ldbl"]
 [ext_resource type="Texture2D" uid="uid://csylr66yhkk6x" path="res://assets/ShmupSprites/Player.png" id="2_b34ry"]
 [ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="3_i47pl"]
 [ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="4_t8dnc"]
 [ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="5_jl1tt"]
 [ext_resource type="Resource" uid="uid://cd2mguh56yvqd" path="res://resources/bullet_settings/player_bullet.tres" id="6_sklsj"]
-[ext_resource type="Script" path="res://scripts/scenes/components/Collector.gd" id="7_beqe7"]
-[ext_resource type="Script" path="res://scripts/scenes/entities/Graze.gd" id="8_mkhwp"]
-[ext_resource type="Script" path="res://scripts/scenes/components/GrazeComponent.gd" id="9_8n26u"]
+[ext_resource type="Script" path="res://scripts/scenes/components/collector.gd" id="7_beqe7"]
+[ext_resource type="Script" path="res://scripts/scenes/entities/graze.gd" id="8_mkhwp"]
+[ext_resource type="Script" path="res://scripts/scenes/components/graze.gd" id="9_8n26u"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 31

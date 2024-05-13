@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://djyq3oe2rqnjb"]
 
-[ext_resource type="Script" path="res://scripts/components/Stateful.gd" id="1_dg1ep"]
+[ext_resource type="Script" path="res://scripts/components/stateful.gd" id="1_dg1ep"]
 
 [node name="Stateful" type="Node2D"]
 script = ExtResource("1_dg1ep")

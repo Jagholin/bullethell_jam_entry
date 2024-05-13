@@ -18,7 +18,7 @@ func init():
 		child.target = target
 		# state_list.append(child.name)
 		state_to_state_map[child.name] = child
-		if current_state:
+		if not current_state:
 			# Initialize to the first child state
 			change_state(child.name)
 
@@ -27,7 +27,8 @@ func change_state(new_state: String) -> void:
 	if current_state:
 		current_state.exit()
 	
-	current_state = state_to_state_map[current_state]
+	current_state = state_to_state_map[new_state]
+	assert(current_state)
 	current_state.enter()
 
 #func get_next_state():
