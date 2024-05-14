@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmu8rrxt1o31b"]
+[gd_scene load_steps=8 format=3 uid="uid://cmu8rrxt1o31b"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/entity.gd" id="1_vh3ck"]
 [ext_resource type="Texture2D" uid="uid://cmidv43qxs7xx" path="res://assets/ShmupSprites/Alien02.png" id="2_5t0ek"]
@@ -9,10 +9,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dsoyn"]
 size = Vector2(48, 48)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lj6qd"]
+radius = 161.251
+
 [node name="Entity" type="RigidBody2D"]
-position = Vector2(296, 120)
 collision_layer = 4
-collision_mask = 16
+collision_mask = 20
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_vh3ck")
@@ -28,3 +30,13 @@ shape = SubResource("RectangleShape2D_dsoyn")
 
 [node name="Explosive" parent="." instance=ExtResource("4_xw1vb")]
 explosion = ExtResource("5_fyny2")
+
+[node name="MagnetArea" type="Area2D" parent="."]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetArea"]
+shape = SubResource("CircleShape2D_lj6qd")
+
+[connection signal="body_entered" from="MagnetArea" to="." method="_on_magnet_area_body_entered"]
