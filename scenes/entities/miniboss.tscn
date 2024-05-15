@@ -1,0 +1,129 @@
+[gd_scene load_steps=25 format=3 uid="uid://ull2sauw6bxf"]
+
+[ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_bewvi"]
+[ext_resource type="Texture2D" uid="uid://qm5i5uanqw76" path="res://assets/ShmupSprites/Alien06.png" id="2_qrfsu"]
+[ext_resource type="Texture2D" uid="uid://d025bxj2xvdii" path="res://assets/ShmupSprites/Alien05.png" id="3_5m23f"]
+[ext_resource type="Texture2D" uid="uid://367ww4f8dcvr" path="res://assets/ShmupSprites/Alien01.png" id="4_qjqeb"]
+[ext_resource type="Texture2D" uid="uid://co7gtio58rg61" path="res://assets/ShmupSprites/Alien03.png" id="5_dfedd"]
+[ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="6_7rppm"]
+[ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="7_q4yoj"]
+[ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="8_hag4s"]
+[ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="9_lqmsv"]
+[ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="10_fo1qn"]
+[ext_resource type="PackedScene" uid="uid://btpugkdb074eb" path="res://scenes/entities/explosion_entity.tscn" id="11_3r7s7"]
+[ext_resource type="PackedScene" uid="uid://djyq3oe2rqnjb" path="res://scenes/entity_components/stateful.tscn" id="12_88y48"]
+[ext_resource type="Script" path="res://scripts/states/state_enemy_disabled.gd" id="13_f85o6"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_randomize.gd" id="14_42i3w"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_mirror.gd" id="15_a7egi"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_homing.gd" id="16_lyw0h"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_healing.gd" id="16_psqw7"]
+[ext_resource type="PackedScene" uid="uid://cowulv6f3yxem" path="res://scenes/entities/projectile_homing.tscn" id="17_0g3aq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ls1j5"]
+atlas = ExtResource("2_qrfsu")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixj6l"]
+atlas = ExtResource("3_5m23f")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvhsx"]
+atlas = ExtResource("4_qjqeb")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8iiq"]
+atlas = ExtResource("5_dfedd")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kkeyd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ls1j5")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixj6l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvhsx")
+}],
+"loop": true,
+"name": &"disabled",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8iiq")
+}],
+"loop": true,
+"name": &"introduction",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yucrm"]
+radius = 24.0
+
+[node name="MiniBoss" type="Area2D"]
+position = Vector2(472, 216)
+collision_layer = 2
+monitoring = false
+script = ExtResource("1_bewvi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_kkeyd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yucrm")
+
+[node name="ProjectileSpawner" parent="." instance=ExtResource("6_7rppm")]
+interval = 0.4
+projectile_volleys = 12
+angle_between_volleys = 12.0
+angle_offset = 5.0
+projectile_volley_offset = Vector2(0, 0)
+projectile = ExtResource("7_q4yoj")
+projectile_settings = ExtResource("8_hag4s")
+active = false
+
+[node name="Damageable" parent="." instance=ExtResource("9_lqmsv")]
+health = 1000
+max_health = 1000
+immune = true
+
+[node name="Explosive" parent="." instance=ExtResource("10_fo1qn")]
+explosion = ExtResource("11_3r7s7")
+
+[node name="Stateful" parent="." instance=ExtResource("12_88y48")]
+debug = true
+
+[node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
+script = ExtResource("13_f85o6")
+
+[node name="StateBossRandomize" type="Node" parent="Stateful"]
+script = ExtResource("14_42i3w")
+
+[node name="StateBossMirror" type="Node" parent="Stateful"]
+script = ExtResource("15_a7egi")
+
+[node name="StateBossHealing" type="Node" parent="Stateful"]
+script = ExtResource("16_psqw7")
+
+[node name="StateBossHoming" type="Node" parent="Stateful"]
+script = ExtResource("16_lyw0h")
+homing_projectile = ExtResource("17_0g3aq")
+regular_projectile = ExtResource("7_q4yoj")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.14441e-05, -1.19209e-05)
+scale = Vector2(2.4, 2.4)

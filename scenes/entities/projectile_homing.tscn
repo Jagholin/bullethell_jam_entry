@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://cowulv6f3yxem"]
+
+[ext_resource type="Script" path="res://scripts/scenes/entities/projectile_homing.gd" id="1_jw8qp"]
+[ext_resource type="Texture2D" uid="uid://vj15nohqoxev" path="res://assets/ShmupSprites/Bullet_enemy01.png" id="2_teasa"]
+[ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="3_8i180"]
+[ext_resource type="PackedScene" uid="uid://c3gyni1oompv7" path="res://scenes/entities/explosion_projectile.tscn" id="4_rcpfd"]
+[ext_resource type="PackedScene" uid="uid://cnl0kia1jod4r" path="res://scenes/entity_components/timed_exploder_component.tscn" id="5_h68cy"]
+[ext_resource type="PackedScene" uid="uid://tn3yx6k7t3a4" path="res://scenes/entity_components/despawner.tscn" id="5_ltvxb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyflv"]
+atlas = ExtResource("2_teasa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xppk4"]
+atlas = ExtResource("2_teasa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ux6y"]
+atlas = ExtResource("2_teasa")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4cyu"]
+atlas = ExtResource("2_teasa")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nawm3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyflv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xppk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ux6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4cyu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5s0x"]
+radius = 16.0312
+
+[node name="ProjectileHoming" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_jw8qp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_nawm3")
+autoplay = "default"
+frame_progress = 0.420636
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c5s0x")
+
+[node name="Explosive" parent="." instance=ExtResource("3_8i180")]
+explosion = ExtResource("4_rcpfd")
+
+[node name="TimedExploder" parent="." instance=ExtResource("5_h68cy")]
+
+[node name="Despawner" parent="." instance=ExtResource("5_ltvxb")]
