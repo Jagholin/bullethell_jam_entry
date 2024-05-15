@@ -5,6 +5,7 @@ var player: Player
 @export var accuracy: float = 3
 
 func _ready():
+	super._ready()
 	player = get_tree().current_scene.get_node("Player")
 
 func _process(delta):

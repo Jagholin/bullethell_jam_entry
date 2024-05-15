@@ -43,7 +43,6 @@ func _process(delta):
 		fire()
 		elapsed -= interval
 
-
 func fire():
 	var angle := -0.5 * angle_between_volleys * (projectile_volleys - 1) + angle_offset
 	var offset := -0.5 * projectile_volley_offset * (projectile_volleys - 1)
