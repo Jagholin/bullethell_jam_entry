@@ -14,10 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://djyq3oe2rqnjb" path="res://scenes/entity_components/stateful.tscn" id="12_88y48"]
 [ext_resource type="Script" path="res://scripts/states/state_enemy_disabled.gd" id="13_f85o6"]
 [ext_resource type="Script" path="res://scripts/states/state_boss_randomize.gd" id="14_42i3w"]
-[ext_resource type="Script" path="res://scripts/states/state_boss_mirror.gd" id="15_a7egi"]
-[ext_resource type="Script" path="res://scripts/states/state_boss_homing.gd" id="16_lyw0h"]
-[ext_resource type="Script" path="res://scripts/states/state_boss_healing.gd" id="16_psqw7"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_mirror.gd" id="15_6tsm1"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_healing.gd" id="16_47hiw"]
 [ext_resource type="PackedScene" uid="uid://cowulv6f3yxem" path="res://scenes/entities/projectile_homing.tscn" id="17_0g3aq"]
+[ext_resource type="Script" path="res://scripts/states/state_boss_homing.gd" id="17_l81p5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ls1j5"]
 atlas = ExtResource("2_qrfsu")
@@ -114,13 +114,13 @@ script = ExtResource("13_f85o6")
 script = ExtResource("14_42i3w")
 
 [node name="StateBossMirror" type="Node" parent="Stateful"]
-script = ExtResource("15_a7egi")
+script = ExtResource("15_6tsm1")
 
 [node name="StateBossHealing" type="Node" parent="Stateful"]
-script = ExtResource("16_psqw7")
+script = ExtResource("16_47hiw")
 
 [node name="StateBossHoming" type="Node" parent="Stateful"]
-script = ExtResource("16_lyw0h")
+script = ExtResource("17_l81p5")
 homing_projectile = ExtResource("17_0g3aq")
 regular_projectile = ExtResource("7_q4yoj")
 

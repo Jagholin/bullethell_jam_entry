@@ -1,9 +1,7 @@
 extends Area2D
 class_name PowerUp
 
-# TODO not sure why this broke all the resources
-#@export var item: ItemSettingsResource
-@export var item: String
+@export var item: ItemSettingsResource
 
 func _ready():
 	area_entered.connect(collect)

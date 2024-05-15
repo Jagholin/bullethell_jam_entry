@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://caslk1qmsij8"]
+[gd_scene load_steps=12 format=3 uid="uid://caslk1qmsij8"]
 
 [ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_co14v"]
 [ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_aeknb"]
@@ -7,6 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://dlxr1gqtibtkl" path="res://scenes/entities/enemy.tscn" id="5_fmqpc"]
 [ext_resource type="PackedScene" uid="uid://cmu8rrxt1o31b" path="res://scenes/entities/entity.tscn" id="6_3cpqc"]
 [ext_resource type="PackedScene" uid="uid://ull2sauw6bxf" path="res://scenes/entities/miniboss.tscn" id="7_dfl0w"]
+[ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://scenes/entities/power_up.tscn" id="8_sggkn"]
+[ext_resource type="Script" path="res://scripts/resources/item_settings_resource.gd" id="9_dd6pp"]
+
+[sub_resource type="Resource" id="Resource_a2yh3"]
+script = ExtResource("9_dd6pp")
+item_type = 0
+
+[sub_resource type="Resource" id="Resource_j7euh"]
+script = ExtResource("9_dd6pp")
+item_type = 1
 
 [node name="FirstLevel" type="Node2D" node_paths=PackedStringArray("camera", "player", "projectile_parent")]
 script = ExtResource("1_co14v")
@@ -134,3 +144,19 @@ position = Vector2(747, -270)
 
 [node name="MiniBoss" parent="." instance=ExtResource("7_dfl0w")]
 position = Vector2(582, -1013)
+
+[node name="PowerUp" parent="." instance=ExtResource("8_sggkn")]
+position = Vector2(394, -145)
+item = SubResource("Resource_a2yh3")
+
+[node name="PowerUp2" parent="." instance=ExtResource("8_sggkn")]
+position = Vector2(806, -156)
+item = SubResource("Resource_j7euh")
+
+[node name="PowerUp3" parent="." instance=ExtResource("8_sggkn")]
+position = Vector2(928, -477)
+item = SubResource("Resource_a2yh3")
+
+[node name="PowerUp4" parent="." instance=ExtResource("8_sggkn")]
+position = Vector2(171, -444)
+item = SubResource("Resource_j7euh")

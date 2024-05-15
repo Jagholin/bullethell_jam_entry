@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dlxr1gqtibtkl" path="res://scenes/entities/enemy.tscn" id="4_15g7d"]
 [ext_resource type="LabelSettings" uid="uid://bh8hnu4drxufn" path="res://resources/label_settings/fps_label.tres" id="6_7sv6o"]
 [ext_resource type="PackedScene" uid="uid://bmeq7gxa1amke" path="res://scenes/entity_components/enemy_spawner.tscn" id="6_w7llr"]
-[ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://power_up.tscn" id="7_qfgnc"]
+[ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://scenes/entities/power_up.tscn" id="7_qfgnc"]
 
 [node name="push_body_test" type="Node2D"]
 script = ExtResource("1_nj2jt")
