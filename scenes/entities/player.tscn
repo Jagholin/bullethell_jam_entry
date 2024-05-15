@@ -26,8 +26,8 @@ polygon = PackedVector2Array(0, -16, -24, 16, 24, 16)
 immune = true
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("4_t8dnc")]
-interval = 0.02
-projectile_volleys = 4
+interval = 0.2
+projectile_volleys = 1
 angle_between_volleys = 10.0
 projectile_volley_offset = Vector2(10, 0)
 projectile = ExtResource("5_jl1tt")
