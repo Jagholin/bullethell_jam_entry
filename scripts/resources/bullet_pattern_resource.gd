@@ -16,6 +16,14 @@ extends Resource
 ## Initial direction of the bullets
 @export var initial_direction: Vector2 = Vector2(0, 1)
 
+enum EmitionType { PROJECTILE, SPAWNPOINT }
+## Primary emition type
+@export var emition_type: EmitionType = EmitionType.PROJECTILE
+## Chained bullet pattern to spawn from spawnpoints
+@export var chained_bullet_pattern: BulletPatternResource = null
+## Lifetime of a spawnpoint, in seconds
+@export var spawnpoint_lifetime: float = 5.0
+
 @export_group("Spawner movement")
 @export var spawner_moving: bool = false
 ## range of movement for the spawner
