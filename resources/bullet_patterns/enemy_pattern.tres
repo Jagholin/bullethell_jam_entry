@@ -11,5 +11,7 @@ angle_offset = 5.0
 projectile_volley_offset = Vector2(0, 0)
 initial_velocity = 10.0
 initial_direction = Vector2(0, 1)
+emition_type = 0
+spawnpoint_lifetime = 5.0
 spawner_moving = false
 movement_range = 0.0

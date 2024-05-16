@@ -1,8 +1,8 @@
 extends StateBossBase
 class_name StateBossMirror
 
-var mirror_spawner_setting: BulletPatternResource = preload("res://resources/bullet_patterns/miniboss_pattern_mirror.tres")
-var previous_spawner_setting: BulletPatternResource
+var mirror_spawner_setting: ProjectileSpawnerConfigResource = preload("res://resources/bullet_configs/miniboss_mirror.tres")
+var previous_spawner_setting: ProjectileSpawnerConfigResource
 
 func process_frame(delta: float) -> String:
 	super.process_frame(delta)
@@ -23,8 +23,7 @@ func enter() -> void:
 	super.enter()
 	var spawner := target.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
 	spawner.active = true
-	previous_spawner_setting = spawner.bullet_pattern
-	spawner.bullet_pattern = mirror_spawner_setting
+	previous_spawner_setting = spawner.override_bullet_config(mirror_spawner_setting)
 	#spawner.interval = 0.1
 	#spawner.projectile_volleys = 1
 
@@ -33,6 +32,6 @@ func exit() -> void:
 	super.exit()
 	var spawner := target.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
 	spawner.active = true
-	spawner.bullet_pattern = previous_spawner_setting
+	spawner.override_bullet_config(previous_spawner_setting)
 	#spawner.interval = 0.4
 	#spawner.projectile_volleys = 12

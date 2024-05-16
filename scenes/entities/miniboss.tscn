@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ull2sauw6bxf"]
+[gd_scene load_steps=28 format=3 uid="uid://ull2sauw6bxf"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_bewvi"]
 [ext_resource type="Texture2D" uid="uid://qm5i5uanqw76" path="res://assets/ShmupSprites/Alien06.png" id="2_qrfsu"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="7_q4yoj"]
 [ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="8_hag4s"]
 [ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="9_lqmsv"]
+[ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="9_tgv0e"]
 [ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="10_fo1qn"]
 [ext_resource type="PackedScene" uid="uid://btpugkdb074eb" path="res://scenes/entities/explosion_entity.tscn" id="11_3r7s7"]
 [ext_resource type="PackedScene" uid="uid://djyq3oe2rqnjb" path="res://scenes/entity_components/stateful.tscn" id="12_88y48"]
@@ -74,6 +75,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_yucrm"]
 radius = 24.0
 
+[sub_resource type="Resource" id="Resource_on5r7"]
+script = ExtResource("9_tgv0e")
+bullet_pattern = ExtResource("7_8m0od")
+bullet_settings = ExtResource("8_hag4s")
+
 [node name="MiniBoss" type="Area2D"]
 position = Vector2(472, 216)
 collision_layer = 2
@@ -88,9 +94,8 @@ sprite_frames = SubResource("SpriteFrames_kkeyd")
 shape = SubResource("CircleShape2D_yucrm")
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("6_7rppm")]
-bullet_pattern = ExtResource("7_8m0od")
+bullet_configs = Array[ExtResource("9_tgv0e")]([SubResource("Resource_on5r7")])
 projectile = ExtResource("7_q4yoj")
-projectile_settings = ExtResource("8_hag4s")
 active = false
 
 [node name="Damageable" parent="." instance=ExtResource("9_lqmsv")]
