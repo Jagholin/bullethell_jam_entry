@@ -56,9 +56,7 @@ var bullet_config_states: Array[BulletConfigState] = []
 @export var active: bool = true
 
 #var elapsed: Array[float] = []
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func after_ready():
 	active_bullet_configs = bullet_configs.duplicate()
 	for i in bullet_configs.size():
 		var spawnPoint := SpawnPoint.new()
@@ -68,6 +66,10 @@ func _ready():
 		var configState := BulletConfigState.new()
 		configState.original_spawnpoint = spawnPoint
 		bullet_config_states.append(configState)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	call_deferred("after_ready")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -95,7 +97,8 @@ func process_spawnpoint(spawnPoint: SpawnPoint, configIdx: int, delta: float) ->
 		interval = spawnPoint.pattern.interval
 	spawnPoint.time_elapsed += delta
 	while spawnPoint.time_elapsed >= interval and (spawnPoint.eternal or spawnPoint.lifetime > 0):
-		fire(spawnPoint.pattern, spawnPoint.bullet_settings, configIdx, spawnPoint.position)
+		fire(spawnPoint.pattern, spawnPoint.bullet_settings, spawnPoint.time_accumulated, configIdx, spawnPoint.position)
+		spawnPoint.time_accumulated += interval
 		spawnPoint.time_elapsed -= interval
 		spawnPoint.lifetime -= interval
 		spawnPoint.position += spawnPoint.direction * interval
@@ -128,12 +131,12 @@ func reset_modifiers():
 	angle_offset_modifier_additive = 0.0
 	angle_offset_modifier_multiplicative = 1.0
 
-func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettingsResource, idx: int, spawnPosition: Vector2):
+func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettingsResource, timeAccumulated: float, idx: int, spawnPosition: Vector2):
 	var angleBetweenVolleys := bulletPattern.angle_between_volleys * angle_between_volleys_modifier_multiplicative + angle_between_volleys_modifier_additive
 	var angleOffset := bulletPattern.angle_offset * angle_offset_modifier_multiplicative + angle_offset_modifier_additive
 	var projectileVolleys := floori(bulletPattern.projectile_volleys * projectile_volleys_modifier_multiplicative) + projectile_volleys_modifier_additive
 	#var angle := -0.5 * bulletPattern.angle_between_volleys * (bulletPattern.projectile_volleys - 1) + bulletPattern.angle_offset
-	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset
+	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset + bulletPattern.volley_rotation_speed * timeAccumulated
 	#var offset := -0.5 * bulletPattern.projectile_volley_offset * (bulletPattern.projectile_volleys - 1)
 	var offset := -0.5 * bulletPattern.projectile_volley_offset * (projectileVolleys - 1)
 	for i in projectileVolleys:

@@ -11,6 +11,8 @@ extends Resource
 @export var angle_offset: float = 0.0
 ## Offset between projectiles in a volley
 @export var projectile_volley_offset: Vector2 = Vector2(2.0, 0)
+## Rotation speed of center of the volley, in degrees per second
+@export var volley_rotation_speed: float = 0.0
 ## Initial speed of the bullet
 @export var initial_velocity: float = 10.0
 ## Initial direction of the bullets
