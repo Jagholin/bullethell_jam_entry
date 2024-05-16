@@ -32,11 +32,23 @@ class SpawnPoint:
 	var position: Vector2
 	var direction: Vector2
 	var time_elapsed: float = 0.0
+	var time_accumulated: float = 0.0
 	var lifetime: float
+	var eternal: bool = false
+	var pattern: BulletPatternResource
+	var bullet_settings: BulletSettingsResource
 
 class BulletConfigState:
-	var elapsed: float = 0.0
+	# var elapsed: float = 0.0
 	var secondary_spawnpoints: Array[SpawnPoint] = []
+	var original_spawnpoint: SpawnPoint
+	func get_spawnpoint(i: int) -> SpawnPoint:
+		if i == 0:
+			return original_spawnpoint
+		else:
+			return secondary_spawnpoints[i - 1]
+	func get_spawnpoint_count() -> int:
+		return secondary_spawnpoints.size() + 1
 
 var bullet_config_states: Array[BulletConfigState] = []
 
@@ -49,7 +61,13 @@ var bullet_config_states: Array[BulletConfigState] = []
 func _ready():
 	active_bullet_configs = bullet_configs.duplicate()
 	for i in bullet_configs.size():
-		bullet_config_states.append(BulletConfigState.new())
+		var spawnPoint := SpawnPoint.new()
+		spawnPoint.pattern = bullet_configs[i].bullet_pattern
+		spawnPoint.bullet_settings = bullet_configs[i].bullet_settings
+		spawnPoint.eternal = true
+		var configState := BulletConfigState.new()
+		configState.original_spawnpoint = spawnPoint
+		bullet_config_states.append(configState)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -61,46 +79,41 @@ func override_bullet_config(new_config: ProjectileSpawnerConfigResource) -> Proj
 	assert(active_bullet_configs.size() == 1, "Not implemented for multiple bullet configs yet")
 	var old_config := active_bullet_configs[0]
 	active_bullet_configs[0] = new_config
-	bullet_config_states[0].elapsed = 0.0
+	#bullet_config_states[0].elapsed = 0.0
+	bullet_config_states[0].original_spawnpoint.pattern = new_config.bullet_pattern
+	bullet_config_states[0].original_spawnpoint.bullet_settings = new_config.bullet_settings
+	bullet_config_states[0].original_spawnpoint.time_elapsed = 0.0
+	bullet_config_states[0].original_spawnpoint.time_accumulated = 0.0
 	bullet_config_states[0].secondary_spawnpoints.clear()
 	return old_config
 
-func process_config(idx: int, delta: float):
-	var config := active_bullet_configs[idx]
-	var interval := config.bullet_pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
-	var configState := bullet_config_states[idx]
+enum SpawnProcessResult { KEEP, REMOVE }
+func process_spawnpoint(spawnPoint: SpawnPoint, configIdx: int, delta: float) -> SpawnProcessResult:
+	var interval := spawnPoint.pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
 	# if the primary emition type is spawnpoints, ignore interval modifiers
-	if config.bullet_pattern.emition_type == BulletPatternResource.EmitionType.SPAWNPOINT:
-		interval = config.bullet_pattern.interval
+	if spawnPoint.pattern.emition_type == BulletPatternResource.EmitionType.SPAWNPOINT:
+		interval = spawnPoint.pattern.interval
+	spawnPoint.time_elapsed += delta
+	while spawnPoint.time_elapsed >= interval and (spawnPoint.eternal or spawnPoint.lifetime > 0):
+		fire(spawnPoint.pattern, spawnPoint.bullet_settings, configIdx, spawnPoint.position)
+		spawnPoint.time_elapsed -= interval
+		spawnPoint.lifetime -= interval
+		spawnPoint.position += spawnPoint.direction * interval
+	return SpawnProcessResult.KEEP if spawnPoint.lifetime > 0 or spawnPoint.eternal else SpawnProcessResult.REMOVE
 
+func process_config(idx: int, delta: float):
+	# var interval := config.bullet_pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
+	var configState := bullet_config_states[idx]
 	if not active:
 		if configState.secondary_spawnpoints.size() > 0:
 			configState.secondary_spawnpoints.clear()
-		configState.elapsed = 0.0
+		configState.original_spawnpoint.time_elapsed = 0.0
+		configState.original_spawnpoint.time_accumulated = 0.0
 		return
 
-	configState.elapsed += delta
-	while configState.elapsed >= interval:
-		fire(config.bullet_pattern, config.bullet_settings, idx, Vector2.ZERO)
-
-		configState.elapsed -= interval
-
-	# process secondary spawn points
-	if configState.secondary_spawnpoints.is_empty():
-		return
-
-	interval = config.bullet_pattern.chained_bullet_pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
 	var clearSpawnArray := false
-
-	for spawnPoint in configState.secondary_spawnpoints:
-		spawnPoint.time_elapsed += delta
-		while spawnPoint.time_elapsed >= interval and spawnPoint.lifetime > 0:
-			fire(config.bullet_pattern.chained_bullet_pattern, config.bullet_settings, idx, spawnPoint.position)
-			spawnPoint.time_elapsed -= interval
-			spawnPoint.lifetime -= interval
-			spawnPoint.position += spawnPoint.direction * interval
-		if spawnPoint.lifetime <= 0:
-			clearSpawnArray = true
+	for spIdx in configState.get_spawnpoint_count():
+		process_spawnpoint(configState.get_spawnpoint(spIdx), idx, delta)
 
 	if clearSpawnArray:
 		configState.secondary_spawnpoints = configState.secondary_spawnpoints.filter(func(sp: SpawnPoint) -> bool: return sp.lifetime > 0)
@@ -141,6 +154,8 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 			newSpawnPoint.position = spawnPosition + offset
 			newSpawnPoint.direction = bulletPattern.initial_direction.rotated(deg_to_rad(angle))
 			newSpawnPoint.lifetime = bulletPattern.spawnpoint_lifetime
+			newSpawnPoint.pattern = bulletPattern.chained_bullet_pattern
+			newSpawnPoint.bullet_settings = projectileSettings
 			bullet_config_states[idx].secondary_spawnpoints.append(newSpawnPoint)
 		else:
 			assert(false, "Unknown emition type")
