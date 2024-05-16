@@ -24,7 +24,6 @@ func enter() -> void:
 	#spawner.interval = 1.5
 	#spawner.projectile_volleys = 1
 	spawner.projectile = homing_projectile
-	spawner.bp_active = true
 
 
 func exit() -> void:

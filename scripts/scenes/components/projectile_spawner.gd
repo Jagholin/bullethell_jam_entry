@@ -27,8 +27,6 @@ var angle_between_volleys_modifier_multiplicative: float = 1.0
 var angle_offset_modifier_additive: float = 0.0
 var angle_offset_modifier_multiplicative: float = 1.0
 
-var bp_active: bool = false
-
 ## Secondary spawn points to spawn chained projectiles
 class SpawnPoint:
 	var position: Vector2
@@ -125,8 +123,6 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset
 	#var offset := -0.5 * bulletPattern.projectile_volley_offset * (bulletPattern.projectile_volleys - 1)
 	var offset := -0.5 * bulletPattern.projectile_volley_offset * (projectileVolleys - 1)
-	if bp_active:
-		print("Firing ", projectileVolleys, " projectiles")
 	for i in projectileVolleys:
 		# calculate the angle for the projectile, and initial position
 		if bulletPattern.emition_type == BulletPatternResource.EmitionType.PROJECTILE:
