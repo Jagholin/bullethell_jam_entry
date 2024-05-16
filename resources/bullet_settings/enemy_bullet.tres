@@ -43,5 +43,3 @@ animations = [{
 script = ExtResource("1_j3ik6")
 bullet_type = 0
 sprite_frames = SubResource("SpriteFrames_5f8kd")
-initial_velocity = 10.0
-initial_direction = Vector2(0, 1)

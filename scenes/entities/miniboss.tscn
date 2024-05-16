@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ull2sauw6bxf"]
+[gd_scene load_steps=26 format=3 uid="uid://ull2sauw6bxf"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_bewvi"]
 [ext_resource type="Texture2D" uid="uid://qm5i5uanqw76" path="res://assets/ShmupSprites/Alien06.png" id="2_qrfsu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://367ww4f8dcvr" path="res://assets/ShmupSprites/Alien01.png" id="4_qjqeb"]
 [ext_resource type="Texture2D" uid="uid://co7gtio58rg61" path="res://assets/ShmupSprites/Alien03.png" id="5_dfedd"]
 [ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="6_7rppm"]
+[ext_resource type="Resource" uid="uid://dxwrw3j14j4hw" path="res://resources/bullet_patterns/miniboss_pattern.tres" id="7_8m0od"]
 [ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="7_q4yoj"]
 [ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="8_hag4s"]
 [ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="9_lqmsv"]
@@ -87,11 +88,7 @@ sprite_frames = SubResource("SpriteFrames_kkeyd")
 shape = SubResource("CircleShape2D_yucrm")
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("6_7rppm")]
-interval = 0.4
-projectile_volleys = 12
-angle_between_volleys = 12.0
-angle_offset = 5.0
-projectile_volley_offset = Vector2(0, 0)
+bullet_pattern = ExtResource("7_8m0od")
 projectile = ExtResource("7_q4yoj")
 projectile_settings = ExtResource("8_hag4s")
 active = false
