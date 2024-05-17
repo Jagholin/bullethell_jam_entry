@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_bewvi"]
 [ext_resource type="Texture2D" uid="uid://qm5i5uanqw76" path="res://assets/ShmupSprites/Alien06.png" id="2_qrfsu"]
-[ext_resource type="Texture2D" uid="uid://d025bxj2xvdii" path="res://assets/ShmupSprites/Alien05.png" id="3_5m23f"]
+[ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="3_n41o2"]
 [ext_resource type="Texture2D" uid="uid://367ww4f8dcvr" path="res://assets/ShmupSprites/Alien01.png" id="4_qjqeb"]
 [ext_resource type="Texture2D" uid="uid://co7gtio58rg61" path="res://assets/ShmupSprites/Alien03.png" id="5_dfedd"]
 [ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="6_7rppm"]
@@ -25,9 +25,9 @@
 atlas = ExtResource("2_qrfsu")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ixj6l"]
-atlas = ExtResource("3_5m23f")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujetw"]
+atlas = ExtResource("3_n41o2")
+region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvhsx"]
 atlas = ExtResource("4_qjqeb")
@@ -49,7 +49,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ixj6l")
+"texture": SubResource("AtlasTexture_ujetw")
 }],
 "loop": true,
 "name": &"default",
@@ -73,7 +73,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yucrm"]
-radius = 24.0
+radius = 38.0
 
 [sub_resource type="Resource" id="Resource_on5r7"]
 script = ExtResource("9_tgv0e")

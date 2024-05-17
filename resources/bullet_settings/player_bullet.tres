@@ -1,13 +1,38 @@
-[gd_resource type="Resource" script_class="BulletSettingsResource" load_steps=4 format=3 uid="uid://cd2mguh56yvqd"]
+[gd_resource type="Resource" script_class="BulletSettingsResource" load_steps=8 format=3 uid="uid://cd2mguh56yvqd"]
 
 [ext_resource type="Script" path="res://scripts/resources/bullet_settings_resource.gd" id="1_l45m1"]
-[ext_resource type="Texture2D" uid="uid://dv11s1yni3xks" path="res://assets/ShmupSprites/Bullet_player.png" id="2_3lh3n"]
+[ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="2_b6xyc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wahnv"]
+atlas = ExtResource("2_b6xyc")
+region = Rect2(0, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5fsq"]
+atlas = ExtResource("2_b6xyc")
+region = Rect2(128, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hxw3"]
+atlas = ExtResource("2_b6xyc")
+region = Rect2(256, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkjrn"]
+atlas = ExtResource("2_b6xyc")
+region = Rect2(384, 512, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_out7e"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_3lh3n")
+"texture": SubResource("AtlasTexture_wahnv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5fsq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hxw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkjrn")
 }],
 "loop": true,
 "name": &"default",

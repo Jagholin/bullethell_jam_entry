@@ -7,6 +7,7 @@ var player: Player
 func _ready():
 	super._ready()
 	player = get_tree().current_scene.get_node("Player")
+	$AnimatedSprite2D.play()
 
 func _process(delta):
 	direction = lerp(direction, (player.global_position - global_position).normalized(), accuracy*delta)

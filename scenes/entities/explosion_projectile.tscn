@@ -1,6 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c3gyni1oompv7"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/explosion.gd" id="1_k83b1"]
+[ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="1_uct1u"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_smmjd"]
 
@@ -27,12 +28,9 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_t0m6f")
 alpha_curve = SubResource("CurveTexture_2ndxx")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fw33s"]
-load_path = "res://.godot/imported/Explo01.png-bc890d7c69aa64400bde34443028f4ac.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ivlrc"]
-atlas = SubResource("CompressedTexture2D_fw33s")
-region = Rect2(18, 403, 91, 92)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywpf2"]
+atlas = ExtResource("1_uct1u")
+region = Rect2(0, 768, 256, 256)
 
 [node name="ExplosionProjectile" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_smmjd")
@@ -40,7 +38,7 @@ position = Vector2(520, -120)
 emitting = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_ik4dq")
-texture = SubResource("AtlasTexture_ivlrc")
+texture = SubResource("AtlasTexture_ywpf2")
 lifetime = 0.1
 one_shot = true
 explosiveness = 1.0

@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://sg051jsb3744"]
+[gd_scene load_steps=15 format=3 uid="uid://sg051jsb3744"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/player.gd" id="1_5ldbl"]
-[ext_resource type="Texture2D" uid="uid://csylr66yhkk6x" path="res://assets/ShmupSprites/Player.png" id="2_b34ry"]
+[ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="2_tfwh4"]
 [ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="3_i47pl"]
 [ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="4_t8dnc"]
 [ext_resource type="Resource" uid="uid://bxa16elwxy8qi" path="res://resources/bullet_patterns/player_pattern.tres" id="5_gxb4x"]
@@ -12,10 +12,17 @@
 [ext_resource type="Script" path="res://scripts/scenes/entities/graze.gd" id="8_mkhwp"]
 [ext_resource type="Script" path="res://scripts/scenes/components/graze.gd" id="9_8n26u"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_35rgc"]
+radius = 28.0
+height = 70.0
+
 [sub_resource type="Resource" id="Resource_i3nly"]
 script = ExtResource("7_x1gtd")
 bullet_pattern = ExtResource("5_gxb4x")
 bullet_settings = ExtResource("6_sklsj")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfrys"]
+size = Vector2(104, 99)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 27
@@ -24,15 +31,18 @@ SPEED = 300.0
 IMPACT_ENERGY = 100.0
 
 [node name="Player" type="Sprite2D" parent="."]
-texture = ExtResource("2_b34ry")
+texture = ExtResource("2_tfwh4")
+region_enabled = true
+region_rect = Rect2(0, 256, 256, 256)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, -16, -24, 16, 24, 16)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_35rgc")
 
 [node name="DamageableComponent" parent="." instance=ExtResource("3_i47pl")]
 immune = true
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("4_t8dnc")]
+position = Vector2(0, -27)
 bullet_configs = Array[ExtResource("7_x1gtd")]([SubResource("Resource_i3nly")])
 projectile = ExtResource("5_jl1tt")
 active = false
@@ -43,8 +53,9 @@ script = ExtResource("7_beqe7")
 [node name="Graze" type="Area2D" parent="."]
 script = ExtResource("8_mkhwp")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graze"]
-polygon = PackedVector2Array(-48, 24, 0, -32, 48, 24)
-
 [node name="GrazeComponent" type="Node2D" parent="Graze"]
 script = ExtResource("9_8n26u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graze"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_mfrys")

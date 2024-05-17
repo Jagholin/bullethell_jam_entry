@@ -1,38 +1,38 @@
 [gd_resource type="Resource" script_class="BulletSettingsResource" load_steps=8 format=3 uid="uid://gqr2cj4ovsbd"]
 
 [ext_resource type="Script" path="res://scripts/resources/bullet_settings_resource.gd" id="1_j3ik6"]
-[ext_resource type="Texture2D" uid="uid://vj15nohqoxev" path="res://assets/ShmupSprites/Bullet_enemy01.png" id="2_tfpna"]
+[ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="2_vxfte"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2vdhs"]
-atlas = ExtResource("2_tfpna")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8ikc"]
+atlas = ExtResource("2_vxfte")
+region = Rect2(0, 640, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6c1sx"]
-atlas = ExtResource("2_tfpna")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1e58"]
+atlas = ExtResource("2_vxfte")
+region = Rect2(128, 640, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6rm1k"]
-atlas = ExtResource("2_tfpna")
-region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_neol3"]
+atlas = ExtResource("2_vxfte")
+region = Rect2(256, 640, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1am78"]
-atlas = ExtResource("2_tfpna")
-region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yod1"]
+atlas = ExtResource("2_vxfte")
+region = Rect2(384, 640, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5f8kd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2vdhs")
+"texture": SubResource("AtlasTexture_p8ikc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6c1sx")
+"texture": SubResource("AtlasTexture_x1e58")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6rm1k")
+"texture": SubResource("AtlasTexture_neol3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1am78")
+"texture": SubResource("AtlasTexture_5yod1")
 }],
 "loop": true,
 "name": &"default",
