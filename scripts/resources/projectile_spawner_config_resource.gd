@@ -1,0 +1,5 @@
+class_name ProjectileSpawnerConfigResource
+extends Resource
+
+@export var bullet_pattern: BulletPatternResource
+@export var bullet_settings: BulletSettingsResource

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://caslk1qmsij8"]
+[gd_scene load_steps=16 format=3 uid="uid://caslk1qmsij8"]
 
 [ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_co14v"]
 [ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_aeknb"]
@@ -6,9 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://bif23f7t4jd2r" path="res://scenes/entities/obstacle.tscn" id="4_fd3ku"]
 [ext_resource type="PackedScene" uid="uid://dlxr1gqtibtkl" path="res://scenes/entities/enemy.tscn" id="5_fmqpc"]
 [ext_resource type="PackedScene" uid="uid://cmu8rrxt1o31b" path="res://scenes/entities/entity.tscn" id="6_3cpqc"]
+[ext_resource type="Resource" uid="uid://bpcke007lw4gr" path="res://resources/bullet_patterns/enemy_pattern_rotating.tres" id="6_begtp"]
+[ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="7_7aigp"]
 [ext_resource type="PackedScene" uid="uid://ull2sauw6bxf" path="res://scenes/entities/miniboss.tscn" id="7_dfl0w"]
+[ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="8_3o01v"]
 [ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://scenes/entities/power_up.tscn" id="8_sggkn"]
 [ext_resource type="Script" path="res://scripts/resources/item_settings_resource.gd" id="9_dd6pp"]
+
+[sub_resource type="Resource" id="Resource_755it"]
+script = ExtResource("8_3o01v")
+bullet_pattern = ExtResource("6_begtp")
+bullet_settings = ExtResource("7_7aigp")
 
 [sub_resource type="Resource" id="Resource_a2yh3"]
 script = ExtResource("9_dd6pp")
@@ -98,7 +106,8 @@ scale = Vector2(1, 20)
 position = Vector2(303, -169)
 
 [node name="Enemy2" parent="." instance=ExtResource("5_fmqpc")]
-position = Vector2(713, -51)
+position = Vector2(583, -129)
+projectile_configs = Array[ExtResource("8_3o01v")]([SubResource("Resource_755it")])
 
 [node name="Enemy4" parent="." instance=ExtResource("5_fmqpc")]
 position = Vector2(305, -1573)

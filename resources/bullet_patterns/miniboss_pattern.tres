@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletPatternResource" load_steps=2 format=3 uid="uid://dxwrw3j14j4hw"]
+
+[ext_resource type="Script" path="res://scripts/resources/bullet_pattern_resource.gd" id="1_6dcue"]
+
+[resource]
+script = ExtResource("1_6dcue")
+interval = 0.4
+projectile_volleys = 12
+angle_between_volleys = 12.0
+angle_offset = 0.0
+projectile_volley_offset = Vector2(0, 0)
+volley_rotation_speed = 0.0
+initial_velocity = 10.0
+initial_direction = Vector2(0, 1)
+emition_type = 0
+spawnpoint_lifetime = 5.0
+spawner_moving = false
+movement_range = 0.0

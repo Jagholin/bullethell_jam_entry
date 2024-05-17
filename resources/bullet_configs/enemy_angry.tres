@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileSpawnerConfigResource" load_steps=4 format=3 uid="uid://x8mrf7n4cxvm"]
+
+[ext_resource type="Resource" uid="uid://c0e5p8tnm8nyw" path="res://resources/bullet_patterns/enemy_pattern_angry.tres" id="1_10vnr"]
+[ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="1_wrs4u"]
+[ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="2_5bprf"]
+
+[resource]
+script = ExtResource("1_wrs4u")
+bullet_pattern = ExtResource("1_10vnr")
+bullet_settings = ExtResource("2_5bprf")

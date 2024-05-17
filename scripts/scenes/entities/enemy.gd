@@ -25,9 +25,12 @@ func get_component(component_name: StringName) -> BaseComponent:
 #endregion
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 @onready var state_machine: StatefulComponent = $Stateful
+@export var projectile_configs: Array[ProjectileSpawnerConfigResource]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if projectile_configs:
+		spawner.bullet_configs = projectile_configs
 	spawner.projectiles_parent = projectile_parent
 	var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
 	notifier.screen_entered.connect(state_machine.init)

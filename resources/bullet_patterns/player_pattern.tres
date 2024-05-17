@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BulletPatternResource" load_steps=2 format=3 uid="uid://bxa16elwxy8qi"]
+
+[ext_resource type="Script" path="res://scripts/resources/bullet_pattern_resource.gd" id="1_k0wq1"]
+
+[resource]
+script = ExtResource("1_k0wq1")
+interval = 0.2
+projectile_volleys = 1
+angle_between_volleys = 10.0
+angle_offset = 0.0
+projectile_volley_offset = Vector2(10, 0)
+initial_velocity = 25.0
+initial_direction = Vector2(0, -1)
+spawner_moving = false
+movement_range = 0.0

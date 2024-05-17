@@ -13,4 +13,5 @@ func process_frame(delta: float) -> String:
 		return "StateBossHoming"
 	else:
 		return "StateBossHealing"
-	return ""
+	@warning_ignore("unreachable_code")
+	assert(false, "This code should be unreachable")
