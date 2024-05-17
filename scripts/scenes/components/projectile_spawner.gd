@@ -141,7 +141,7 @@ func reset_modifiers():
 
 func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettingsResource, timeAccumulated: float, idx: int, spawnPosition: Vector2):
 	var angleBetweenVolleys := bulletPattern.angle_between_volleys * angle_between_volleys_modifier_multiplicative + angle_between_volleys_modifier_additive
-	var angleOffset := bulletPattern.angle_offset * angle_offset_modifier_multiplicative + angle_offset_modifier_additive
+	var angleOffset := bulletPattern.angle_offset * angle_offset_modifier_multiplicative + angle_offset_modifier_additive + bulletPattern.volley_rotation_speed * timeAccumulated
 	var projectileVolleys := floori(bulletPattern.projectile_volleys * projectile_volleys_modifier_multiplicative) + projectile_volleys_modifier_additive
 
 	if not is_equal_approx(bulletPattern.shoot_at_player_tendency, 0.0):
@@ -150,7 +150,7 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 		angleOffset = lerp(angleOffset, angleToPlayer, bulletPattern.shoot_at_player_tendency)
 
 	#var angle := -0.5 * bulletPattern.angle_between_volleys * (bulletPattern.projectile_volleys - 1) + bulletPattern.angle_offset
-	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset + bulletPattern.volley_rotation_speed * timeAccumulated
+	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset
 	#var offset := -0.5 * bulletPattern.projectile_volley_offset * (bulletPattern.projectile_volleys - 1)
 	var offset := -0.5 * bulletPattern.projectile_volley_offset * (projectileVolleys - 1)
 	for i in projectileVolleys:
