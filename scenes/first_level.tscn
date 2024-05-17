@@ -1,22 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://caslk1qmsij8"]
+[gd_scene load_steps=14 format=3 uid="uid://caslk1qmsij8"]
 
 [ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_co14v"]
 [ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_aeknb"]
-[ext_resource type="Texture2D" uid="uid://bftmaw0tyiytd" path="res://assets/ShmupSprites/Background_ingame.png" id="3_8nvi1"]
+[ext_resource type="Texture2D" uid="uid://cuccqt0wotcun" path="res://assets/bgscroll_1.png" id="3_tl741"]
+[ext_resource type="Texture2D" uid="uid://bgte4481dpqxa" path="res://assets/bgscroll_cloud_overlay.png" id="4_6hkny"]
 [ext_resource type="PackedScene" uid="uid://bif23f7t4jd2r" path="res://scenes/entities/obstacle.tscn" id="4_fd3ku"]
 [ext_resource type="PackedScene" uid="uid://dlxr1gqtibtkl" path="res://scenes/entities/enemy.tscn" id="5_fmqpc"]
 [ext_resource type="PackedScene" uid="uid://cmu8rrxt1o31b" path="res://scenes/entities/entity.tscn" id="6_3cpqc"]
-[ext_resource type="Resource" uid="uid://bpcke007lw4gr" path="res://resources/bullet_patterns/enemy_pattern_rotating.tres" id="6_begtp"]
-[ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="7_7aigp"]
 [ext_resource type="PackedScene" uid="uid://ull2sauw6bxf" path="res://scenes/entities/miniboss.tscn" id="7_dfl0w"]
-[ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="8_3o01v"]
 [ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://scenes/entities/power_up.tscn" id="8_sggkn"]
 [ext_resource type="Script" path="res://scripts/resources/item_settings_resource.gd" id="9_dd6pp"]
-
-[sub_resource type="Resource" id="Resource_755it"]
-script = ExtResource("8_3o01v")
-bullet_pattern = ExtResource("6_begtp")
-bullet_settings = ExtResource("7_7aigp")
+[ext_resource type="PackedScene" uid="uid://2r8g7fkk3vo8" path="res://scenes/entities/miniboss2.tscn" id="12_yavi5"]
 
 [sub_resource type="Resource" id="Resource_a2yh3"]
 script = ExtResource("9_dd6pp")
@@ -44,10 +38,20 @@ projectile_parent = NodePath("../ProjectileParent")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(1600, 1024)
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(0, 3840)
 
 [node name="BackgroundIngame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-texture = ExtResource("3_8nvi1")
+position = Vector2(-360, 0)
+texture = ExtResource("3_tl741")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 3840)
+
+[node name="BackgroundIngame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(-360, 0)
+texture = ExtResource("4_6hkny")
 centered = false
 
 [node name="Obstacle" parent="." instance=ExtResource("4_fd3ku")]
@@ -65,7 +69,7 @@ rotation = 1.61443
 scale = Vector2(1, 10)
 
 [node name="Obstacle12" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(978, 272)
+position = Vector2(973, 169)
 rotation = 1.52716
 scale = Vector2(1, 10)
 
@@ -75,27 +79,27 @@ rotation = 1.98793
 scale = Vector2(1, 10)
 
 [node name="Obstacle3" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(29, -607)
+position = Vector2(2, -607)
 scale = Vector2(1, 20)
 
 [node name="Obstacle5" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(32, -1524)
+position = Vector2(-19, -1533)
 scale = Vector2(1, 20)
 
 [node name="Obstacle6" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(1121, -1511)
+position = Vector2(1176, -1517)
 scale = Vector2(1, 20)
 
 [node name="Obstacle7" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(1119, -2429)
+position = Vector2(1143, -2420)
 scale = Vector2(1, 20)
 
 [node name="Obstacle8" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(34, -2440)
+position = Vector2(4, -2440)
 scale = Vector2(1, 20)
 
 [node name="Obstacle4" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(1125, -599)
+position = Vector2(1152, -599)
 scale = Vector2(1, 20)
 
 [node name="Obstacle2" parent="." instance=ExtResource("4_fd3ku")]
@@ -104,10 +108,6 @@ scale = Vector2(1, 20)
 
 [node name="Enemy" parent="." instance=ExtResource("5_fmqpc")]
 position = Vector2(303, -169)
-
-[node name="Enemy2" parent="." instance=ExtResource("5_fmqpc")]
-position = Vector2(583, -129)
-projectile_configs = Array[ExtResource("8_3o01v")]([SubResource("Resource_755it")])
 
 [node name="Enemy4" parent="." instance=ExtResource("5_fmqpc")]
 position = Vector2(305, -1573)
@@ -153,6 +153,9 @@ position = Vector2(747, -270)
 
 [node name="MiniBoss" parent="." instance=ExtResource("7_dfl0w")]
 position = Vector2(582, -1013)
+
+[node name="MiniBoss2" parent="." instance=ExtResource("12_yavi5")]
+position = Vector2(536, -260)
 
 [node name="PowerUp" parent="." instance=ExtResource("8_sggkn")]
 position = Vector2(394, -145)
