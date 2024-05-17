@@ -38,6 +38,8 @@ func _ready():
 	spawner.projectiles_parent = projectile_parent
 	self.set_motion_mode(CharacterBody2D.MOTION_MODE_FLOATING)
 
+	PlayerProvider.set_player(self)
+
 func _input(event):
 	if event.is_action_pressed(&"fire"):
 		spawner.active = true

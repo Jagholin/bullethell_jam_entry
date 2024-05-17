@@ -55,6 +55,9 @@ var bullet_config_states: Array[BulletConfigState] = []
 ## Whether the spawner is currently active and emitting projectiles
 @export var active: bool = true
 
+## Player that is used for targeted projectiles
+var current_player: Player
+
 #var elapsed: Array[float] = []
 func after_ready():
 	active_bullet_configs = bullet_configs.duplicate()
@@ -67,12 +70,17 @@ func after_ready():
 		configState.original_spawnpoint = spawnPoint
 		bullet_config_states.append(configState)
 
+func init_current_player():
+	PlayerProvider.on_player_initialized(func( p: Player ): current_player = p)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	call_deferred("after_ready")
+	init_current_player()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	assert(current_player)
 	for c in active_bullet_configs.size():
 		process_config(c, delta)
 
@@ -135,6 +143,12 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 	var angleBetweenVolleys := bulletPattern.angle_between_volleys * angle_between_volleys_modifier_multiplicative + angle_between_volleys_modifier_additive
 	var angleOffset := bulletPattern.angle_offset * angle_offset_modifier_multiplicative + angle_offset_modifier_additive
 	var projectileVolleys := floori(bulletPattern.projectile_volleys * projectile_volleys_modifier_multiplicative) + projectile_volleys_modifier_additive
+
+	if not is_equal_approx(bulletPattern.shoot_at_player_tendency, 0.0):
+		var playerDirection := (current_player.global_position - global_position - spawnPosition).normalized()
+		var angleToPlayer := -rad_to_deg(playerDirection.angle_to(Vector2.DOWN))
+		angleOffset = lerp(angleOffset, angleToPlayer, bulletPattern.shoot_at_player_tendency)
+
 	#var angle := -0.5 * bulletPattern.angle_between_volleys * (bulletPattern.projectile_volleys - 1) + bulletPattern.angle_offset
 	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset + bulletPattern.volley_rotation_speed * timeAccumulated
 	#var offset := -0.5 * bulletPattern.projectile_volley_offset * (bulletPattern.projectile_volleys - 1)

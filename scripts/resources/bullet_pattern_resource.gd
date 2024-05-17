@@ -17,6 +17,9 @@ extends Resource
 @export var initial_velocity: float = 10.0
 ## Initial direction of the bullets
 @export var initial_direction: Vector2 = Vector2(0, 1)
+## Tendency to shoot towards the player, 0 is no tendency, 1 is shoot directly at the player (1 will override angle_offset and volley_rotation_speed)
+## can also be anything in between, will linearly interpolate between the two
+@export var shoot_at_player_tendency: float = 0.0
 
 enum EmitionType { PROJECTILE, SPAWNPOINT }
 ## Primary emition type
