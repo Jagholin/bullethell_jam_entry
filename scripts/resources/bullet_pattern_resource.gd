@@ -20,6 +20,10 @@ extends Resource
 ## Tendency to shoot towards the player, 0 is no tendency, 1 is shoot directly at the player (1 will override angle_offset and volley_rotation_speed)
 ## can also be anything in between, will linearly interpolate between the two
 @export var shoot_at_player_tendency: float = 0.0
+## If angle_offset should be randomized, and the spread of the randomization(in degrees)
+@export var randomized_angle_spread: float = 0.0
+## If the initial velocity should be randomized, and the extent of the randomization
+@export var randomized_velocity_spread: float = 0.0
 
 enum EmitionType { PROJECTILE, SPAWNPOINT }
 ## Primary emition type

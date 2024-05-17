@@ -153,12 +153,20 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 	var angle := -0.5 * angleBetweenVolleys * (projectileVolleys - 1) + angleOffset
 	#var offset := -0.5 * bulletPattern.projectile_volley_offset * (bulletPattern.projectile_volleys - 1)
 	var offset := -0.5 * bulletPattern.projectile_volley_offset * (projectileVolleys - 1)
+	var angleIsRandom := not is_zero_approx(bulletPattern.randomized_angle_spread)
+	var velocityIsRandom := not is_zero_approx(bulletPattern.randomized_velocity_spread)
 	for i in projectileVolleys:
 		# calculate the angle for the projectile, and initial position
+		var bulletAngle := angle + randf_range(-0.5 * bulletPattern.randomized_angle_spread, 0.5 * bulletPattern.randomized_angle_spread) \
+			if angleIsRandom \
+			else angle
+		var bulletVelocity := bulletPattern.initial_velocity + randf_range(-0.5 * bulletPattern.randomized_velocity_spread, 0.5 * bulletPattern.randomized_velocity_spread) \
+			if velocityIsRandom \
+			else bulletPattern.initial_velocity
 		if bulletPattern.emition_type == BulletPatternResource.EmitionType.PROJECTILE:
 			var new_projectile := projectile.instantiate() as Projectile
-			new_projectile.direction = bulletPattern.initial_direction.rotated(deg_to_rad(angle))
-			new_projectile.velocity = bulletPattern.initial_velocity
+			new_projectile.direction = bulletPattern.initial_direction.rotated(deg_to_rad(bulletAngle))
+			new_projectile.velocity = bulletVelocity
 			new_projectile.global_position = global_position + spawnPosition + offset
 			new_projectile.collision_mask = projectileSettings.get_collision_mask()
 			new_projectile.collision_layer = 0
@@ -169,7 +177,7 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 		elif bulletPattern.emition_type == BulletPatternResource.EmitionType.SPAWNPOINT:
 			var newSpawnPoint := SpawnPoint.new()
 			newSpawnPoint.position = spawnPosition + offset
-			newSpawnPoint.direction = bulletPattern.initial_direction.rotated(deg_to_rad(angle))
+			newSpawnPoint.direction = bulletPattern.initial_direction.rotated(deg_to_rad(bulletAngle))
 			newSpawnPoint.lifetime = bulletPattern.spawnpoint_lifetime
 			newSpawnPoint.pattern = bulletPattern.chained_bullet_pattern
 			newSpawnPoint.bullet_settings = projectileSettings
