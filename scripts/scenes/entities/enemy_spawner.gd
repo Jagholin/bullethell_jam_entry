@@ -34,6 +34,7 @@ func _process(delta):
 
 func fire():
 	var new_enemy := enemy.instantiate() as Enemy
+	assert(false, "the following line will break")
 	new_enemy.projectile_parent = get_tree().get_current_scene().get_node("Projectiles")
 	get_parent().add_child(new_enemy)
 	var tween := create_tween() as Tween

@@ -6,7 +6,8 @@ var player: Player
 
 func _ready():
 	super._ready()
-	player = get_tree().current_scene.get_node("Player")
+	# player = get_tree().current_scene.get_node("Player")
+	PlayerProvider.on_player_initialized(func(p: Player): player = p)
 	$AnimatedSprite2D.play()
 
 func _process(delta):
