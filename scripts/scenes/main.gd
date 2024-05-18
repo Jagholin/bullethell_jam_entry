@@ -15,6 +15,11 @@ func _ready():
 func _process(_delta):
 	pass
 
+func _unhandled_input(event):
+	if event.is_action_pressed("pause_menu"):
+		pause_menu_layer.show()
+		get_tree().paused = true
+
 ## Creates level with idx = current_level_idx and adds it as a child to this node
 func start_level():
 	var scene := level_scenes[current_level_idx]
@@ -34,10 +39,28 @@ func _on_new_game_button_pressed():
 	start_level()
 
 func _on_credits_button_pressed():
-	pass # Replace with function body.
+	# TODO: implement this
+	assert(false, "TODO: not implemented yet")
 
+# This is for the button in the main menu
 func _on_exit_button_pressed():
 	# If we are on web, quitting this way won't work
 	if Engine.get_architecture_name().contains("wasm"):
 		return
 	get_tree().quit()
+
+func finish_pause():
+	get_tree().paused = false
+	pause_menu_layer.hide()
+
+func _on_resume_button_pressed():
+	finish_pause()
+
+func _on_exit_to_menu_button_pressed():
+	finish_pause()
+	on_level_exit()
+
+# This is for the button in the pause menu
+func _on_quit_button_pressed():
+	finish_pause()
+	_on_exit_button_pressed()
