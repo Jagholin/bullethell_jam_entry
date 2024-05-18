@@ -11,11 +11,11 @@ func enter() -> void:
 	# else:
 	spawner.set_config_active_state(0, true)
 	accumulated_volley_count += 1
-	spawner.reset_modifiers()
-	spawner.modify_volley_count(accumulated_volley_count, true)
-		#spawner.active_bullet_configs[0].bullet_pattern.projectile_volleys +=1
-		#spawner.active_bullet_configs[0].bullet_pattern.projectile_volleys = clamp(spawner.active_bullet_configs[0].bullet_pattern.projectile_volleys, 1, 6)
-		#spawner.active_bullet_configs[0].bullet_pattern.angle_between_volleys = 360.0 / spawner.active_bullet_configs[0].bullet_pattern.projectile_volleys
+	accumulated_volley_count = clamp(accumulated_volley_count, 1, 6)
+	#spawner.reset_modifiers()
+	#spawner.modify_volley_count(accumulated_volley_count, true)
+	spawner.active_bullet_configs[0].bullet_pattern.projectile_volleys = accumulated_volley_count
+	spawner.active_bullet_configs[0].bullet_pattern.angle_between_volleys = 360.0 / accumulated_volley_count
 
 func exit() -> void:
 	super.exit()
