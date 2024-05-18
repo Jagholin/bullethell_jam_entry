@@ -8,7 +8,7 @@ func get_component_name() -> StringName:
 
 @export_group("Projectile spawn settings")
 #@export var bullet_pattern: BulletPatternResource
-@export var bullet_configs: Array[ProjectileSpawnerConfigResource]
+@export var bullet_configs: Array[ProjectileSpawnerConfigResource]: set = set_bullet_configs
 @export_group("")
 @export var projectile: PackedScene
 ## bullet settings used by this spawner
@@ -22,8 +22,12 @@ var interval_modifier_additive: float = 0.0
 var interval_modifier_multiplicative: float = 1.0
 var projectile_volleys_modifier_additive: int = 0
 var projectile_volleys_modifier_multiplicative: float = 1.0
+## if this isn't -1, it will use this value instead and disregard pattern settings and other projectile_volleys modifiers
+## as special case for this property, -1 means no override
+var projectile_volleys_modifier_override: int = -1
 var angle_between_volleys_modifier_additive: float = 0.0
 var angle_between_volleys_modifier_multiplicative: float = 1.0
+## 
 var angle_offset_modifier_additive: float = 0.0
 var angle_offset_modifier_multiplicative: float = 1.0
 
@@ -40,6 +44,7 @@ class SpawnPoint:
 
 class BulletConfigState:
 	# var elapsed: float = 0.0
+	var is_active: bool = true
 	var secondary_spawnpoints: Array[SpawnPoint] = []
 	var original_spawnpoint: SpawnPoint
 	func get_spawnpoint(i: int) -> SpawnPoint:
@@ -59,6 +64,26 @@ var bullet_config_states: Array[BulletConfigState] = []
 var current_player: Player
 
 #var elapsed: Array[float] = []
+
+func set_bullet_configs(newValue: Array[ProjectileSpawnerConfigResource]):
+	if bullet_configs == newValue:
+		return
+	bullet_configs = newValue
+	# rebuild active_bullet_configs and bullet_config_states
+	active_bullet_configs = bullet_configs.duplicate()
+	bullet_config_states.clear()
+	for i in bullet_configs.size():
+		var spawnPoint := SpawnPoint.new()
+		spawnPoint.pattern = bullet_configs[i].bullet_pattern
+		spawnPoint.bullet_settings = bullet_configs[i].bullet_settings
+		spawnPoint.eternal = true
+		var configState := BulletConfigState.new()
+		configState.is_active = bullet_configs[i].bullet_pattern.active
+		configState.original_spawnpoint = spawnPoint
+		bullet_config_states.append(configState)
+	# also reset the rest of the state
+	reset_modifiers()
+
 func after_ready():
 	active_bullet_configs = bullet_configs.duplicate()
 	for i in bullet_configs.size():
@@ -67,6 +92,7 @@ func after_ready():
 		spawnPoint.bullet_settings = bullet_configs[i].bullet_settings
 		spawnPoint.eternal = true
 		var configState := BulletConfigState.new()
+		configState.is_active = bullet_configs[i].bullet_pattern.active
 		configState.original_spawnpoint = spawnPoint
 		bullet_config_states.append(configState)
 
@@ -84,6 +110,7 @@ func _process(delta):
 	for c in active_bullet_configs.size():
 		process_config(c, delta)
 
+## DEPRECATED - just set bullet_configs directly or use its setter set_bullet_configs
 func override_bullet_config(new_config: ProjectileSpawnerConfigResource) -> ProjectileSpawnerConfigResource:
 	# TODO: implement for multiple bullet configs
 	assert(active_bullet_configs.size() == 1, "Not implemented for multiple bullet configs yet")
@@ -96,6 +123,9 @@ func override_bullet_config(new_config: ProjectileSpawnerConfigResource) -> Proj
 	bullet_config_states[0].original_spawnpoint.time_accumulated = 0.0
 	bullet_config_states[0].secondary_spawnpoints.clear()
 	return old_config
+
+func set_config_active_state(idx: int, ac: bool):
+	bullet_config_states[idx].is_active = ac
 
 enum SpawnProcessResult { KEEP, REMOVE }
 func process_spawnpoint(spawnPoint: SpawnPoint, configIdx: int, delta: float) -> SpawnProcessResult:
@@ -115,7 +145,8 @@ func process_spawnpoint(spawnPoint: SpawnPoint, configIdx: int, delta: float) ->
 func process_config(idx: int, delta: float):
 	# var interval := config.bullet_pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
 	var configState := bullet_config_states[idx]
-	if not active:
+
+	if not (active and configState.is_active):
 		if configState.secondary_spawnpoints.size() > 0:
 			configState.secondary_spawnpoints.clear()
 		configState.original_spawnpoint.time_elapsed = 0.0
@@ -138,6 +169,11 @@ func reset_modifiers():
 	angle_between_volleys_modifier_multiplicative = 1.0
 	angle_offset_modifier_additive = 0.0
 	angle_offset_modifier_multiplicative = 1.0
+
+## Sets projectile_volleys_modifier_override to the given value, and changes 
+func modify_volley_count(newCount: int, preserveVolleyWidth: bool = false, baseCount: int = 0):
+	#assert(false, "not implemented")
+	return
 
 func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettingsResource, timeAccumulated: float, idx: int, spawnPosition: Vector2):
 	var angleBetweenVolleys := bulletPattern.angle_between_volleys * angle_between_volleys_modifier_multiplicative + angle_between_volleys_modifier_additive

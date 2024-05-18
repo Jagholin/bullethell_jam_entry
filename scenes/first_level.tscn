@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ull2sauw6bxf" path="res://scenes/entities/miniboss.tscn" id="7_dfl0w"]
 [ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://scenes/entities/power_up.tscn" id="8_sggkn"]
 [ext_resource type="Script" path="res://scripts/resources/item_settings_resource.gd" id="9_dd6pp"]
-[ext_resource type="PackedScene" uid="uid://2r8g7fkk3vo8" path="res://scenes/entities/miniboss2.tscn" id="12_yavi5"]
+[ext_resource type="PackedScene" uid="uid://cuepxc2flowxp" path="res://scenes/entities/miniboss2.tscn" id="12_yavi5"]
 
 [sub_resource type="Resource" id="Resource_a2yh3"]
 script = ExtResource("9_dd6pp")

@@ -24,6 +24,8 @@ extends Resource
 @export var randomized_angle_spread: float = 0.0
 ## If the initial velocity should be randomized, and the extent of the randomization
 @export var randomized_velocity_spread: float = 0.0
+## If the pattern is initially active
+@export var active: bool = true
 
 enum EmitionType { PROJECTILE, SPAWNPOINT }
 ## Primary emition type

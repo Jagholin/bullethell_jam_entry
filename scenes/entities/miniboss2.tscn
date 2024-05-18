@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://2r8g7fkk3vo8"]
+[gd_scene load_steps=25 format=3 uid="uid://cuepxc2flowxp"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_eaik2"]
 [ext_resource type="Texture2D" uid="uid://qm5i5uanqw76" path="res://assets/ShmupSprites/Alien06.png" id="2_n26fy"]
@@ -74,7 +74,7 @@ radius = 38.0
 [sub_resource type="Resource" id="Resource_3m3ub"]
 script = ExtResource("7_8syep")
 interval = 0.02
-projectile_volleys = 0
+projectile_volleys = 1
 angle_between_volleys = 180.0
 angle_offset = 0.0
 projectile_volley_offset = Vector2(0, 0)
@@ -84,6 +84,7 @@ initial_direction = Vector2(0, 1)
 shoot_at_player_tendency = 0.0
 randomized_angle_spread = 0.0
 randomized_velocity_spread = 0.0
+active = false
 emition_type = 0
 spawnpoint_lifetime = 5.0
 spawner_moving = false
@@ -126,7 +127,6 @@ debug = true
 
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("15_5d1vk")
-introduction_delay = 2.0
 
 [node name="StateBossRotateSpawnerPattern" type="Node" parent="Stateful"]
 script = ExtResource("16_0jhv2")
