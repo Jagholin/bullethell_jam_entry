@@ -25,7 +25,7 @@ func get_component(component_name: StringName) -> BaseComponent:
 #endregion
 
 @export var SPEED: float = 100000.0
-@export var ACCELERATION: float = 1000.0
+@export var ACCELERATION: float = 10000.0
 @export var BOUNCE_ABSORTION: float = 0.5
 @export var IMPACT_ENERGY: float = 10
 
