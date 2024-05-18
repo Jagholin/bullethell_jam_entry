@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var main_menu_layer: CanvasLayer = $MainMenuLayer
 @onready var pause_menu_layer: CanvasLayer = $PauseMenuLayer
+@onready var credits_layer: CanvasLayer = $CreditsLayer
 
 @export var level_scenes: Array[PackedScene]
 
@@ -11,6 +12,7 @@ var current_level_idx: int
 func _ready():
 	main_menu_layer.show()
 	pause_menu_layer.hide()
+	credits_layer.hide()
 
 func _process(_delta):
 	pass
@@ -40,7 +42,8 @@ func _on_new_game_button_pressed():
 
 func _on_credits_button_pressed():
 	# TODO: implement this
-	assert(false, "TODO: not implemented yet")
+	main_menu_layer.hide()
+	credits_layer.show()
 
 # This is for the button in the main menu
 func _on_exit_button_pressed():
@@ -64,3 +67,8 @@ func _on_exit_to_menu_button_pressed():
 func _on_quit_button_pressed():
 	finish_pause()
 	_on_exit_button_pressed()
+
+
+func _on_credits_back_button_pressed():
+	credits_layer.hide()
+	main_menu_layer.show()
