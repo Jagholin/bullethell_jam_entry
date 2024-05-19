@@ -8,7 +8,13 @@ func get_component_name() -> StringName:
 
 @onready var progress_bar = $ProgressBar
 
-@export var health = 10
+@export var health = 10:
+	set(new_value):
+		if new_value == health:
+			return
+		health = new_value
+		if progress_bar:
+			progress_bar.value = health
 @export var max_health = 10
 @export var immune = false:
 	set(new_value):

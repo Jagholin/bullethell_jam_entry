@@ -39,7 +39,6 @@ region_rect = Rect2(0, 256, 256, 256)
 shape = SubResource("CapsuleShape2D_35rgc")
 
 [node name="DamageableComponent" parent="." instance=ExtResource("3_i47pl")]
-immune = true
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("4_t8dnc")]
 position = Vector2(0, -27)
