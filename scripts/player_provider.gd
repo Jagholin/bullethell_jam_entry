@@ -5,9 +5,13 @@ var player: Player:
 		if player == newValue:
 			return
 		player = newValue
-		player_changed.emit(player)
+		if not player:
+			player_destroyed.emit()
+		else:
+			player_changed.emit(player)
 
 signal player_changed(player: Player)
+signal player_destroyed
 
 func on_player_initialized(cb: Callable):
 	if not player:

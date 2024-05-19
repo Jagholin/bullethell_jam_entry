@@ -4,13 +4,19 @@ class_name StateBossMirror
 var mirror_spawner_setting: ProjectileSpawnerConfigResource = preload("res://resources/bullet_configs/miniboss_mirror.tres")
 var previous_spawner_setting: ProjectileSpawnerConfigResource
 
+var player: Player
+
+func _ready():
+	PlayerProvider.on_player_initialized(func(p: Player): player = p)
+
 func process_frame(delta: float) -> String:
 	super.process_frame(delta)
 	
 	if elapsed>3:
 		return "StateBossRandomize"
 		
-	var player := get_tree().current_scene.get_node("Player") as Player
+	# var player := get_tree().current_scene.get_node("Player") as Player
+	assert(player, "if this assert fails, you can just add if not player: return line or something")
 	if player.global_position < target.global_position:
 		target.position += Vector2.LEFT * 70 * delta
 	else:

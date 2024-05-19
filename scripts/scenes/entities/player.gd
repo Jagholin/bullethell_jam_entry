@@ -34,6 +34,10 @@ var attached_npcs: Array[RigidBody2D] = []
 
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 
+func _exit_tree():
+	# we are exiting the tree, so deregister from the provider
+	PlayerProvider.set_player(null)
+
 func _ready():
 	spawner.projectiles_parent = projectile_parent
 	self.set_motion_mode(CharacterBody2D.MOTION_MODE_FLOATING)
