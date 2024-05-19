@@ -16,8 +16,19 @@ var current_state: State = null
 var state_to_state_map = {}
 var state_list = []
 
+var first_state: String = ""
+
 func _ready():
 	#super._ready()
+	for child in get_children():
+		if child is Label:
+			continue
+		child.target = target
+		state_list.append(child)
+		state_to_state_map[child.name] = child
+		if not first_state:
+			# Initialize to the first child state
+			first_state = child.name
 	LevelProvider.on_level_initialized(func(level: BaseLevel):
 		current_level = level
 		level.level_phase_changed.connect(on_level_phase_changed))
@@ -31,15 +42,8 @@ func on_level_phase_changed():
 # Initialize the state machine by giving each child state a reference to the
 func init():
 	print("initializing state machine")
-	for child in get_children():
-		if child is Label:
-			continue
-		child.target = target
-		state_list.append(child)
-		state_to_state_map[child.name] = child
-		if not current_state:
-			# Initialize to the first child state
-			change_state(child.name)
+	if not current_state:
+		change_state(first_state)
 
 # Change to the new state by first calling any exit logic on the current state.
 func change_state(new_state: String) -> void:

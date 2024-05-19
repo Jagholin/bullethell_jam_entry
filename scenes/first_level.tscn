@@ -207,6 +207,7 @@ retreat_path = NodePath("../RetreatPathRight")
 retreat_phase = "Boss"
 
 [node name="MiniBoss2" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("12_yavi5")]
+visible = false
 position = Vector2(536, -260)
 retreat_path = NodePath("../RetreatPathLeft")
 retreat_phase = "Boss"

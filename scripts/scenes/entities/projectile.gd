@@ -26,6 +26,8 @@ func get_component(component_name: StringName) -> BaseComponent:
 
 var direction: Vector2
 var velocity: float
+var lifetime: float = -1.0
+var accumulated_time: float = 0
 
 func _ready():
 	area_entered.connect(damage)
@@ -50,8 +52,8 @@ func damage(body):
 	elif GrazeComponent.COMPONENT_NAME in body.components:
 		Global.grazes_count += 1
 
-func destroy():
-	if ExplosiveComponent.COMPONENT_NAME in components:
+func destroy(exploding: bool = true):
+	if exploding and ExplosiveComponent.COMPONENT_NAME in components:
 		components[ExplosiveComponent.COMPONENT_NAME].explode()
 	Global.projectile_count -= 1
 	queue_free()
@@ -59,4 +61,8 @@ func destroy():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	accumulated_time += delta
+	if lifetime > 0 and accumulated_time > lifetime:
+		destroy(false)
+		return
 	position += direction * velocity * 60 * delta 

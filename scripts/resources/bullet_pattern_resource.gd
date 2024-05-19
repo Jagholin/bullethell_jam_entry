@@ -26,6 +26,8 @@ extends Resource
 @export var randomized_velocity_spread: float = 0.0
 ## If the pattern is initially active
 @export var active: bool = true
+## lifetime of the bullets, in seconds. Negative values means infinite lifetime
+@export var bullet_lifetime: float = -1.0
 
 enum EmitionType { PROJECTILE, SPAWNPOINT }
 ## Primary emition type
