@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f3p2geg3yplg"
-path="res://.godot/imported/sheet1.png-c6abef8c22a6bc42c97b5fbcdab4f97e.ctex"
+uid="uid://c6pf8bsliieac"
+path="res://.godot/imported/boss1.png-342a44ab183e2516da3fdcecde6154ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ShmupSprites/sheet1.png"
-dest_files=["res://.godot/imported/sheet1.png-c6abef8c22a6bc42c97b5fbcdab4f97e.ctex"]
+source_file="res://assets/boss1.png"
+dest_files=["res://.godot/imported/boss1.png-342a44ab183e2516da3fdcecde6154ec.ctex"]
 
 [params]
 

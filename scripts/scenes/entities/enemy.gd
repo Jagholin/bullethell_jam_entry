@@ -22,6 +22,10 @@ func get_component(component_name: StringName) -> BaseComponent:
 		# spawner is ProjectileSpawnerComponent or something with similar interface
 		if spawner:
 			spawner.projectiles_parent = projectile_parent
+		for child in get_children():
+			if child is Enemy:
+				child.projectile_parent = projectile_parent
+
 #endregion
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 @onready var state_machine: StatefulComponent = $Stateful
@@ -33,8 +37,9 @@ func _ready():
 		spawner.bullet_configs = projectile_configs
 	spawner.projectiles_parent = projectile_parent
 	var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
-	notifier.screen_entered.connect(state_machine.init)
-	notifier.screen_exited.connect(queue_free)
+	if notifier != null:
+		notifier.screen_entered.connect(state_machine.init)
+		notifier.screen_exited.connect(queue_free)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

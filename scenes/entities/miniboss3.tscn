@@ -1,0 +1,266 @@
+[gd_scene load_steps=33 format=3 uid="uid://do7ihjf0x2she"]
+
+[ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_7haf1"]
+[ext_resource type="Texture2D" uid="uid://c6pf8bsliieac" path="res://assets/boss1.png" id="2_nf4b8"]
+[ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="3_c20os"]
+[ext_resource type="Script" path="res://scripts/resources/bullet_settings_resource.gd" id="5_lex2b"]
+[ext_resource type="PackedScene" uid="uid://dphjfl425sily" path="res://scenes/entity_components/projectile_spawner.tscn" id="6_17ca1"]
+[ext_resource type="Script" path="res://scripts/resources/bullet_pattern_resource.gd" id="7_psqjl"]
+[ext_resource type="Resource" uid="uid://gqr2cj4ovsbd" path="res://resources/bullet_settings/enemy_bullet.tres" id="8_61sk1"]
+[ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="9_clqvp"]
+[ext_resource type="PackedScene" uid="uid://cjsqmd01861rl" path="res://scenes/entities/projectile.tscn" id="10_cvfhv"]
+[ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="11_5bthj"]
+[ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="12_cxchx"]
+[ext_resource type="PackedScene" uid="uid://btpugkdb074eb" path="res://scenes/entities/explosion_entity.tscn" id="13_4k6nb"]
+[ext_resource type="Script" path="res://scripts/components/state_boss_awake_siblings.gd" id="13_epbpf"]
+[ext_resource type="Script" path="res://scripts/states/state.gd" id="14_ndjnq"]
+[ext_resource type="PackedScene" uid="uid://djyq3oe2rqnjb" path="res://scenes/entity_components/stateful.tscn" id="14_p0rno"]
+[ext_resource type="Script" path="res://scripts/states/state_enemy_disabled.gd" id="15_rhmr3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u74yw"]
+atlas = ExtResource("2_nf4b8")
+region = Rect2(0, 0, 1024, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2lmp"]
+atlas = ExtResource("2_nf4b8")
+region = Rect2(0, 512, 1024, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3raqq"]
+atlas = ExtResource("2_nf4b8")
+region = Rect2(0, 1024, 1024, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yueff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u74yw")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2lmp")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3raqq")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yucrm"]
+radius = 69.7209
+
+[sub_resource type="Resource" id="Resource_tuw0d"]
+script = ExtResource("7_psqjl")
+interval = 0.02
+projectile_volleys = 3
+angle_between_volleys = 45.0
+angle_offset = 0.0
+projectile_volley_offset = Vector2(0, 0)
+volley_rotation_speed = 0.0
+initial_velocity = 5.0
+initial_direction = Vector2(0, 1)
+shoot_at_player_tendency = 0.0
+randomized_angle_spread = 0.0
+randomized_velocity_spread = 0.0
+active = true
+emition_type = 0
+spawnpoint_lifetime = 5.0
+spawner_moving = false
+movement_range = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8ikc"]
+atlas = ExtResource("3_c20os")
+region = Rect2(0, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1e58"]
+atlas = ExtResource("3_c20os")
+region = Rect2(128, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_neol3"]
+atlas = ExtResource("3_c20os")
+region = Rect2(256, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yod1"]
+atlas = ExtResource("3_c20os")
+region = Rect2(384, 640, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cfu6y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8ikc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1e58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_neol3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yod1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_1sljh"]
+script = ExtResource("5_lex2b")
+bullet_type = 0
+sprite_frames = SubResource("SpriteFrames_cfu6y")
+
+[sub_resource type="Resource" id="Resource_pn348"]
+script = ExtResource("9_clqvp")
+bullet_pattern = SubResource("Resource_tuw0d")
+bullet_settings = SubResource("Resource_1sljh")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m0oji"]
+radius = 52.2398
+
+[sub_resource type="Resource" id="Resource_3m3ub"]
+script = ExtResource("7_psqjl")
+interval = 0.02
+projectile_volleys = 3
+angle_between_volleys = 180.0
+angle_offset = 0.0
+projectile_volley_offset = Vector2(0, 0)
+volley_rotation_speed = 180.0
+initial_velocity = 5.0
+initial_direction = Vector2(0, 1)
+shoot_at_player_tendency = 0.0
+randomized_angle_spread = 0.0
+randomized_velocity_spread = 0.0
+active = true
+emition_type = 0
+spawnpoint_lifetime = 5.0
+spawner_moving = false
+movement_range = 0.0
+
+[sub_resource type="Resource" id="Resource_on5r7"]
+script = ExtResource("9_clqvp")
+bullet_pattern = SubResource("Resource_3m3ub")
+bullet_settings = ExtResource("8_61sk1")
+
+[node name="MiniBoss3" type="Area2D"]
+position = Vector2(472, 216)
+collision_layer = 2
+monitoring = false
+script = ExtResource("1_7haf1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_yueff")
+animation = &"center"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yucrm")
+
+[node name="ProjectileSpawner" parent="." instance=ExtResource("6_17ca1")]
+position = Vector2(0, 60)
+bullet_configs = Array[ExtResource("9_clqvp")]([SubResource("Resource_pn348")])
+projectile = ExtResource("10_cvfhv")
+active = false
+
+[node name="Damageable" parent="." instance=ExtResource("11_5bthj")]
+health = 1000
+max_health = 1000
+immune = true
+
+[node name="Explosive" parent="." instance=ExtResource("12_cxchx")]
+explosion = ExtResource("13_4k6nb")
+
+[node name="Stateful" parent="." instance=ExtResource("14_p0rno")]
+debug = true
+
+[node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
+script = ExtResource("15_rhmr3")
+introduction_delay = 2.0
+block_scrolling = true
+
+[node name="StateBossAwakeSiblings" type="Node" parent="Stateful" node_paths=PackedStringArray("siblings")]
+script = ExtResource("13_epbpf")
+siblings = [NodePath("../../Left"), NodePath("../../Right")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.14441e-05, -1.19209e-05)
+scale = Vector2(2.4, 2.4)
+
+[node name="Left" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("1_7haf1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Left"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_yueff")
+animation = &"left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(-125, 3)
+shape = SubResource("CircleShape2D_m0oji")
+
+[node name="ProjectileSpawner" parent="Left" instance=ExtResource("6_17ca1")]
+position = Vector2(-114, 50)
+bullet_configs = Array[ExtResource("9_clqvp")]([SubResource("Resource_on5r7")])
+projectile = ExtResource("10_cvfhv")
+active = false
+
+[node name="Damageable" parent="Left" instance=ExtResource("11_5bthj")]
+position = Vector2(-131, -43)
+health = 1000
+max_health = 1000
+immune = true
+
+[node name="Explosive" parent="Left" instance=ExtResource("12_cxchx")]
+position = Vector2(-94, -17)
+explosion = ExtResource("13_4k6nb")
+
+[node name="Stateful" parent="Left" instance=ExtResource("14_p0rno")]
+debug = true
+
+[node name="Default" type="Node" parent="Left/Stateful"]
+script = ExtResource("14_ndjnq")
+
+[node name="Right" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("1_7haf1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Right"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_yueff")
+animation = &"right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(124, 5)
+shape = SubResource("CircleShape2D_m0oji")
+
+[node name="ProjectileSpawner" parent="Right" instance=ExtResource("6_17ca1")]
+position = Vector2(114, 51)
+bullet_configs = Array[ExtResource("9_clqvp")]([SubResource("Resource_on5r7")])
+projectile = ExtResource("10_cvfhv")
+active = false
+
+[node name="Damageable" parent="Right" instance=ExtResource("11_5bthj")]
+position = Vector2(128, -40)
+health = 1000
+max_health = 1000
+immune = true
+
+[node name="Explosive" parent="Right" instance=ExtResource("12_cxchx")]
+position = Vector2(91, -20)
+explosion = ExtResource("13_4k6nb")
+
+[node name="Stateful" parent="Right" instance=ExtResource("14_p0rno")]
+debug = true
+
+[node name="Default" type="Node" parent="Right/Stateful"]
+script = ExtResource("14_ndjnq")
