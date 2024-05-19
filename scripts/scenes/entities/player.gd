@@ -73,6 +73,17 @@ func _physics_process(delta):
 
 	if user_controlled:
 		move_and_collide(level_velocity * delta)
+	
+	# kill player if they fall off the screen
+	var camera := current_level.camera
+	var screenCenter := camera.get_screen_center_position()
+	var viewportRect := get_viewport_rect().grow(30)
+	var screenRect := Rect2(screenCenter - viewportRect.size / 2, viewportRect.size)
+	var screenPosition := global_position
+	print("my position: ", screenPosition, "viewport rect: ", screenRect)
+	if not screenRect.has_point(screenPosition):
+		destroy()
+
 
 func attach_npc(npc: RigidBody2D):
 	#var newSpring := DampedSpringJoint2D.new()
