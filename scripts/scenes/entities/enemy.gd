@@ -29,17 +29,23 @@ func get_component(component_name: StringName) -> BaseComponent:
 #endregion
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 @onready var state_machine: StatefulComponent = $Stateful
+@onready var notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @export var projectile_configs: Array[ProjectileSpawnerConfigResource]
+@export var path: Path2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if projectile_configs:
 		spawner.bullet_configs = projectile_configs
 	spawner.projectiles_parent = projectile_parent
-	var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
+	# var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
 	if notifier != null:
 		notifier.screen_entered.connect(state_machine.init)
 		notifier.screen_exited.connect(queue_free)
+	if path:
+		var positionProvider := get_component(PathPositionProviderComponent.COMPONENT_NAME) as PathPositionProviderComponent
+		assert(positionProvider, "Setting path without PathPositionProviderComponent won't work")
+		positionProvider.path = path.curve
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
