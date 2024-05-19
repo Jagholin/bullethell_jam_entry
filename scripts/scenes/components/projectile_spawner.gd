@@ -8,7 +8,7 @@ func get_component_name() -> StringName:
 
 @export_group("Projectile spawn settings")
 #@export var bullet_pattern: BulletPatternResource
-@export var bullet_configs: Array[ProjectileSpawnerConfigResource]
+@export var bullet_configs: Array[ProjectileSpawnerConfigResource]: set = set_bullet_configs
 @export_group("")
 @export var projectile: PackedScene
 ## bullet settings used by this spawner
@@ -18,14 +18,18 @@ func get_component_name() -> StringName:
 var active_bullet_configs: Array[ProjectileSpawnerConfigResource]
 
 ## Modifiers for the bullet_pattern settings
-var interval_modifier_additive: float = 0.0
-var interval_modifier_multiplicative: float = 1.0
-var projectile_volleys_modifier_additive: int = 0
-var projectile_volleys_modifier_multiplicative: float = 1.0
-var angle_between_volleys_modifier_additive: float = 0.0
-var angle_between_volleys_modifier_multiplicative: float = 1.0
-var angle_offset_modifier_additive: float = 0.0
-var angle_offset_modifier_multiplicative: float = 1.0
+# var interval_modifier_additive: float = 0.0
+# var interval_modifier_multiplicative: float = 1.0
+# var projectile_volleys_modifier_additive: int = 0
+# var projectile_volleys_modifier_multiplicative: float = 1.0
+# ## if this isn't -1, it will use this value instead and disregard pattern settings and other projectile_volleys modifiers
+# ## as special case for this property, -1 means no override
+# var projectile_volleys_modifier_override: int = -1
+# var angle_between_volleys_modifier_additive: float = 0.0
+# var angle_between_volleys_modifier_multiplicative: float = 1.0
+# ## 
+# var angle_offset_modifier_additive: float = 0.0
+# var angle_offset_modifier_multiplicative: float = 1.0
 
 ## Secondary spawn points to spawn chained projectiles
 class SpawnPoint:
@@ -40,6 +44,7 @@ class SpawnPoint:
 
 class BulletConfigState:
 	# var elapsed: float = 0.0
+	var is_active: bool = true
 	var secondary_spawnpoints: Array[SpawnPoint] = []
 	var original_spawnpoint: SpawnPoint
 	func get_spawnpoint(i: int) -> SpawnPoint:
@@ -59,23 +64,36 @@ var bullet_config_states: Array[BulletConfigState] = []
 var current_player: Player
 
 #var elapsed: Array[float] = []
-func after_ready():
+
+func set_bullet_configs(newValue: Array[ProjectileSpawnerConfigResource]):
+	if bullet_configs == newValue:
+		return
+	#print("setting bullet configs on target ", target.get_path())
+	bullet_configs = newValue
+	# rebuild active_bullet_configs and bullet_config_states
 	active_bullet_configs = bullet_configs.duplicate()
-	for i in bullet_configs.size():
+	# also make deep copies of the bullet configs
+	for i in active_bullet_configs.size():
+		active_bullet_configs[i] = active_bullet_configs[i].duplicate(true)
+
+	bullet_config_states.clear()
+	for i in active_bullet_configs.size():
 		var spawnPoint := SpawnPoint.new()
-		spawnPoint.pattern = bullet_configs[i].bullet_pattern
-		spawnPoint.bullet_settings = bullet_configs[i].bullet_settings
+		spawnPoint.pattern = active_bullet_configs[i].bullet_pattern
+		spawnPoint.bullet_settings = active_bullet_configs[i].bullet_settings
 		spawnPoint.eternal = true
 		var configState := BulletConfigState.new()
+		configState.is_active = active_bullet_configs[i].bullet_pattern.active
 		configState.original_spawnpoint = spawnPoint
 		bullet_config_states.append(configState)
+	# also reset the rest of the state
+	# reset_modifiers()
 
 func init_current_player():
 	PlayerProvider.on_player_initialized(func( p: Player ): current_player = p)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	call_deferred("after_ready")
 	init_current_player()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -84,6 +102,7 @@ func _process(delta):
 	for c in active_bullet_configs.size():
 		process_config(c, delta)
 
+## DEPRECATED - just set bullet_configs directly or use its setter set_bullet_configs
 func override_bullet_config(new_config: ProjectileSpawnerConfigResource) -> ProjectileSpawnerConfigResource:
 	# TODO: implement for multiple bullet configs
 	assert(active_bullet_configs.size() == 1, "Not implemented for multiple bullet configs yet")
@@ -97,9 +116,13 @@ func override_bullet_config(new_config: ProjectileSpawnerConfigResource) -> Proj
 	bullet_config_states[0].secondary_spawnpoints.clear()
 	return old_config
 
+func set_config_active_state(idx: int, ac: bool):
+	bullet_config_states[idx].is_active = ac
+
 enum SpawnProcessResult { KEEP, REMOVE }
 func process_spawnpoint(spawnPoint: SpawnPoint, configIdx: int, delta: float) -> SpawnProcessResult:
-	var interval := spawnPoint.pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
+	#var interval := spawnPoint.pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
+	var interval := spawnPoint.pattern.interval
 	# if the primary emition type is spawnpoints, ignore interval modifiers
 	if spawnPoint.pattern.emition_type == BulletPatternResource.EmitionType.SPAWNPOINT:
 		interval = spawnPoint.pattern.interval
@@ -115,7 +138,8 @@ func process_spawnpoint(spawnPoint: SpawnPoint, configIdx: int, delta: float) ->
 func process_config(idx: int, delta: float):
 	# var interval := config.bullet_pattern.interval * interval_modifier_multiplicative + interval_modifier_additive
 	var configState := bullet_config_states[idx]
-	if not active:
+
+	if not (active and configState.is_active):
 		if configState.secondary_spawnpoints.size() > 0:
 			configState.secondary_spawnpoints.clear()
 		configState.original_spawnpoint.time_elapsed = 0.0
@@ -129,20 +153,24 @@ func process_config(idx: int, delta: float):
 	if clearSpawnArray:
 		configState.secondary_spawnpoints = configState.secondary_spawnpoints.filter(func(sp: SpawnPoint) -> bool: return sp.lifetime > 0)
 
-func reset_modifiers():
-	interval_modifier_additive = 0.0
-	interval_modifier_multiplicative = 1.0
-	projectile_volleys_modifier_additive = 0
-	projectile_volleys_modifier_multiplicative = 1.0
-	angle_between_volleys_modifier_additive = 0.0
-	angle_between_volleys_modifier_multiplicative = 1.0
-	angle_offset_modifier_additive = 0.0
-	angle_offset_modifier_multiplicative = 1.0
+# func reset_modifiers():
+# 	interval_modifier_additive = 0.0
+# 	interval_modifier_multiplicative = 1.0
+# 	projectile_volleys_modifier_additive = 0
+# 	projectile_volleys_modifier_multiplicative = 1.0
+# 	angle_between_volleys_modifier_additive = 0.0
+# 	angle_between_volleys_modifier_multiplicative = 1.0
+# 	angle_offset_modifier_additive = 0.0
+# 	angle_offset_modifier_multiplicative = 1.0
 
 func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettingsResource, timeAccumulated: float, idx: int, spawnPosition: Vector2):
-	var angleBetweenVolleys := bulletPattern.angle_between_volleys * angle_between_volleys_modifier_multiplicative + angle_between_volleys_modifier_additive
-	var angleOffset := bulletPattern.angle_offset * angle_offset_modifier_multiplicative + angle_offset_modifier_additive + bulletPattern.volley_rotation_speed * timeAccumulated
-	var projectileVolleys := floori(bulletPattern.projectile_volleys * projectile_volleys_modifier_multiplicative) + projectile_volleys_modifier_additive
+	#var angleBetweenVolleys := bulletPattern.angle_between_volleys * angle_between_volleys_modifier_multiplicative + angle_between_volleys_modifier_additive
+	#var angleOffset := bulletPattern.angle_offset * angle_offset_modifier_multiplicative + angle_offset_modifier_additive + bulletPattern.volley_rotation_speed * timeAccumulated
+	#var projectileVolleys := floori(bulletPattern.projectile_volleys * projectile_volleys_modifier_multiplicative) + projectile_volleys_modifier_additive
+
+	var angleBetweenVolleys := bulletPattern.angle_between_volleys
+	var angleOffset := bulletPattern.angle_offset + bulletPattern.volley_rotation_speed * timeAccumulated
+	var projectileVolleys := bulletPattern.projectile_volleys
 
 	if not is_equal_approx(bulletPattern.shoot_at_player_tendency, 0.0):
 		var playerDirection := (current_player.global_position - global_position - spawnPosition).normalized()

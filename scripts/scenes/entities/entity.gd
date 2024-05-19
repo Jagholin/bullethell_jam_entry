@@ -41,8 +41,8 @@ func _physics_process(_delta):
 		# maybe use different law here?
 		var springForce := (dirToPlayer - idealDir) * spring_coeff
 		var dampingForce := linear_velocity * -damping_coeff
-		print("damping force strength: ", dampingForce.length())
-		print("spring force strength: ", springForce.length())
+		#print("damping force strength: ", dampingForce.length())
+		#print("spring force strength: ", springForce.length())
 		#apply_central_force(springForce)
 		# alternative law: only apply spring force if it's attractive
 		if dirToPlayer.length() > spring_distance:

@@ -98,8 +98,8 @@ projectile = ExtResource("4_rs1sk")
 active = false
 
 [node name="Damageable" parent="." instance=ExtResource("6_3prdy")]
-health = 100
-max_health = 100
+health = 20
+max_health = 20
 immune = true
 
 [node name="Explosive" parent="." instance=ExtResource("7_5jjfr")]
