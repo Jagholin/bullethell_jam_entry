@@ -128,6 +128,7 @@ debug = true
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("15_5d1vk")
 introduction_delay = 2.0
+level_phase = "Midboss"
 
 [node name="StateBossRotateSpawnerPattern" type="Node" parent="Stateful"]
 script = ExtResource("16_0jhv2")

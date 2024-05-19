@@ -112,6 +112,7 @@ debug = true
 
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("13_f85o6")
+level_phase = "Midboss"
 
 [node name="StateBossRandomize" type="Node" parent="Stateful"]
 script = ExtResource("14_42i3w")

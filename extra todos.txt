@@ -3,7 +3,7 @@
 [x] implement player death/respawn
 [x] limit movement to the viewport - death on getting outside
 [x] implement HUD, add death counter to UI
-- level phases
+[x] level phases
 - enemies following curve path
 - trigger when camera reaching some predetermined position
 - bosses/enemies scatter away on changing level phases

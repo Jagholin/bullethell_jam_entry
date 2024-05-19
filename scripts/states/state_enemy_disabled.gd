@@ -3,6 +3,7 @@ class_name StateEnemyDisabled
 
 @export var introduction_delay = 1.0
 @export var block_scrolling = false
+@export_enum("BeforeMidboss", "Midboss", "Boss") var level_phase: String = "BeforeMidboss"
 
 var current_level: BaseLevel
 
@@ -13,7 +14,9 @@ func _ready():
 func get_animation_name() -> String:
 	return "introduction"
 
-
+func enter() -> void:
+	super.enter()
+	current_level.current_phase = level_phase
 
 func process_frame(delta: float) -> String:
 	super.process_frame(delta)

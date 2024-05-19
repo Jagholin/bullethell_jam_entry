@@ -186,6 +186,7 @@ debug = true
 script = ExtResource("15_rhmr3")
 introduction_delay = 2.0
 block_scrolling = true
+level_phase = "Boss"
 
 [node name="StateBossAwakeSiblings" type="Node" parent="Stateful" node_paths=PackedStringArray("siblings")]
 script = ExtResource("13_epbpf")
