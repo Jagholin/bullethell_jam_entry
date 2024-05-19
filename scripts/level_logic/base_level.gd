@@ -8,6 +8,9 @@ extends Node2D
 ## how many pixels the level should move per second
 @export var level_scroll_speed: float = 70
 
+func _exit_tree():
+	LevelProvider.set_level(null)
+
 func _ready():
 	if camera:
 		camera.position = get_viewport_rect().size / 2
@@ -19,6 +22,7 @@ func _ready():
 		for child in get_children():
 			if child is Enemy:
 				child.projectile_parent = projectile_parent
+	LevelProvider.set_level(self)
 
 func _physics_process(delta):
 	if camera:
@@ -27,4 +31,3 @@ func _physics_process(delta):
 func _process(_delta):
 	var currentFps := Performance.get_monitor(Performance.TIME_FPS)
 	DisplayServer.window_set_title("fps: " + str(currentFps))
-

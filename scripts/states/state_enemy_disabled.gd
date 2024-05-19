@@ -4,6 +4,12 @@ class_name StateEnemyDisabled
 @export var introduction_delay = 1.0
 @export var block_scrolling = false
 
+var current_level: BaseLevel
+
+func _ready():
+	#super._ready()
+	LevelProvider.on_level_initialized(func(level: BaseLevel): current_level = level)
+
 func get_animation_name() -> String:
 	return "introduction"
 
@@ -24,4 +30,5 @@ func exit() -> void:
 	spawner.active = true
 	
 	if block_scrolling:
-		get_tree().current_scene.level_scroll_speed = 0
+		#get_tree().current_scene.level_scroll_speed = 0
+		current_level.level_scroll_speed = 0

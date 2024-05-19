@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://scripts/global.gd"
 PlayerProvider="*res://scripts/player_provider.gd"
+LevelProvider="*res://scripts/level_provider.gd"
 
 [display]
 

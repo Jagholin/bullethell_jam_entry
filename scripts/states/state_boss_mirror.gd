@@ -7,6 +7,7 @@ var previous_spawner_setting: ProjectileSpawnerConfigResource
 var player: Player
 
 func _ready():
+	super._ready()
 	PlayerProvider.on_player_initialized(func(p: Player): player = p)
 
 func process_frame(delta: float) -> String:
