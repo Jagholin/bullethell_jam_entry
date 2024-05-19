@@ -6,7 +6,15 @@ const COMPONENT_NAME := &"PathPositionProviderComponent"
 func get_component_name() -> StringName:
 	return COMPONENT_NAME
 
-@export var path: Curve2D
+@export var path: Curve2D:
+	set(value):
+		if value == path:
+			return
+		path = value
+		accumulated_time = 0.0
+		accumulated_distance = 0.0
+		previous_reading = Vector2.ZERO
+		first_run = true
 @export var velocity: float = 100.0
 
 var accumulated_time: float = 0.0

@@ -109,8 +109,9 @@ explosion = ExtResource("8_dpug2")
 [node name="PathPositionProviderComponent" type="Node2D" parent="."]
 script = ExtResource("14_rpxvl")
 
-[node name="Stateful" parent="." instance=ExtResource("11_07okh")]
+[node name="Stateful" parent="." node_paths=PackedStringArray("retreat_state") instance=ExtResource("11_07okh")]
 debug = true
+retreat_state = NodePath("StateRetreat")
 
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("13_dc18v")
@@ -124,6 +125,11 @@ position_provider = NodePath("../../PathPositionProviderComponent")
 
 [node name="StateEnemyAngry" type="Node" parent="Stateful"]
 script = ExtResource("16_08pq7")
+
+[node name="StateRetreat" type="Node" parent="Stateful" node_paths=PackedStringArray("position_provider")]
+script = ExtResource("15_fmcso")
+position_provider = NodePath("../../PathPositionProviderComponent")
+duration = -1.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1.14441e-05, -1.19209e-05)

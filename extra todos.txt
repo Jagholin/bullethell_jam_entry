@@ -6,7 +6,7 @@
 [x] level phases
 [x] enemies following curve path
 [didnt happen] trigger when camera reaching some predetermined position
-- bosses/enemies scatter away on changing level phases
+[x] bosses/enemies scatter away on changing level phases
 
 extra:
 - bullets with lifetime

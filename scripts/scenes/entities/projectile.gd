@@ -9,7 +9,9 @@ func register_component(component: BaseComponent):
 	components[component.get_component_name()] = component
 
 func get_component(component_name: StringName) -> BaseComponent:
-	return components[component_name]
+	if components.has(component_name):
+		return components[component_name]
+	return null
 #endregion
 
 @export var bullet_sprite: SpriteFrames:
