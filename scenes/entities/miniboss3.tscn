@@ -61,9 +61,9 @@ radius = 69.7209
 
 [sub_resource type="Resource" id="Resource_tuw0d"]
 script = ExtResource("7_psqjl")
-interval = 0.02
+interval = 0.2
 projectile_volleys = 3
-angle_between_volleys = 45.0
+angle_between_volleys = 15.0
 angle_offset = 0.0
 projectile_volley_offset = Vector2(0, 0)
 volley_rotation_speed = 0.0
@@ -130,12 +130,12 @@ radius = 52.2398
 
 [sub_resource type="Resource" id="Resource_3m3ub"]
 script = ExtResource("7_psqjl")
-interval = 0.02
-projectile_volleys = 3
+interval = 0.1
+projectile_volleys = 2
 angle_between_volleys = 180.0
 angle_offset = 0.0
 projectile_volley_offset = Vector2(0, 0)
-volley_rotation_speed = 180.0
+volley_rotation_speed = -180.0
 initial_velocity = 5.0
 initial_direction = Vector2(0, 1)
 shoot_at_player_tendency = 0.0
@@ -174,8 +174,8 @@ projectile = ExtResource("10_cvfhv")
 active = false
 
 [node name="Damageable" parent="." instance=ExtResource("11_5bthj")]
-health = 1000
-max_health = 1000
+health = 100
+max_health = 100
 immune = true
 
 [node name="Explosive" parent="." instance=ExtResource("12_cxchx")]
@@ -219,8 +219,8 @@ active = false
 
 [node name="Damageable" parent="Left" instance=ExtResource("11_5bthj")]
 position = Vector2(-131, -43)
-health = 1000
-max_health = 1000
+health = 50
+max_health = 50
 immune = true
 
 [node name="Explosive" parent="Left" instance=ExtResource("12_cxchx")]
@@ -254,8 +254,8 @@ active = false
 
 [node name="Damageable" parent="Right" instance=ExtResource("11_5bthj")]
 position = Vector2(128, -40)
-health = 1000
-max_health = 1000
+health = 50
+max_health = 50
 immune = true
 
 [node name="Explosive" parent="Right" instance=ExtResource("12_cxchx")]

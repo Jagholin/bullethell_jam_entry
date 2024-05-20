@@ -96,6 +96,9 @@ func attach_npc(npc: RigidBody2D):
 	attached_npcs.push_back(npc)
 
 func destroy():
+	if ExplosiveComponent.COMPONENT_NAME in components:
+		components[ExplosiveComponent.COMPONENT_NAME].explode()
+
 	Global.increment_death_counter()
 	user_controlled = false
 	spawner.active = false
@@ -105,15 +108,23 @@ func destroy():
 	collision_layer = 0
 	hide()
 	# "respawn" in the middle of the screen
+	var respawn_time: float = 0.8
 	
 	damage_component.health = damage_component.max_health
 	damage_component.immune = true
 	velocity = Vector2.ZERO
 	var camera := current_level.camera
 	global_position = camera.get_screen_center_position()
-	await get_tree().create_timer(0.8).timeout
-
+	global_position.y += get_viewport_rect().size.y / 2
 	show()
+	modulate = Color(0,0,0,0)
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", camera.get_screen_center_position(), respawn_time)
+	tween.tween_property(self, "modulate", Color(1,1,1,1), respawn_time)
+	tween.play()
+	await get_tree().create_timer(respawn_time).timeout
+
+	
 	user_controlled = true
 	collision_mask = collisionMask
 	collision_layer = collisionLayers

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddkyw7yf08s7b"]
+[gd_scene load_steps=5 format=3 uid="uid://ddkyw7yf08s7b"]
 
 [ext_resource type="Script" path="res://scripts/scenes/main.gd" id="1_wi2rb"]
 [ext_resource type="PackedScene" uid="uid://caslk1qmsij8" path="res://scenes/first_level.tscn" id="2_ppk7r"]
 [ext_resource type="LabelSettings" uid="uid://bh8hnu4drxufn" path="res://resources/label_settings/fps_label.tres" id="3_nkufm"]
+[ext_resource type="Texture2D" uid="uid://dv1doj3vcevjo" path="res://assets/menu.png" id="4_am37m"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_wi2rb")
@@ -10,6 +11,11 @@ level_scenes = Array[PackedScene]([ExtResource("2_ppk7r")])
 
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
 visible = false
+
+[node name="MenuBG" type="Sprite2D" parent="MainMenuLayer"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_am37m")
+centered = false
 
 [node name="CenterContainer" type="CenterContainer" parent="MainMenuLayer"]
 anchors_preset = 15
@@ -37,6 +43,13 @@ text = "Exit"
 process_mode = 3
 layer = 5
 visible = false
+
+[node name="MenuBG" type="Sprite2D" parent="PauseMenuLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0.501961)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_am37m")
+centered = false
 
 [node name="CenterContainer" type="CenterContainer" parent="PauseMenuLayer"]
 anchors_preset = 15

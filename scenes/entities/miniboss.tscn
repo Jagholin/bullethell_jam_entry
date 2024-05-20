@@ -114,8 +114,8 @@ projectile = ExtResource("7_q4yoj")
 active = false
 
 [node name="Damageable" parent="." instance=ExtResource("9_lqmsv")]
-health = 1000
-max_health = 1000
+health = 100
+max_health = 200
 immune = true
 
 [node name="PathPositionProviderComponent" type="Node2D" parent="."]

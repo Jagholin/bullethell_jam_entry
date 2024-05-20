@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_45vly")
-interval = 0.8
+interval = 1.6
 projectile_volleys = 6
 angle_between_volleys = 12.0
 angle_offset = 0.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://sg051jsb3744"]
+[gd_scene load_steps=17 format=3 uid="uid://sg051jsb3744"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/player.gd" id="1_5ldbl"]
 [ext_resource type="Texture2D" uid="uid://8ljntqj4k0og" path="res://assets/shmup.png" id="2_tfwh4"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="7_x1gtd"]
 [ext_resource type="Script" path="res://scripts/scenes/entities/graze.gd" id="8_mkhwp"]
 [ext_resource type="Script" path="res://scripts/scenes/components/graze.gd" id="9_8n26u"]
+[ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="10_pm55l"]
+[ext_resource type="PackedScene" uid="uid://btpugkdb074eb" path="res://scenes/entities/explosion_entity.tscn" id="11_gp3hh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_35rgc"]
 radius = 28.0
@@ -48,6 +50,9 @@ active = false
 
 [node name="Collector" type="Node2D" parent="."]
 script = ExtResource("7_beqe7")
+
+[node name="Explosive" parent="." instance=ExtResource("10_pm55l")]
+explosion = ExtResource("11_gp3hh")
 
 [node name="Graze" type="Area2D" parent="."]
 script = ExtResource("8_mkhwp")

@@ -6,10 +6,11 @@ func process_frame(delta: float) -> String:
 	super.process_frame(delta)
 	
 	var sample = randf()
-	if sample < 0.33:
-		#return "StateBossMirror"
+	if sample < 0.3:
+		return "StateBossMirror"
+	elif sample < 0.6:
 		return "StateFiring"
-	elif sample < 0.66:
+	elif sample < 0.9:
 		return "StateBossHoming"
 	else:
 		return "StateBossHealing"
