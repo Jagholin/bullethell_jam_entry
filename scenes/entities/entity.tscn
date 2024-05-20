@@ -29,6 +29,8 @@ region_rect = Rect2(256, 256, 256, 256)
 shape = SubResource("CircleShape2D_qx752")
 
 [node name="DamageableComponent" parent="." instance=ExtResource("2_v260a")]
+health = 7
+max_health = 7
 
 [node name="Explosive" parent="." instance=ExtResource("4_xw1vb")]
 explosion = ExtResource("5_fyny2")

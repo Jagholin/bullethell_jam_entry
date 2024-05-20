@@ -8,7 +8,7 @@ extends Node2D
 ## how many pixels the level should move per second
 @export var level_scroll_speed: float = 70
 
-const LevelPhases = [ &"BeforeMidboss", &"Midboss", &"Boss" ]
+const LevelPhases = [ &"BeforeMidboss", &"Midboss", &"SecondBoss", &"Boss" ]
 var current_phase: StringName = &"BeforeMidboss":
 	set(value):
 		if current_phase == value:
@@ -43,3 +43,11 @@ func _physics_process(delta):
 func _process(_delta):
 	var currentFps := Performance.get_monitor(Performance.TIME_FPS)
 	DisplayServer.window_set_title("fps: " + str(currentFps))
+
+func stop_scroll():
+	level_scroll_speed = 0
+	player.level_velocity = Vector2.ZERO
+
+func resume_scroll():
+	level_scroll_speed = 70
+	player.level_velocity = Vector2(0, -level_scroll_speed)

@@ -10,9 +10,9 @@ func process_frame(delta: float) -> String:
 		return "StateBossMirror"
 	elif sample < 0.6:
 		return "StateFiring"
-	elif sample < 0.9:
-		return "StateBossHoming"
 	else:
-		return "StateBossHealing"
+		return "StateBossHoming"
+	#else:
+	#	return "StateBossHealing"
 	@warning_ignore("unreachable_code")
 	assert(false, "This code should be unreachable")

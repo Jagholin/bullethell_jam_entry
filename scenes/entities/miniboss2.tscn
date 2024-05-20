@@ -119,8 +119,8 @@ projectile = ExtResource("10_q0yx5")
 active = false
 
 [node name="Damageable" parent="." instance=ExtResource("11_ix4rn")]
-health = 1000
-max_health = 1000
+health = 100
+max_health = 100
 immune = true
 
 [node name="PathPositionProviderComponent" type="Node2D" parent="."]
@@ -136,7 +136,8 @@ retreat_state = NodePath("StateRetreat")
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("15_5d1vk")
 introduction_delay = 2.0
-level_phase = "Midboss"
+block_scrolling = true
+level_phase = "SecondBoss"
 
 [node name="StateBossRotateSpawnerPattern" type="Node" parent="Stateful"]
 script = ExtResource("16_0jhv2")

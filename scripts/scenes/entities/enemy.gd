@@ -40,10 +40,14 @@ signal boss_destroyed
 @export var path: Path2D
 @export var retreat_path: Path2D
 # @export var retreat_state: State
-@export_enum("BeforeMidboss", "Midboss", "Boss", "None") var retreat_phase: String = "None"
+@export_enum("BeforeMidboss", "Midboss", "SecondBoss", "Boss", "None") var retreat_phase: String = "None"
+
+var resume_scroll_on_death: bool = false
+var level: BaseLevel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	LevelProvider.on_level_initialized(func(l: BaseLevel): level = l)
 	if projectile_configs:
 		spawner.bullet_configs = projectile_configs
 	spawner.projectiles_parent = projectile_parent
@@ -78,5 +82,7 @@ func destroy():
 	Global.check_progress()
 	if ExplosiveComponent.COMPONENT_NAME in components:
 		components[ExplosiveComponent.COMPONENT_NAME].explode()
+	if resume_scroll_on_death:
+		level.resume_scroll()
 	queue_free()
 

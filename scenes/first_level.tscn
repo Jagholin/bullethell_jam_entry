@@ -38,9 +38,9 @@ point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_j8nuk"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 94.3332, -6.70746, 0, 0, 0, 0, 98.3332, 135.293, 0, 0, 0, 0, -10.6668, 216.293, 0, 0, 0, 0, -303.667, 75.2925)
+"points": PackedVector2Array(0, 0, 0, 0, 101.333, -13.707, 0, 0, 0, 0, 90.333, 16.293, 0, 0, 0, 0, 116.333, 59.293, 0, 0, 0, 0, 98.3332, 135.293, 0, 0, 0, 0, -10.6668, 216.293, 0, 0, 0, 0, -303.667, 75.2925)
 }
-point_count = 4
+point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_dxlyp"]
 _data = {
@@ -77,7 +77,7 @@ texture = ExtResource("4_6hkny")
 centered = false
 
 [node name="DropOff" parent="." instance=ExtResource("13_i5l0j")]
-position = Vector2(1095, -2046)
+position = Vector2(1052, -3792)
 
 [node name="Player" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("2_aeknb")]
 position = Vector2(500, 500)
@@ -91,9 +91,29 @@ position = Vector2(29, 313)
 scale = Vector2(1, 20)
 
 [node name="Obstacle9" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(235, -277)
-rotation = 1.18159
-scale = Vector2(1, 10)
+position = Vector2(418, -761)
+rotation = 1.82212
+scale = Vector2(1, 4)
+
+[node name="Obstacle17" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(363, -3921)
+rotation = 1.82212
+scale = Vector2(1, 2)
+
+[node name="Obstacle18" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(821, -3931)
+rotation = 1.35612
+scale = Vector2(1, 2)
+
+[node name="Obstacle15" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(363, -2397)
+rotation = 1.76453
+scale = Vector2(1, 5)
+
+[node name="Obstacle16" parent="." instance=ExtResource("4_fd3ku")]
+position = Vector2(748, -2392)
+rotation = 1.29852
+scale = Vector2(1, 5)
 
 [node name="Obstacle11" parent="." instance=ExtResource("4_fd3ku")]
 position = Vector2(147, 283)
@@ -106,9 +126,9 @@ rotation = 1.52716
 scale = Vector2(1, 10)
 
 [node name="Obstacle10" parent="." instance=ExtResource("4_fd3ku")]
-position = Vector2(898, -298)
-rotation = 1.98793
-scale = Vector2(1, 10)
+position = Vector2(760, -748)
+rotation = 1.46433
+scale = Vector2(1, 4)
 
 [node name="Obstacle3" parent="." instance=ExtResource("4_fd3ku")]
 position = Vector2(2, -607)
@@ -146,65 +166,87 @@ scale = Vector2(1, 20)
 position = Vector2(1128, 315)
 scale = Vector2(1, 20)
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("path", "retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(303, -169)
-path = NodePath("../Path2D")
+[node name="Enemy4" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(287, -1714)
+retreat_path = NodePath("../RetreatPathLeft")
+retreat_phase = "SecondBoss"
+
+[node name="Enemy14" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(439, -1306)
+retreat_path = NodePath("../RetreatPathLeft")
+retreat_phase = "SecondBoss"
+
+[node name="Enemy16" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(368, -245)
 retreat_path = NodePath("../RetreatPathLeft")
 retreat_phase = "Midboss"
 
-[node name="Enemy4" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(305, -1573)
-retreat_path = NodePath("../RetreatPathLeft")
-retreat_phase = "Boss"
-
 [node name="Enemy5" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(301, -1724)
+position = Vector2(283, -1865)
 retreat_path = NodePath("../RetreatPathLeft")
-retreat_phase = "Boss"
-
-[node name="Enemy6" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(294, -1917)
-retreat_path = NodePath("../RetreatPathLeft")
-retreat_phase = "Boss"
-
-[node name="Enemy7" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(853, -1921)
-retreat_path = NodePath("../RetreatPathRight")
-retreat_phase = "Boss"
+retreat_phase = "SecondBoss"
 
 [node name="Enemy8" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(840, -1735)
+position = Vector2(825, -1876)
 retreat_path = NodePath("../RetreatPathRight")
-retreat_phase = "Boss"
+retreat_phase = "SecondBoss"
 
 [node name="Enemy9" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
-position = Vector2(831, -1570)
+position = Vector2(816, -1711)
+retreat_path = NodePath("../RetreatPathRight")
+retreat_phase = "SecondBoss"
+
+[node name="Enemy15" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(657, -1303)
+retreat_path = NodePath("../RetreatPathRight")
+retreat_phase = "SecondBoss"
+
+[node name="Enemy17" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(783, -263)
+retreat_path = NodePath("../RetreatPathRight")
+retreat_phase = "Midboss"
+
+[node name="Enemy10" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(269, -3452)
+retreat_path = NodePath("../RetreatPathLeft")
+retreat_phase = "Boss"
+
+[node name="Enemy11" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(530, -3451)
+retreat_path = NodePath("../RetreatPathLeft")
+retreat_phase = "Boss"
+
+[node name="Enemy18" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(453, -2970)
+retreat_path = NodePath("../RetreatPathLeft")
+retreat_phase = "Boss"
+
+[node name="Enemy12" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(635, -3454)
 retreat_path = NodePath("../RetreatPathRight")
 retreat_phase = "Boss"
 
-[node name="Enemy10" parent="." instance=ExtResource("5_fmqpc")]
-position = Vector2(446, -2802)
+[node name="Enemy19" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(667, -2973)
+retreat_path = NodePath("../RetreatPathRight")
+retreat_phase = "Boss"
 
-[node name="Enemy11" parent="." instance=ExtResource("5_fmqpc")]
-position = Vector2(560, -2801)
-
-[node name="Enemy12" parent="." instance=ExtResource("5_fmqpc")]
-position = Vector2(665, -2804)
-
-[node name="Enemy13" parent="." instance=ExtResource("5_fmqpc")]
-position = Vector2(768, -2811)
+[node name="Enemy13" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("5_fmqpc")]
+position = Vector2(921, -3452)
+retreat_path = NodePath("../RetreatPathRight")
+retreat_phase = "Boss"
 
 [node name="Entity" parent="." instance=ExtResource("6_3cpqc")]
-position = Vector2(266, 378)
+position = Vector2(581, 202)
 
 [node name="Entity3" parent="." instance=ExtResource("6_3cpqc")]
-position = Vector2(408, -261)
+position = Vector2(199, -2553)
 
 [node name="Entity2" parent="." instance=ExtResource("6_3cpqc")]
-position = Vector2(838, 359)
+position = Vector2(1005, -2543)
 
 [node name="Entity4" parent="." instance=ExtResource("6_3cpqc")]
-position = Vector2(747, -270)
+position = Vector2(853, -940)
 
 [node name="MiniBoss" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("7_dfl0w")]
 position = Vector2(582, -1013)
@@ -212,7 +254,7 @@ retreat_path = NodePath("../RetreatPathRight")
 retreat_phase = "Boss"
 
 [node name="MiniBoss2" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("12_yavi5")]
-position = Vector2(359, -2336)
+position = Vector2(566, -2704)
 retreat_path = NodePath("../RetreatPathLeft")
 retreat_phase = "Boss"
 
@@ -221,7 +263,7 @@ position = Vector2(443, -150)
 item = SubResource("Resource_28ix0")
 
 [node name="PowerUp2" parent="." instance=ExtResource("8_sggkn")]
-position = Vector2(260, -1311)
+position = Vector2(147, -2323)
 item = SubResource("Resource_58yx2")
 
 [node name="PowerUp3" parent="." instance=ExtResource("8_sggkn")]
@@ -233,7 +275,7 @@ position = Vector2(933, -2040)
 item = SubResource("Resource_j7euh")
 
 [node name="PowerUp5" parent="." instance=ExtResource("8_sggkn")]
-position = Vector2(349, -738)
+position = Vector2(175, -1013)
 item = SubResource("Resource_j7euh")
 
 [node name="PowerUp6" parent="." instance=ExtResource("8_sggkn")]
@@ -241,7 +283,7 @@ position = Vector2(847, -1285)
 item = SubResource("Resource_j7euh")
 
 [node name="MiniBoss3" parent="." instance=ExtResource("12_maspx")]
-position = Vector2(593, -3289)
+position = Vector2(606, -4235)
 
 [node name="RetreatPathLeft" type="Path2D" parent="."]
 curve = SubResource("Curve2D_o55o3")

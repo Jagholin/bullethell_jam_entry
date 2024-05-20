@@ -3,7 +3,7 @@ class_name StateEnemyDisabled
 
 @export var introduction_delay = 1.0
 @export var block_scrolling = false
-@export_enum("BeforeMidboss", "Midboss", "Boss") var level_phase: String = "BeforeMidboss"
+@export_enum("BeforeMidboss", "Midboss", "SecondBoss", "Boss") var level_phase: String = "BeforeMidboss"
 
 var current_level: BaseLevel
 
@@ -24,7 +24,6 @@ func process_frame(delta: float) -> String:
 		return "next"
 	return ""
 
-
 func exit() -> void:
 	super.exit()
 	var damageable := target.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
@@ -34,4 +33,5 @@ func exit() -> void:
 	
 	if block_scrolling:
 		#get_tree().current_scene.level_scroll_speed = 0
-		current_level.level_scroll_speed = 0
+		current_level.stop_scroll()
+		target.resume_scroll_on_death = true

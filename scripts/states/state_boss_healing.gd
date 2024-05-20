@@ -3,7 +3,7 @@ class_name StateBossHealing
 
 
 var last_health_sample: int = -1
-var recovery_rate: int = 3
+var recovery_rate: int = 1
 
 
 func process_frame(delta: float) -> String:

@@ -13,6 +13,8 @@ extends Node2D
 var current_level: BaseLevel
 var current_level_idx: int
 
+var end_called: bool = false
+
 func _ready():
 	main_menu_layer.show()
 	pause_menu_layer.hide()
@@ -23,6 +25,9 @@ func _ready():
 
 func _process(_delta):
 	if Global.end_screen:
+		if end_called:
+			return
+		end_called = true
 		_on_boss_destroyed()
 		
 
@@ -77,8 +82,10 @@ func _on_boss_destroyed():
 	end_layer.show()
 
 func _on_retry_button_pressed():
-	get_tree().reload_current_scene()
-
+	#get_tree().reload_current_scene()
+	on_level_exit()
+	end_layer.hide()
+	get_tree().paused = false
 
 func _on_exit_to_menu_button_pressed():
 	finish_pause()

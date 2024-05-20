@@ -3,7 +3,7 @@ extends BaseComponent
 
 @export var debug: bool
 @export var retreat_state: State
-@export_enum("BeforeMidboss", "Midboss", "Boss", "None") var retreat_phase: String = "None"
+@export_enum("BeforeMidboss", "SecondBoss", "Midboss", "Boss", "None") var retreat_phase: String = "None"
 
 const COMPONENT_NAME := &"StatefulComponent"
 

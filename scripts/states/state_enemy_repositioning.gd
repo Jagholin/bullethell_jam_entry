@@ -8,16 +8,24 @@ class_name StateEnemyRepositioning
 ## path to set the position provider, if not set, the curve in the position provider will be used instead
 @export var path: Path2D
 
+var spawner_last_active = true
+
 func enter():
 	super.enter()
 	# print("enter StateEnemyRepositioning")
 	var damageable := target.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
 	damageable.immune = false
 	var spawner := target.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
+	spawner_last_active = spawner.active
 	spawner.active = false
 	if path:
 		position_provider.path = path.curve
-	
+
+func exit():
+	var damageable := target.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
+	damageable.immune = false
+	var spawner := target.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
+	spawner.active = spawner_last_active
 
 func process_frame(delta: float) -> String:
 	super.process_frame(delta)
