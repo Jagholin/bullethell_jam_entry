@@ -12,7 +12,7 @@ var elapsed: float = 0
 var active: bool = false
 
 func enter() -> void:
-	print("enter into base state")
+	# print("enter into base state")
 	# var sprite := target.get_node("AnimatedSprite2D") as AnimatedSprite2D
 	if animated_sprite != null:
 		animated_sprite.animation = get_animation_name()

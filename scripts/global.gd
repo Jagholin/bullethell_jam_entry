@@ -18,6 +18,7 @@ func increment_death_counter():
 func check_progress():
 	if enemies_destroyed_count == 10:
 		# TODO spawn the boss after some condition
-		print("destroyed 10 enemies!")
+		pass
+		#print("destroyed 10 enemies!")
 
 

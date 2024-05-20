@@ -15,7 +15,7 @@ var current_phase: StringName = &"BeforeMidboss":
 			return
 		assert(value in LevelPhases)
 		current_phase = value
-		print("Level phase changed to", value)
+		#print("Level phase changed to", value)
 		level_phase_changed.emit()
 
 signal level_phase_changed

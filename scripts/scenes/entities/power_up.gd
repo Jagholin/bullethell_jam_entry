@@ -6,7 +6,7 @@ class_name PowerUp
 func _ready():
 	if item.item_type == ItemSettingsResource.ItemType.FASTER_BULLETS:
 		$AnimatedSprite2D.frame = 0
-	elif item.item_type == ItemSettingsResource.ItemType.FASTER_BULLETS:
+	elif item.item_type == ItemSettingsResource.ItemType.BIGGER_BULLETS:
 		$AnimatedSprite2D.frame = 1
 	elif item.item_type == ItemSettingsResource.ItemType.MORE_BULLETS:
 		$AnimatedSprite2D.frame = 2

@@ -41,7 +41,7 @@ func on_level_phase_changed():
 
 # Initialize the state machine by giving each child state a reference to the
 func init():
-	print("initializing state machine")
+	#print("initializing state machine")
 	if not current_state:
 		change_state(first_state)
 

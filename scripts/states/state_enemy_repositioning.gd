@@ -10,7 +10,7 @@ class_name StateEnemyRepositioning
 
 func enter():
 	super.enter()
-	print("enter StateEnemyRepositioning")
+	# print("enter StateEnemyRepositioning")
 	var damageable := target.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
 	damageable.immune = false
 	var spawner := target.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
