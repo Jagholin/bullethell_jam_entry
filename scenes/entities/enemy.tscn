@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dlxr1gqtibtkl"]
+[gd_scene load_steps=27 format=3 uid="uid://dlxr1gqtibtkl"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_ffgfv"]
 [ext_resource type="Texture2D" uid="uid://b6w5agceww7ct" path="res://assets/ShmupSprites/Alien04.png" id="2_8vc11"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://djyq3oe2rqnjb" path="res://scenes/entity_components/stateful.tscn" id="11_07okh"]
 [ext_resource type="Script" path="res://scripts/states/state_enemy_disabled.gd" id="13_dc18v"]
 [ext_resource type="Script" path="res://scripts/states/state_enemy_default.gd" id="14_j04n3"]
+[ext_resource type="Script" path="res://scripts/scenes/components/path_position_provider.gd" id="14_rpxvl"]
 [ext_resource type="Script" path="res://scripts/states/state_enemy_repositioning.gd" id="15_fmcso"]
 [ext_resource type="Script" path="res://scripts/states/state_enemy_angry.gd" id="16_08pq7"]
 
@@ -105,8 +106,12 @@ immune = true
 [node name="Explosive" parent="." instance=ExtResource("7_5jjfr")]
 explosion = ExtResource("8_dpug2")
 
-[node name="Stateful" parent="." instance=ExtResource("11_07okh")]
+[node name="PathPositionProviderComponent" type="Node2D" parent="."]
+script = ExtResource("14_rpxvl")
+
+[node name="Stateful" parent="." node_paths=PackedStringArray("retreat_state") instance=ExtResource("11_07okh")]
 debug = true
+retreat_state = NodePath("StateRetreat")
 
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("13_dc18v")
@@ -114,11 +119,17 @@ script = ExtResource("13_dc18v")
 [node name="StateEnemyDefault" type="Node" parent="Stateful"]
 script = ExtResource("14_j04n3")
 
-[node name="StateEnemyRepositioning" type="Node" parent="Stateful"]
+[node name="StateEnemyRepositioning" type="Node" parent="Stateful" node_paths=PackedStringArray("position_provider")]
 script = ExtResource("15_fmcso")
+position_provider = NodePath("../../PathPositionProviderComponent")
 
 [node name="StateEnemyAngry" type="Node" parent="Stateful"]
 script = ExtResource("16_08pq7")
+
+[node name="StateRetreat" type="Node" parent="Stateful" node_paths=PackedStringArray("position_provider")]
+script = ExtResource("15_fmcso")
+position_provider = NodePath("../../PathPositionProviderComponent")
+duration = -1.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1.14441e-05, -1.19209e-05)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ull2sauw6bxf"]
+[gd_scene load_steps=34 format=3 uid="uid://ull2sauw6bxf"]
 
 [ext_resource type="Script" path="res://scripts/scenes/entities/enemy.gd" id="1_bewvi"]
 [ext_resource type="Texture2D" uid="uid://qm5i5uanqw76" path="res://assets/ShmupSprites/Alien06.png" id="2_qrfsu"]
@@ -12,14 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://c72mof4xq3t04" path="res://scenes/entity_components/damageable.tscn" id="9_lqmsv"]
 [ext_resource type="Script" path="res://scripts/resources/projectile_spawner_config_resource.gd" id="9_tgv0e"]
 [ext_resource type="PackedScene" uid="uid://bxokwtkwvxa7e" path="res://scenes/entity_components/explosive.tscn" id="10_fo1qn"]
+[ext_resource type="Resource" uid="uid://idlbmm6wwdbs" path="res://resources/bullet_patterns/bomb_pattern1.tres" id="10_nohkj"]
 [ext_resource type="PackedScene" uid="uid://btpugkdb074eb" path="res://scenes/entities/explosion_entity.tscn" id="11_3r7s7"]
 [ext_resource type="PackedScene" uid="uid://djyq3oe2rqnjb" path="res://scenes/entity_components/stateful.tscn" id="12_88y48"]
+[ext_resource type="Script" path="res://scripts/scenes/components/path_position_provider.gd" id="12_s5x8e"]
 [ext_resource type="Script" path="res://scripts/states/state_enemy_disabled.gd" id="13_f85o6"]
 [ext_resource type="Script" path="res://scripts/states/state_boss_randomize.gd" id="14_42i3w"]
 [ext_resource type="Script" path="res://scripts/states/state_boss_mirror.gd" id="15_6tsm1"]
 [ext_resource type="Script" path="res://scripts/states/state_boss_healing.gd" id="16_47hiw"]
 [ext_resource type="PackedScene" uid="uid://cowulv6f3yxem" path="res://scenes/entities/projectile_homing.tscn" id="17_0g3aq"]
 [ext_resource type="Script" path="res://scripts/states/state_boss_homing.gd" id="17_l81p5"]
+[ext_resource type="Script" path="res://scripts/states/state_firing.gd" id="21_ryx1d"]
+[ext_resource type="Script" path="res://scripts/states/state_enemy_repositioning.gd" id="22_hridq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ls1j5"]
 atlas = ExtResource("2_qrfsu")
@@ -80,6 +84,16 @@ script = ExtResource("9_tgv0e")
 bullet_pattern = ExtResource("7_8m0od")
 bullet_settings = ExtResource("8_hag4s")
 
+[sub_resource type="Resource" id="Resource_1d4cr"]
+script = ExtResource("9_tgv0e")
+bullet_pattern = ExtResource("10_nohkj")
+bullet_settings = ExtResource("8_hag4s")
+
+[sub_resource type="Resource" id="Resource_d8viu"]
+script = ExtResource("9_tgv0e")
+bullet_pattern = ExtResource("10_nohkj")
+bullet_settings = ExtResource("8_hag4s")
+
 [node name="MiniBoss" type="Area2D"]
 position = Vector2(472, 216)
 collision_layer = 2
@@ -95,7 +109,7 @@ flip_v = true
 shape = SubResource("CircleShape2D_yucrm")
 
 [node name="ProjectileSpawner" parent="." instance=ExtResource("6_7rppm")]
-bullet_configs = Array[ExtResource("9_tgv0e")]([SubResource("Resource_on5r7")])
+bullet_configs = Array[ExtResource("9_tgv0e")]([SubResource("Resource_on5r7"), SubResource("Resource_1d4cr")])
 projectile = ExtResource("7_q4yoj")
 active = false
 
@@ -104,14 +118,19 @@ health = 1000
 max_health = 1000
 immune = true
 
+[node name="PathPositionProviderComponent" type="Node2D" parent="."]
+script = ExtResource("12_s5x8e")
+
 [node name="Explosive" parent="." instance=ExtResource("10_fo1qn")]
 explosion = ExtResource("11_3r7s7")
 
-[node name="Stateful" parent="." instance=ExtResource("12_88y48")]
+[node name="Stateful" parent="." node_paths=PackedStringArray("retreat_state") instance=ExtResource("12_88y48")]
 debug = true
+retreat_state = NodePath("StateRetreat")
 
 [node name="StateEnemyIntroduction" type="Node" parent="Stateful"]
 script = ExtResource("13_f85o6")
+level_phase = "Midboss"
 
 [node name="StateBossRandomize" type="Node" parent="Stateful"]
 script = ExtResource("14_42i3w")
@@ -122,10 +141,22 @@ script = ExtResource("15_6tsm1")
 [node name="StateBossHealing" type="Node" parent="Stateful"]
 script = ExtResource("16_47hiw")
 
+[node name="StateFiring" type="Node" parent="Stateful" node_paths=PackedStringArray("spawner", "next_state")]
+script = ExtResource("21_ryx1d")
+bullet_configs = Array[ExtResource("9_tgv0e")]([SubResource("Resource_d8viu")])
+spawner = NodePath("../../ProjectileSpawner")
+next_state = NodePath("../StateBossRandomize")
+duration = 8.0
+
 [node name="StateBossHoming" type="Node" parent="Stateful"]
 script = ExtResource("17_l81p5")
 homing_projectile = ExtResource("17_0g3aq")
 regular_projectile = ExtResource("7_q4yoj")
+
+[node name="StateRetreat" type="Node" parent="Stateful" node_paths=PackedStringArray("position_provider")]
+script = ExtResource("22_hridq")
+position_provider = NodePath("../../PathPositionProviderComponent")
+duration = -1.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1.14441e-05, -1.19209e-05)

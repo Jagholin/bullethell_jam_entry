@@ -1,0 +1,139 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfbpaiuj2du8p"]
+
+[ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_g1eb1"]
+[ext_resource type="Texture2D" uid="uid://cuccqt0wotcun" path="res://assets/bgscroll_1.png" id="2_u30tv"]
+[ext_resource type="Texture2D" uid="uid://bgte4481dpqxa" path="res://assets/bgscroll_cloud_overlay.png" id="3_stftt"]
+[ext_resource type="PackedScene" uid="uid://biipykfptenav" path="res://scenes/entities/drop_off.tscn" id="4_voy14"]
+[ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="5_tmi8o"]
+[ext_resource type="PackedScene" uid="uid://bif23f7t4jd2r" path="res://scenes/entities/obstacle.tscn" id="6_ljima"]
+[ext_resource type="PackedScene" uid="uid://cmu8rrxt1o31b" path="res://scenes/entities/entity.tscn" id="8_4pw1q"]
+[ext_resource type="PackedScene" uid="uid://diirwpa37n2u7" path="res://scenes/entities/power_up.tscn" id="11_iy4da"]
+[ext_resource type="Script" path="res://scripts/resources/item_settings_resource.gd" id="12_3m8f6"]
+[ext_resource type="PackedScene" uid="uid://do7ihjf0x2she" path="res://scenes/entities/miniboss3.tscn" id="13_r3fnv"]
+
+[sub_resource type="Resource" id="Resource_a2yh3"]
+script = ExtResource("12_3m8f6")
+item_type = 0
+
+[sub_resource type="Resource" id="Resource_j7euh"]
+script = ExtResource("12_3m8f6")
+item_type = 1
+
+[node name="FirstBossOnly" type="Node2D" node_paths=PackedStringArray("camera", "player", "projectile_parent")]
+script = ExtResource("1_g1eb1")
+camera = NodePath("Camera2D")
+player = NodePath("Player")
+projectile_parent = NodePath("ProjectileParent")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 325)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(0, 3840)
+
+[node name="BackgroundIngame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(-360, 0)
+texture = ExtResource("2_u30tv")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 3840)
+
+[node name="BackgroundIngame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(-360, 0)
+texture = ExtResource("3_stftt")
+centered = false
+
+[node name="DropOff" parent="." instance=ExtResource("4_voy14")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("5_tmi8o")]
+position = Vector2(500, 500)
+projectile_parent = NodePath("../ProjectileParent")
+
+[node name="ProjectileParent" type="Node2D" parent="."]
+
+[node name="Obstacle" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(29, 313)
+scale = Vector2(1, 20)
+
+[node name="Obstacle9" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(235, -277)
+rotation = 1.18159
+scale = Vector2(1, 10)
+
+[node name="Obstacle11" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(147, 283)
+rotation = 1.61443
+scale = Vector2(1, 10)
+
+[node name="Obstacle12" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(973, 169)
+rotation = 1.52716
+scale = Vector2(1, 10)
+
+[node name="Obstacle10" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(898, -298)
+rotation = 1.98793
+scale = Vector2(1, 10)
+
+[node name="Obstacle3" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(2, -607)
+scale = Vector2(1, 20)
+
+[node name="Obstacle5" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(-19, -1533)
+scale = Vector2(1, 20)
+
+[node name="Obstacle6" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(1176, -1517)
+scale = Vector2(1, 20)
+
+[node name="Obstacle7" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(1143, -2420)
+scale = Vector2(1, 20)
+
+[node name="Obstacle8" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(4, -2440)
+scale = Vector2(1, 20)
+
+[node name="Obstacle4" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(1152, -599)
+scale = Vector2(1, 20)
+
+[node name="Obstacle2" parent="." instance=ExtResource("6_ljima")]
+position = Vector2(1128, 315)
+scale = Vector2(1, 20)
+
+[node name="Entity" parent="." instance=ExtResource("8_4pw1q")]
+position = Vector2(266, 378)
+
+[node name="Entity3" parent="." instance=ExtResource("8_4pw1q")]
+position = Vector2(408, -261)
+
+[node name="Entity2" parent="." instance=ExtResource("8_4pw1q")]
+position = Vector2(838, 359)
+
+[node name="Entity4" parent="." instance=ExtResource("8_4pw1q")]
+position = Vector2(747, -270)
+
+[node name="PowerUp" parent="." instance=ExtResource("11_iy4da")]
+position = Vector2(394, -145)
+item = SubResource("Resource_a2yh3")
+
+[node name="PowerUp2" parent="." instance=ExtResource("11_iy4da")]
+position = Vector2(806, -156)
+item = SubResource("Resource_j7euh")
+
+[node name="PowerUp3" parent="." instance=ExtResource("11_iy4da")]
+position = Vector2(928, -477)
+item = SubResource("Resource_a2yh3")
+
+[node name="PowerUp4" parent="." instance=ExtResource("11_iy4da")]
+position = Vector2(171, -444)
+item = SubResource("Resource_j7euh")
+
+[node name="MiniBoss3" parent="." instance=ExtResource("13_r3fnv")]
+position = Vector2(587, -729)

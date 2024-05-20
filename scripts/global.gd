@@ -5,6 +5,13 @@ var enemies_destroyed_count: int = 0
 var entities_destroyed_count: int = 0
 var grazes_count: int = 0
 var hits_count: int = 0
+var death_counter: int = 0
+
+signal death_counter_changed
+
+func increment_death_counter():
+	death_counter += 1
+	death_counter_changed.emit()
 
 func check_progress():
 	if enemies_destroyed_count == 10:

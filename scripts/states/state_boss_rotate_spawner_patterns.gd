@@ -6,9 +6,6 @@ var accumulated_volley_count := 0
 func enter() -> void:
 	super.enter()
 	var spawner := target.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
-	if not spawner.active:
-		spawner.active = true
-	# else:
 	spawner.set_config_active_state(0, true)
 	accumulated_volley_count += 1
 	accumulated_volley_count = clamp(accumulated_volley_count, 1, 6)

@@ -17,10 +17,10 @@ func get_component_name() -> StringName:
 
 var elapsed: float = 0.0
 
+var current_level: BaseLevel
 
 func _ready():
-	pass
-
+	LevelProvider.on_level_initialized(func(level: BaseLevel): current_level = level)
 
 func _process(delta):
 	if not active:
@@ -35,7 +35,9 @@ func _process(delta):
 func fire():
 	var new_enemy := enemy.instantiate() as Enemy
 	assert(false, "the following line will break")
-	new_enemy.projectile_parent = get_tree().get_current_scene().get_node("Projectiles")
+	# new_enemy.projectile_parent = get_tree().get_current_scene().get_node("Projectiles")
+	new_enemy.projectile_parent = current_level.projectile_parent
+
 	get_parent().add_child(new_enemy)
 	var tween := create_tween() as Tween
 	new_enemy.global_position = global_position

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddkyw7yf08s7b"]
+[gd_scene load_steps=4 format=3 uid="uid://ddkyw7yf08s7b"]
 
 [ext_resource type="Script" path="res://scripts/scenes/main.gd" id="1_wi2rb"]
 [ext_resource type="PackedScene" uid="uid://caslk1qmsij8" path="res://scenes/first_level.tscn" id="2_ppk7r"]
+[ext_resource type="LabelSettings" uid="uid://bh8hnu4drxufn" path="res://resources/label_settings/fps_label.tres" id="3_nkufm"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_wi2rb")
@@ -34,7 +35,7 @@ text = "Exit"
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 2
+layer = 5
 visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="PauseMenuLayer"]
@@ -70,6 +71,7 @@ layout_mode = 2
 text = "Quit"
 
 [node name="CreditsLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="CreditsLayer"]
 anchors_preset = 15
@@ -146,6 +148,29 @@ fit_content = true
 [node name="CreditsBackButton" type="Button" parent="CreditsLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "< Back"
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUDLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="DeathsCounterLabel" type="Label" parent="HUDLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Deaths: 0"
+label_settings = ExtResource("3_nkufm")
 
 [connection signal="pressed" from="MainMenuLayer/CenterContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainMenuLayer/CenterContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
