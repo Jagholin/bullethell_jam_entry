@@ -8,7 +8,7 @@ func process_frame(delta: float) -> String:
 	var sample = randf()
 	if sample < 0.33:
 		#return "StateBossMirror"
-		return "StateBossMirror"
+		return "StateFiring"
 	elif sample < 0.66:
 		return "StateBossHoming"
 	else:

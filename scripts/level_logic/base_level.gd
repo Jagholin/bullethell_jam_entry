@@ -8,6 +8,18 @@ extends Node2D
 ## how many pixels the level should move per second
 @export var level_scroll_speed: float = 70
 
+const LevelPhases = [ &"BeforeMidboss", &"Midboss", &"Boss" ]
+var current_phase: StringName = &"BeforeMidboss":
+	set(value):
+		if current_phase == value:
+			return
+		assert(value in LevelPhases)
+		current_phase = value
+		print("Level phase changed to", value)
+		level_phase_changed.emit()
+
+signal level_phase_changed
+
 func _exit_tree():
 	LevelProvider.set_level(null)
 

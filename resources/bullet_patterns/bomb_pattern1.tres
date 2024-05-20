@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="BulletPatternResource" load_steps=3 format=3 uid="uid://idlbmm6wwdbs"]
+
+[ext_resource type="Script" path="res://scripts/resources/bullet_pattern_resource.gd" id="1_qgtj7"]
+
+[sub_resource type="Resource" id="Resource_bq71l"]
+script = ExtResource("1_qgtj7")
+interval = 0.03
+projectile_volleys = 6
+angle_between_volleys = 120.0
+angle_offset = 0.0
+projectile_volley_offset = Vector2(2, 0)
+volley_rotation_speed = 0.0
+initial_velocity = 10.0
+initial_direction = Vector2(0, 1)
+shoot_at_player_tendency = 0.34
+randomized_angle_spread = 360.0
+randomized_velocity_spread = 2.5
+active = true
+bullet_lifetime = 0.11
+emition_type = 0
+spawnpoint_lifetime = 5.0
+spawner_moving = false
+movement_range = 0.0
+
+[resource]
+script = ExtResource("1_qgtj7")
+interval = 0.75
+projectile_volleys = 2
+angle_between_volleys = 80.0
+angle_offset = 0.0
+projectile_volley_offset = Vector2(2, 0)
+volley_rotation_speed = 0.0
+initial_velocity = 440.0
+initial_direction = Vector2(0, 1)
+shoot_at_player_tendency = 0.8
+randomized_angle_spread = 20.0
+randomized_velocity_spread = 10.0
+active = true
+bullet_lifetime = -1.0
+emition_type = 1
+chained_bullet_pattern = SubResource("Resource_bq71l")
+spawnpoint_lifetime = 5.0
+spawner_moving = false
+movement_range = 0.0

@@ -3,6 +3,9 @@ extends Node2D
 @onready var main_menu_layer: CanvasLayer = $MainMenuLayer
 @onready var pause_menu_layer: CanvasLayer = $PauseMenuLayer
 @onready var credits_layer: CanvasLayer = $CreditsLayer
+@onready var hud_layer: CanvasLayer = $HUDLayer
+
+@onready var deaths_label: Label = %DeathsCounterLabel
 
 @export var level_scenes: Array[PackedScene]
 
@@ -13,6 +16,8 @@ func _ready():
 	main_menu_layer.show()
 	pause_menu_layer.hide()
 	credits_layer.hide()
+	hud_layer.hide()
+	Global.death_counter_changed.connect(on_deathcounter_updated)
 
 func _process(_delta):
 	pass
@@ -28,11 +33,13 @@ func start_level():
 	var newLevel := scene.instantiate() as BaseLevel
 	current_level = newLevel
 	add_child(current_level)
+	hud_layer.show()
 
 func on_level_exit():
 	current_level.queue_free()
 	current_level = null
 	main_menu_layer.show()
+	hud_layer.hide()
 
 func _on_new_game_button_pressed():
 	assert(not current_level)
@@ -68,7 +75,9 @@ func _on_quit_button_pressed():
 	finish_pause()
 	_on_exit_button_pressed()
 
-
 func _on_credits_back_button_pressed():
 	credits_layer.hide()
 	main_menu_layer.show()
+
+func on_deathcounter_updated():
+	deaths_label.text = "Deaths: %d" % Global.death_counter

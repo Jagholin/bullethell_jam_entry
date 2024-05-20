@@ -9,7 +9,9 @@ func register_component(component: BaseComponent):
 	components[component.get_component_name()] = component
 
 func get_component(component_name: StringName) -> BaseComponent:
-	return components[component_name]
+	if components.has(component_name):
+		return components[component_name]
+	return null
 #endregion
 
 #region pass projectile parent to the child component
@@ -29,17 +31,34 @@ func get_component(component_name: StringName) -> BaseComponent:
 #endregion
 @onready var spawner: ProjectileSpawnerComponent = $ProjectileSpawner
 @onready var state_machine: StatefulComponent = $Stateful
+@onready var notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @export var projectile_configs: Array[ProjectileSpawnerConfigResource]
+@export var path: Path2D
+@export var retreat_path: Path2D
+# @export var retreat_state: State
+@export_enum("BeforeMidboss", "Midboss", "Boss", "None") var retreat_phase: String = "None"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if projectile_configs:
 		spawner.bullet_configs = projectile_configs
 	spawner.projectiles_parent = projectile_parent
-	var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
+	# var notifier := $VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D
 	if notifier != null:
 		notifier.screen_entered.connect(state_machine.init)
 		notifier.screen_exited.connect(queue_free)
+	if path:
+		var positionProvider := get_component(PathPositionProviderComponent.COMPONENT_NAME) as PathPositionProviderComponent
+		assert(positionProvider, "Setting path without PathPositionProviderComponent won't work")
+		positionProvider.path = path.curve
+	if state_machine and retreat_phase != "None":
+		state_machine.retreat_phase = retreat_phase
+		# state_machine.retreat_state = retreat_state
+	if retreat_path:
+		assert(state_machine, "Setting retreat path without state machine won't work")
+		var positionProvider := get_component(PathPositionProviderComponent.COMPONENT_NAME) as PathPositionProviderComponent
+		assert(positionProvider, "Setting retreat path without PathPositionProviderComponent won't work")
+		state_machine.retreat_state.path = retreat_path
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
