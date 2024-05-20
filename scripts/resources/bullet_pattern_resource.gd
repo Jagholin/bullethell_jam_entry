@@ -29,6 +29,8 @@ extends Resource
 ## lifetime of the bullets, in seconds. Negative values means infinite lifetime
 @export var bullet_lifetime: float = -1.0
 
+@export var scale: float = 1.0
+
 enum EmitionType { PROJECTILE, SPAWNPOINT }
 ## Primary emition type
 @export var emition_type: EmitionType = EmitionType.PROJECTILE

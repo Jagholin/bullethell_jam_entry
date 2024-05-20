@@ -4,6 +4,17 @@ class_name PowerUp
 @export var item: ItemSettingsResource
 
 func _ready():
+	if item.item_type == ItemSettingsResource.ItemType.FASTER_BULLETS:
+		$AnimatedSprite2D.frame = 0
+	elif item.item_type == ItemSettingsResource.ItemType.FASTER_BULLETS:
+		$AnimatedSprite2D.frame = 1
+	elif item.item_type == ItemSettingsResource.ItemType.MORE_BULLETS:
+		$AnimatedSprite2D.frame = 2
+	elif item.item_type == ItemSettingsResource.ItemType.MORE_VOLLEYS:
+		$AnimatedSprite2D.frame = 3
+	else:
+		print("Unknown item frame", item.item_type)
+		
 	area_entered.connect(collect)
 	body_entered.connect(collect)
 

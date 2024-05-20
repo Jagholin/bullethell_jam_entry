@@ -4,6 +4,7 @@ extends Node2D
 @onready var pause_menu_layer: CanvasLayer = $PauseMenuLayer
 @onready var credits_layer: CanvasLayer = $CreditsLayer
 @onready var hud_layer: CanvasLayer = $HUDLayer
+@onready var end_layer: CanvasLayer = $EndMenu
 
 @onready var deaths_label: Label = %DeathsCounterLabel
 
@@ -15,12 +16,15 @@ var current_level_idx: int
 func _ready():
 	main_menu_layer.show()
 	pause_menu_layer.hide()
+	end_layer.hide()
 	credits_layer.hide()
 	hud_layer.hide()
 	Global.death_counter_changed.connect(on_deathcounter_updated)
 
 func _process(_delta):
-	pass
+	if Global.end_screen:
+		_on_boss_destroyed()
+		
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause_menu"):
@@ -44,6 +48,8 @@ func on_level_exit():
 func _on_new_game_button_pressed():
 	assert(not current_level)
 	main_menu_layer.hide()
+	$AudioStreamPlayer.stop()
+	$AudioStreamPlayer2.play()
 	current_level_idx = 0
 	start_level()
 
@@ -65,6 +71,14 @@ func finish_pause():
 
 func _on_resume_button_pressed():
 	finish_pause()
+
+func _on_boss_destroyed():
+	get_tree().paused = true
+	end_layer.show()
+
+func _on_retry_button_pressed():
+	get_tree().reload_current_scene()
+
 
 func _on_exit_to_menu_button_pressed():
 	finish_pause()

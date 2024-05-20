@@ -74,6 +74,7 @@ randomized_angle_spread = 0.0
 randomized_velocity_spread = 0.0
 active = true
 bullet_lifetime = -1.0
+scale = 1.0
 emition_type = 0
 spawnpoint_lifetime = 5.0
 spawner_moving = false
@@ -143,6 +144,7 @@ randomized_angle_spread = 0.0
 randomized_velocity_spread = 0.0
 active = true
 bullet_lifetime = -1.0
+scale = 1.0
 emition_type = 0
 spawnpoint_lifetime = 5.0
 spawner_moving = false
@@ -158,6 +160,7 @@ position = Vector2(472, 216)
 collision_layer = 2
 monitoring = false
 script = ExtResource("1_7haf1")
+end_game_screen = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

@@ -196,6 +196,7 @@ func fire(bulletPattern: BulletPatternResource, projectileSettings: BulletSettin
 			new_projectile.direction = bulletPattern.initial_direction.rotated(deg_to_rad(bulletAngle))
 			new_projectile.velocity = bulletVelocity
 			new_projectile.lifetime = bulletPattern.bullet_lifetime
+			new_projectile.scale = Vector2.ONE * bulletPattern.scale
 			new_projectile.global_position = global_position + spawnPosition + offset
 			new_projectile.collision_mask = projectileSettings.get_collision_mask()
 			new_projectile.collision_layer = 0

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddkyw7yf08s7b"]
+[gd_scene load_steps=7 format=3 uid="uid://ddkyw7yf08s7b"]
 
 [ext_resource type="Script" path="res://scripts/scenes/main.gd" id="1_wi2rb"]
 [ext_resource type="PackedScene" uid="uid://caslk1qmsij8" path="res://scenes/first_level.tscn" id="2_ppk7r"]
 [ext_resource type="LabelSettings" uid="uid://bh8hnu4drxufn" path="res://resources/label_settings/fps_label.tres" id="3_nkufm"]
 [ext_resource type="Texture2D" uid="uid://dv1doj3vcevjo" path="res://assets/menu.png" id="4_am37m"]
+[ext_resource type="AudioStream" uid="uid://buagix4cjrl38" path="res://assets/fighting_muascic_egypt_game.mp3" id="5_52u11"]
+[ext_resource type="AudioStream" uid="uid://csmhw3wf5shti" path="res://assets/Sitar_menu.mp3" id="5_flr0o"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_wi2rb")
@@ -44,13 +46,6 @@ process_mode = 3
 layer = 5
 visible = false
 
-[node name="MenuBG" type="Sprite2D" parent="PauseMenuLayer"]
-visible = false
-modulate = Color(1, 1, 1, 0.501961)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_am37m")
-centered = false
-
 [node name="CenterContainer" type="CenterContainer" parent="PauseMenuLayer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,8 +78,54 @@ text = "Exit to menu"
 layout_mode = 2
 text = "Quit"
 
-[node name="CreditsLayer" type="CanvasLayer" parent="."]
+[node name="EndMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 5
 visible = false
+
+[node name="MenuBG" type="Sprite2D" parent="EndMenu"]
+modulate = Color(1, 1, 1, 0.501961)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_am37m")
+centered = false
+
+[node name="CenterContainer" type="CenterContainer" parent="EndMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="EndMenu/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="EndMenu/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndMenu/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EndMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "This is all we have for now :)
+We build a complex set of systems for this game. 
+Unfortunately we were not able to create more content for the jam.
+We are planning on expanding the game, so stay tuned for updates from us!
+Thanks for playing!"
+
+[node name="RetryButton" type="Button" parent="EndMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Retry level"
+
+[node name="QuitButton" type="Button" parent="EndMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="CreditsLayer" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="CreditsLayer"]
 anchors_preset = 15
@@ -121,7 +162,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 text = "[center][font_size=28]This game was made by:[/font_size][/center]
-< enter your credits >
+Lead programmer: Jagholin​ https://jagholin.itch.io/​
+
+Additional programming: Josep Valls https://josepvalls.itch.io/​
+
+Original sprites and backgrounds: Hotkoin https://hotkoin.itch.io/
+
+Original score and music: Nangineer https://nangineer.itch.io/​​
 
 [center][font_size=22] This game is made with Godot v4 engine [/font_size][/center]
 
@@ -185,10 +232,19 @@ layout_mode = 2
 text = "Deaths: 0"
 label_settings = ExtResource("3_nkufm")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_flr0o")
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_52u11")
+
 [connection signal="pressed" from="MainMenuLayer/CenterContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainMenuLayer/CenterContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="MainMenuLayer/CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="PauseMenuLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenuLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
 [connection signal="pressed" from="PauseMenuLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="EndMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="EndMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CreditsLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreditsBackButton" to="." method="_on_credits_back_button_pressed"]

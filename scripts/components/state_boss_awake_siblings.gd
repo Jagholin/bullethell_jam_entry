@@ -14,5 +14,8 @@ func enter() -> void:
 		var sibling_spawner := sibling.get_component(ProjectileSpawnerComponent.COMPONENT_NAME) as ProjectileSpawnerComponent
 		if not sibling_spawner.active:
 			sibling_spawner.active = true
+		var sibling_damageable := sibling.get_component(DamageableComponent.COMPONENT_NAME) as DamageableComponent
+		if sibling_damageable.immune:
+			sibling_damageable.immune = false
 
 		

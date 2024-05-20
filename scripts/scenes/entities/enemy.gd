@@ -1,6 +1,8 @@
 extends Area2D
 class_name Enemy
 
+@export var end_game_screen: bool = false
+
 #region stuff for dealing with components. You can copypaste this into any script, since gdscript doesnt support anything fancy to make this easier
 # TO FIND any other instance of this code, search for "component_registry" in all files
 var components: Dictionary = {}
@@ -13,6 +15,8 @@ func get_component(component_name: StringName) -> BaseComponent:
 		return components[component_name]
 	return null
 #endregion
+
+signal boss_destroyed
 
 #region pass projectile parent to the child component
 # THERE ARE OTHER INSTANCES of this code, search for "projectile_parent_pass" in all files to find them
@@ -67,6 +71,9 @@ func _process(_delta):
 	
 	
 func destroy():
+	if end_game_screen:
+		boss_destroyed.emit()
+		Global.end_screen= true
 	Global.enemies_destroyed_count += 1
 	Global.check_progress()
 	if ExplosiveComponent.COMPONENT_NAME in components:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://caslk1qmsij8"]
+[gd_scene load_steps=21 format=3 uid="uid://caslk1qmsij8"]
 
 [ext_resource type="Script" path="res://scripts/scenes/first_level.gd" id="1_co14v"]
 [ext_resource type="PackedScene" uid="uid://sg051jsb3744" path="res://scenes/entities/player.tscn" id="2_aeknb"]
@@ -14,13 +14,21 @@
 [ext_resource type="PackedScene" uid="uid://2r8g7fkk3vo8" path="res://scenes/entities/miniboss2.tscn" id="12_yavi5"]
 [ext_resource type="PackedScene" uid="uid://biipykfptenav" path="res://scenes/entities/drop_off.tscn" id="13_i5l0j"]
 
-[sub_resource type="Resource" id="Resource_a2yh3"]
+[sub_resource type="Resource" id="Resource_28ix0"]
+script = ExtResource("9_dd6pp")
+item_type = 3
+
+[sub_resource type="Resource" id="Resource_58yx2"]
 script = ExtResource("9_dd6pp")
 item_type = 0
 
-[sub_resource type="Resource" id="Resource_j7euh"]
+[sub_resource type="Resource" id="Resource_a2yh3"]
 script = ExtResource("9_dd6pp")
 item_type = 1
+
+[sub_resource type="Resource" id="Resource_j7euh"]
+script = ExtResource("9_dd6pp")
+item_type = 2
 
 [sub_resource type="Curve2D" id="Curve2D_o55o3"]
 _data = {
@@ -69,7 +77,7 @@ texture = ExtResource("4_6hkny")
 centered = false
 
 [node name="DropOff" parent="." instance=ExtResource("13_i5l0j")]
-position = Vector2(1095, -653)
+position = Vector2(1095, -2046)
 
 [node name="Player" parent="." node_paths=PackedStringArray("projectile_parent") instance=ExtResource("2_aeknb")]
 position = Vector2(500, 500)
@@ -204,25 +212,32 @@ retreat_path = NodePath("../RetreatPathRight")
 retreat_phase = "Boss"
 
 [node name="MiniBoss2" parent="." node_paths=PackedStringArray("retreat_path") instance=ExtResource("12_yavi5")]
-visible = false
-position = Vector2(536, -260)
+position = Vector2(359, -2336)
 retreat_path = NodePath("../RetreatPathLeft")
 retreat_phase = "Boss"
 
 [node name="PowerUp" parent="." instance=ExtResource("8_sggkn")]
-position = Vector2(394, -145)
-item = SubResource("Resource_a2yh3")
+position = Vector2(443, -150)
+item = SubResource("Resource_28ix0")
 
 [node name="PowerUp2" parent="." instance=ExtResource("8_sggkn")]
-position = Vector2(806, -156)
-item = SubResource("Resource_j7euh")
+position = Vector2(260, -1311)
+item = SubResource("Resource_58yx2")
 
 [node name="PowerUp3" parent="." instance=ExtResource("8_sggkn")]
 position = Vector2(928, -477)
 item = SubResource("Resource_a2yh3")
 
 [node name="PowerUp4" parent="." instance=ExtResource("8_sggkn")]
-position = Vector2(171, -444)
+position = Vector2(933, -2040)
+item = SubResource("Resource_j7euh")
+
+[node name="PowerUp5" parent="." instance=ExtResource("8_sggkn")]
+position = Vector2(349, -738)
+item = SubResource("Resource_j7euh")
+
+[node name="PowerUp6" parent="." instance=ExtResource("8_sggkn")]
+position = Vector2(847, -1285)
 item = SubResource("Resource_j7euh")
 
 [node name="MiniBoss3" parent="." instance=ExtResource("12_maspx")]
